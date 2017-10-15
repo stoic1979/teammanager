@@ -16,5 +16,9 @@
     "nodejs"
   ],
   "author": "weavebytes",
-  "license": "GPL-3.0"
+  "license": "GPL-3.0",
+  "dependencies": {
+    "bcrypt-nodejs": "0.0.3",
+    "mongoose": "^4.12.2"
+  }
 }
