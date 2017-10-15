@@ -3,6 +3,25 @@ var router = express.Router();
 
 var User = require('../schema/user');
 
+var jsonwebtoken = require('jsonwebtoken');
+
+
+var secretKey = process.env.TEAM_MANAGER_SECRET_KEY;
+
+function createToken(user) {
+
+	var token = jsonwebtoken.sign({
+		_id: user._id,
+		name: user.name,
+		username: user.username
+	}, secretKey, {
+		expiresIn: '1h'
+	});
+
+	return token;
+}
+
+
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -38,6 +57,43 @@ router.post('/save_user', function(req, res, next) {
 
   res.render('index', { title: 'Team Manager' });
 });
+
+
+//-----------------------------------------------------
+	//   LOGIN
+	//-----------------------------------------------------
+	router.post('/do_login', function(req, res) {
+
+		User.findOne({
+			email: req.body.email
+		}).select('password').exec(function(err, user) {
+
+			if(err) throw err;
+
+
+			if(!user) {
+				res.send({ message: 'User does not exist !'});
+			} else if(user) {
+				var validPassword = user.comparePassword(req.body.password);
+
+				if(!validPassword) {
+					res.json({ message: 'Invalid Password !'});
+				} else {
+					// login ok
+					// create token
+					 var token = createToken(user);
+
+					 res.json({
+						success: true,
+						message: "Successfully login !",
+						token: token
+					 });
+				}
+			}
+
+		});
+
+	});
 
 
 module.exports = router;
