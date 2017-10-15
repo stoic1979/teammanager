@@ -19,6 +19,8 @@
   "license": "GPL-3.0",
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
     "mongoose": "^4.12.2"
   }
 }
