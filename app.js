@@ -1,6 +1,10 @@
 var bodyParser = require('body-parser');
 var express = require('express');
 var mongoose = require('mongoose');
+var path = require('path');
+
+var index = require('./routes/index');
+var users = require('./routes/users');
 
 //-----------------------------------------------------
 //  SETUP APP
@@ -15,6 +19,12 @@ app.set('view engine', 'jade');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+
+app.use('/', index);
+app.use('/users', users);
+
+
 
 const TEAM_MANAGER_MONGODB_URI = process.env.TEAM_MANAGER_MONGODB_URI;
 const TEAM_MANAGER_PORT = process.env.TEAM_MANAGER_PORT;
