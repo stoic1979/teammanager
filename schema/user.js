@@ -9,19 +9,22 @@ const bcrypt = require('bcrypt-nodejs');
 //--------------------------------------------------------------------
 const UserSchema = new mongoose.Schema({
   first_name: { 
-    String,
+    type: String,
     required: true
   },
   last_name: { 
-    String,
+    type: String,
     required: true
   },
   email: { 
-    type: String, required: true, unique: true
+    type: String, 
+    required: true, 
+    unique: true
   },
   password: {
-   type: String, required: true
-    },
+   type: String, 
+   required: true
+  },
   role: {
     type: String,
     enum: ["ADMIN", "MANAGER", "WORKER"],

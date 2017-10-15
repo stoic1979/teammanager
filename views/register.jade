@@ -9,7 +9,7 @@ block content
         h1.display-4.m-b-2 Sign Up
 
         // register form
-        form(method='POST' action='/register')
+        form(method='POST', action='/users/save_user')
           div.form-group
             label(for='first_name') First Name:
             input#name.form-control(type='text', placeholder='first name' name='first_name')
