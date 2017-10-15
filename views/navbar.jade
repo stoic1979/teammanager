@@ -1,0 +1,42 @@
+- var navmenu = { Dashboard: '/', Upload: '/upload' }
+
+nav.navbar.navbar-default(role='navigation')
+  div.navbar-header
+    button(type='button',data-toggle='collapse',data-target='#jcs-navbar-collapse-1').navbar-toggle
+      span.sr-only Toggle navigation
+      span.iconbar
+      span.iconbar
+      span.iconbar
+    a(href='#').navbar-brand Team Manager
+  div#jcs-navbar-collapse-1.collapse.navbar-collapse
+    ul.nav.navbar-nav
+
+      each href, key in navmenu
+        if key == pagekey
+          li.active: a(href=href)= key
+        else
+          li: a(href=href)= key
+
+      li.dropdown
+        a(href='#',data-toggle='dropdown').dropdown-toggle Dropdown
+          b.caret
+        ul.dropdown-menu
+          li: a(href='#') Action
+          li: a(href='#') Another action
+          li: a(href='#') Something else here
+          li.divider
+          li: a(href='#') One more
+    form(role='search').navbar-form.navbar-left
+      div.form-group
+        input(type='text',placeholder='Search').form-control
+      | &nbsp;
+      button(type='submit').btn.btn-default Submit
+
+    ul.nav.navbar-nav.navbar-right
+      li: a(href='#') Link
+      li.dropdown
+        a(href='#',data-toggle='dropdown').dropdown-toggle My Account
+          b.caret
+        ul.dropdown-menu
+          li: a(href='#') Account Settings
+          li: a(href='#') Logout
