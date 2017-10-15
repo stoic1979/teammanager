@@ -3,15 +3,4 @@ extends layout
 block content
   center
     h1= title
-  .main.container
-    .row
-      .col-md-6.col-md-offset-3
-        h1.display-4.m-b-2 Log In
-        form(method='POST' action='/login')
-          div.form-group
-            label(for='email') Email
-            input.form-control(type='text' id='email' placeholder='email' name='email')
-          div.form-group
-            label(for='password') Password
-            input.form-control(type='password' id='password' placeholder='password' name='password')
-          button.btn.btn-primary(type='submit') Log in 
+ 
