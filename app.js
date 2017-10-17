@@ -1,7 +1,9 @@
 var bodyParser = require('body-parser');
-var express = require('express');
-var mongoose = require('mongoose');
-var path = require('path');
+var express    = require('express');
+var exphbs     = require('express-handlebars');
+var mongoose   = require('mongoose');
+var path       = require('path');
+
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -13,7 +15,8 @@ var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
+app.engine('handlebars', exphbs({defaultLayout: 'main'}));
+app.set('view engine', 'handlebars');
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -44,9 +47,18 @@ mongoose.connect(TEAM_MANAGER_MONGODB_URI, function(err) {
 //-----------------------------------------------------
 
 app.get('/', function (req, res) {
-   	res.sendFile( __dirname + "/public/views/" + "index.html" );
+   	res.render("index", {'page_content' : '<br> welcome to our shpiing site <br>', 'published': true});
 })
 
+
+app.get('/projects', function (req, res) {
+   	res.render("index", {'page_content' : '<br> Projects CRUD here <br>', 'published': true});
+})
+
+
+app.get('/tasks', function (req, res) {
+   	res.render("index", {'page_content' : '<br> Tasks CRUD here <br>', 'published': true});
+})
 
 //-----------------------------------------------------
 //                    START SERVER 
