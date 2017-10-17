@@ -183,5 +183,24 @@
             </div>
             </div>
         </nav >
+
+
+
+      <!----- tasks section starts ---------------- --->
+
+      <table class="table table-striped">
+        <tr>
+        <td>#</td><td>Title</td><td>Worker</td>
+        </tr>
+        {{#each tasks}}
+        <tr>
+        <td>#</td><td>{{this.title}}</td><td>{{this.worker}}</td>
+        </tr>
+        {{/each}}
+      </table>
+
+
+      <!----- tasks section ends ------------------->
+
     </body>
 </html> 
