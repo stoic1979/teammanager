@@ -28,7 +28,7 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
-router.post('/save_user', function(req, res, next) {
+router.post('/register', function(req, res, next) {
 
   console.log(req.body.first_name);
   console.log(req.body.last_name);
@@ -55,14 +55,14 @@ router.post('/save_user', function(req, res, next) {
 	});
 
 
-  res.render('index', { title: 'Team Manager' });
+  res.render('home', { title: 'Team Manager' });
 });
 
 
 //-----------------------------------------------------
 	//   LOGIN
 	//-----------------------------------------------------
-	router.post('/do_login', function(req, res) {
+	router.post('/login', function(req, res) {
 
 		User.findOne({
 			email: req.body.email
