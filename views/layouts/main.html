@@ -30,18 +30,13 @@
                         <li ><a href="#">Link</a></li>
                         <li><a href="#">Link</a></li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects<span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><a href="#">PHP</a></li>
 
+                                {{#each projects}}
+                                <li><a href="/projects/{{this._id}}">{{this.title}}</a></li>
                                 <li class="divider"></li>
-                                <li><a href="#">JAVA</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">ANDROID</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">WEB DESGNING</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#">PYTHON</a></li>
+                                {{/each}}
                             </ul>
                         </li>
                     </ul>
@@ -57,6 +52,7 @@
                             <li class="dropdown">
                                 <a href="/users/profile" class="dropdown-toggle" data-toggle="dropdown">{{user.email}} <span class="caret"></span></a>
                                 <ul class="dropdown-menu dropdown-lr animated flipInX" role="menu">
+                                    <li><a href="/users/profile">My Profile </a></li>
                                     <li><a href="/users/logout">Logout </a></li>
                                 </ul>
                             </li>
