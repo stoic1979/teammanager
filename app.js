@@ -43,24 +43,6 @@ mongoose.connect(TEAM_MANAGER_MONGODB_URI, function(err) {
 });
 
 //-----------------------------------------------------
-//   APP ROUTES
-//-----------------------------------------------------
-
-app.get('/', function (req, res) {
-   	res.render("index", {'page_content' : '<br> welcome to our shpiing site <br>', 'published': true});
-})
-
-
-app.get('/projects', function (req, res) {
-   	res.render("index", {'page_content' : '<br> Projects CRUD here <br>', 'published': true});
-})
-
-
-app.get('/tasks', function (req, res) {
-   	res.render("index", {'page_content' : '<br> Tasks CRUD here <br>', 'published': true});
-})
-
-//-----------------------------------------------------
 //                    START SERVER 
 //-----------------------------------------------------
 var server = app.listen(TEAM_MANAGER_PORT, function (err) {
