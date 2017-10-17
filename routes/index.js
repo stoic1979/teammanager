@@ -6,7 +6,11 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('home', { title: 'Team Manager' });
+
+	//var user_logged = false;
+	//if (req.session.user) user_logged = true;
+
+  res.render('home', { title: 'Team Manager', user: req.session.user });
 });
 
 router.get('/register', function(req, res, next) {

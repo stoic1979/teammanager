@@ -1,12 +1,9 @@
-var express = require('express');
-var router = express.Router();
+var express      = require('express');
+var router       = express.Router();
+var jsonwebtoken = require('jsonwebtoken');
+var secretKey    = process.env.TEAM_MANAGER_SECRET_KEY;
 
 var User = require('../schema/user');
-
-var jsonwebtoken = require('jsonwebtoken');
-
-
-var secretKey = process.env.TEAM_MANAGER_SECRET_KEY;
 
 function createToken(user) {
 
@@ -39,11 +36,6 @@ router.get('/', function(req, res, next) {
 
 router.post('/register', function(req, res, next) {
 
-  console.log(req.body.first_name);
-  console.log(req.body.last_name);
-  console.log(req.body.email);
-
-
    var user = new User({
 			first_name: req.body.first_name,
 			last_name: req.body.last_name,
@@ -60,9 +52,7 @@ router.post('/register', function(req, res, next) {
 
 		// res.json({ message: 'User has been created !'});
 		console.log("user created");
-
 	});
-
 
   res.render('home', { title: 'Team Manager' });
 });
@@ -75,10 +65,10 @@ router.post('/login', function(req, res) {
 
 	User.findOne({
 		email: req.body.email
-	}).select('password').exec(function(err, user) {
+	//}).select('password').exec(function(err, user) { // this will only select _id and password in user obj
+	}).exec(function(err, user) {	//// this will select all fields in user obj
 
 		if(err) throw err;
-
 
 		if(!user) {
 			res.send({ message: 'User does not exist !'});
@@ -91,8 +81,9 @@ router.post('/login', function(req, res) {
 				// login ok
 				// create token
 				 var token = createToken(user);
-
-				 res.session.user = user;
+				 req.session.user = user;
+				 console.log("user logged in: " + user);
+				 res.redirect('/');
 
 				 //FIXME - use it for REST APIS later !
 				 /*
@@ -104,20 +95,17 @@ router.post('/login', function(req, res) {
 				 */
 			}
 		}
-
 	});
-
 });
 
 //-----------------------------------------------------
 //   LOGOUT
 //-----------------------------------------------------
-router.post('/login', function(req, res) {
+router.get('/logout', function(req, res) {
 	req.session.destroy(function() {
       	console.log("user logged out")
    	});
-   	res.redirect('/login');
+   	res.redirect('/');
 });//logout
-
 
 module.exports = router;
