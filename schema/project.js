@@ -41,6 +41,8 @@ ProjectSchema.pre('save', function(next){
        project.created_at = currentDate;
     }
 
+    next();
+
 });
 
 module.exports = mongoose.model("Project", ProjectSchema);
