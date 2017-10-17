@@ -3,7 +3,7 @@ var express    = require('express');
 var exphbs     = require('express-handlebars');
 var mongoose   = require('mongoose');
 var path       = require('path');
-
+var session    = require('express-session');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -21,6 +21,8 @@ app.set('view engine', 'handlebars');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+app.use(session({secret: "Your secret key"}));
 
 
 app.use('/', index);

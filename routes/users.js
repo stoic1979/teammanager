@@ -21,6 +21,15 @@ function createToken(user) {
 	return token;
 }
 
+function checkSignIn(req, res){
+   if(req.session.user){
+      next();     //If session exists, proceed to page
+   } else {
+      var err = new Error("Not logged in!");
+      console.log(req.session.user);
+      next(err);  //Error, trying to access unauthorized page!
+   }
+}
 
 
 /* GET users listing. */
@@ -60,40 +69,55 @@ router.post('/register', function(req, res, next) {
 
 
 //-----------------------------------------------------
-	//   LOGIN
-	//-----------------------------------------------------
-	router.post('/login', function(req, res) {
+//   LOGIN
+//-----------------------------------------------------
+router.post('/login', function(req, res) {
 
-		User.findOne({
-			email: req.body.email
-		}).select('password').exec(function(err, user) {
+	User.findOne({
+		email: req.body.email
+	}).select('password').exec(function(err, user) {
 
-			if(err) throw err;
+		if(err) throw err;
 
 
-			if(!user) {
-				res.send({ message: 'User does not exist !'});
-			} else if(user) {
-				var validPassword = user.comparePassword(req.body.password);
+		if(!user) {
+			res.send({ message: 'User does not exist !'});
+		} else if(user) {
+			var validPassword = user.comparePassword(req.body.password);
 
-				if(!validPassword) {
-					res.json({ message: 'Invalid Password !'});
-				} else {
-					// login ok
-					// create token
-					 var token = createToken(user);
+			if(!validPassword) {
+				res.json({ message: 'Invalid Password !'});
+			} else {
+				// login ok
+				// create token
+				 var token = createToken(user);
 
-					 res.json({
-						success: true,
-						message: "Successfully login !",
-						token: token
-					 });
-				}
+				 res.session.user = user;
+
+				 //FIXME - use it for REST APIS later !
+				 /*
+				 res.json({
+					success: true,
+					message: "Successfully login !",
+					token: token
+				 });
+				 */
 			}
-
-		});
+		}
 
 	});
+
+});
+
+//-----------------------------------------------------
+//   LOGOUT
+//-----------------------------------------------------
+router.post('/login', function(req, res) {
+	req.session.destroy(function() {
+      	console.log("user logged out")
+   	});
+   	res.redirect('/login');
+});//logout
 
 
 module.exports = router;
