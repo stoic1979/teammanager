@@ -5,8 +5,9 @@ var mongoose   = require('mongoose');
 var path       = require('path');
 var session    = require('express-session');
 
-var index = require('./routes/index');
-var users = require('./routes/users');
+var index    = require('./routes/index');
+var users    = require('./routes/users');
+var projects = require('./routes/projects');
 
 //-----------------------------------------------------
 //  SETUP APP
@@ -25,8 +26,10 @@ app.use(bodyParser.json());
 app.use(session({secret: "Your secret key"}));
 
 
+// adding routers
 app.use('/', index);
 app.use('/users', users);
+app.use('/projects', projects);
 
 
 
