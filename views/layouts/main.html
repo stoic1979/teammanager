@@ -186,7 +186,44 @@
 
 
 
-      <!----- tasks section starts ---------------- --->
+      <button type="button"  data-toggle="modal" data-target="#addtask" style="border-radius: 50px;">  Add Task </button>
+
+<div class="modal fade" id="addtask" tabindex="-1" role="dialog-center"
+ aria-labelledby="myModalLabel" aria-hidden="true "   >
+    <div class="modal-dialog  " padding: 60px;  >
+        <div class="modal-content">
+            <div class="modal-body" style="height: 580px;" >
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span></button>
+                <div class="row">
+                    <div class="col-sm-8 ">
+                   <h2 style="margin-left: 130px;">Team Manager</h2>
+                    </div>
+                    <br>
+                </div>
+                <label>
+                 <b>Task Title</b></label><br>
+                <input type="text" style= "width: 460px; height: 40px;"> 
+                <br>
+                <br>
+                <label>
+                <b>Task Descripition
+                </b></label>
+                <br><textarea  style= "width: 460px; height: 100px;">    
+                </textarea>
+                <br><br>
+                <label>
+                Worker</label><br>
+                <input type="text" style="width: 460px; height:40px;">
+                <br><br>
+                <label>Date</label> <br> 
+                <input type="date" style="width: 460px;"> 
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
       <table class="table table-striped">
         <tr>
@@ -200,7 +237,11 @@
       </table>
 
 
-      <!----- tasks section ends ------------------->
+ 
+
+      
+  
+
 
     </body>
 </html> 
