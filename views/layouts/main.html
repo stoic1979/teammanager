@@ -199,6 +199,7 @@
 
 <div class="modal fade" id="addtask" tabindex="-1" role="dialog-center" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
+    <form method="post" action="tasks/add">
         <div class="modal-content">
             <div class="modal-body" style="height: 640px;" >
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -217,7 +218,7 @@
                 <label>
                 <b>Task Descripition
                 </b></label>
-                <br><textarea name="descripition" id="descripition" style= "width: 460px; height: 100px;">    
+                <br><textarea name="description" id="description" style= "width: 460px; height: 100px;">    
                 </textarea>
                 <br><br>
                 <label>
@@ -237,6 +238,7 @@
                 <input type="submit" name="login-submit" id="login-submit" tabindex="2" class="form-control btn btn-success" value="Add Task">
             </div>
         </div>
+    </form>
     </div>
 </div>
 

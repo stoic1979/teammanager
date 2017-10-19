@@ -8,6 +8,7 @@ var session    = require('express-session');
 var index    = require('./routes/index');
 var users    = require('./routes/users');
 var projects = require('./routes/projects');
+var tasks    = require('./routes/tasks');
 
 //-----------------------------------------------------
 //  SETUP APP
@@ -27,9 +28,11 @@ app.use(session({secret: "Your secret key"}));
 
 
 // adding routers
-app.use('/', index);
-app.use('/users', users);
+app.use('/',         index);
+app.use('/users',    users);
 app.use('/projects', projects);
+app.use('/tasks',    tasks);
+
 
 
 
