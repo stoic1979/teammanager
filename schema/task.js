@@ -6,6 +6,10 @@ const mongoose = require("mongoose");
 // Task schema definition
 //--------------------------------------------------------------------
 const TaskSchema = new mongoose.Schema({
+  project: {
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'Project'
+  },
   worker: {
   	type: mongoose.Schema.Types.ObjectId, 
   	ref: 'User'

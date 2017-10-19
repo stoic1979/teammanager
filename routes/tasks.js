@@ -29,6 +29,9 @@ router.post('/add', function(req, res, next) {
     	task.end_date = end_date;
     }
 
+    //FIXME: dont use hard-coded project
+    task.project = "59e622e36af4fb62d7286eab";
+
 	task.save(function(err) {
 		if(err) {
 			console.log("task save error: " + err);
