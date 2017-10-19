@@ -18,6 +18,16 @@ const TaskSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  estimated_hours: {
+    type: Number,
+    required: true
+  },
+  start_date: {
+    type: Date,
+  },
+  end_date: {
+    type: Date,
+  },
   created_at: Date,
   updated_at: Date
 });
