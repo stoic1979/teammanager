@@ -1,7 +1,7 @@
 var express      = require('express');
 var router       = express.Router();
 var jsonwebtoken = require('jsonwebtoken');
-var secretKey    = process.env.TEAM_MANAGER_SECRET_KEY;
+var SECRET_KEY   = process.env.TEAM_MANAGER_SECRET_KEY;
 
 var User = require('../schema/user');
 
@@ -11,7 +11,7 @@ function createToken(user) {
 		_id: user._id,
 		name: user.name,
 		username: user.username
-	}, secretKey, {
+	}, SECRET_KEY, {
 		expiresIn: '1h'
 	});
 
