@@ -21,6 +21,12 @@ angular.module('appRoutes', ['ngRoute'])
 		.when('/add_issue', {
 			templateUrl: 'views/pages/add_issue.html'
 		})
+		.when('/features', {
+			templateUrl: 'views/pages/features.html'
+		})
+		.when('/pricing', {
+			templateUrl: 'views/pages/pricing.html'
+		})
 		
 
 
