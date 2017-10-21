@@ -1,0 +1,36 @@
+<div class="container" ng-controller="UserCreateController as ucc">
+    <div class="row">
+
+        <div class="col-sm-6 col-md-4 col-md-offset-4">
+            <div class="text-center"><h3><b>Add Issue</b></h3></div>
+            <form method="post" action="tasks/add">
+                <label><b>Title</b></label><br>
+                <input type="text" name="title" id="title" style= "width: 460px; height: 40px;"> 
+
+                <br>
+                <label>
+                    <b>Descripition
+                    </b></label>
+                    <br><textarea name="description" id="description" style= "width: 460px; height: 100px;">    
+                    </textarea>
+                    <br><br>
+                    <label>
+                        Worker</label><br>
+                    <input type="text"  name="worker" id="worker"  style="width: 460px; height:40px;">
+                    <br><br>
+                    <label>Start Date</label> <br> 
+                    <input type="date" name="start_date" id="start_date" style="width: 460px;"> 
+                    <br><br>
+                    <label>End Date</label> <br> 
+                    <input type="date" name="end_date" id="end_date" style="width: 460px;"> 
+                    <br><br>
+                    <label>
+                        Estimated Hours:</label><br>
+                    <input type="text" name="estimated_hours" id="estimated_hours" style="width: 460px; height:40px;">
+                    <br><br>
+                    <input type="submit" name="login-submit" id="login-submit" tabindex="2" class="form-control btn btn-success" value="Add Task">
+
+            </form>
+        </div>
+    </div>
+</div>

@@ -15,6 +15,12 @@ angular.module('appRoutes', ['ngRoute'])
 		.when('/signup', {
 			templateUrl: 'views/pages/signup.html'
 		})
+		.when('/add_project', {
+			templateUrl: 'views/pages/add_project.html'
+		})
+		.when('/add_issue', {
+			templateUrl: 'views/pages/add_issue.html'
+		})
 		
 
 

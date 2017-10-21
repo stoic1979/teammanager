@@ -1,0 +1,25 @@
+<div class="container" ng-controller="UserCreateController as ucc">
+    <div class="row">
+        <div class="col-sm-6 col-md-4 col-md-offset-4">
+            <div class="text-center"><h3><b>Add Project</b></h3></div>
+            <form id="ajax-register-form" action="/projects/add" method="post" role="form" autocomplete="off">
+
+                <div class="form-group">
+                    <input type="text" name="title" id="title" tabindex="1" class="form-control" placeholder="Title" value="">
+                </div>
+
+                <div class="form-group">
+                    <input type="text" name="description" id="description" tabindex="1" class="form-control" placeholder="Description" value="">
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-6 col-xs-offset-3">
+                            <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-success" value="Save Project">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
