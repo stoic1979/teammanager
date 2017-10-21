@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+	<head>
+		<title>Team Manager</title>
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link href="css/font-awesome.min.css" rel="stylesheet">
+  		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+ 		<script type="text/javascript" src="js/angular.min.js"></script>
+ 		<script type="text/javascript" src="js/angular-route.min.js"></script>
+
+ 		<!-- SERVICES -->
+ 		<script type="text/javascript" src="app/services/authService.js"></script>
+ 		<script type="text/javascript" src="app/services/userService.js"></script>
+ 		<script type="text/javascript" src="app/services/projectService.js"></script>
+
+ 		<!-- CONTROLLERS -->
+ 		<script type="text/javascript" src="app/controllers/mainController.js"></script>
+ 		<script type="text/javascript" src="app/controllers/userController.js"></script>
+ 		<script type="text/javascript" src="app/controllers/projectController.js"></script>
+
+
+		<!-- ROUTES -->
+  		<script type="text/javascript" src="app/app.routes.js"></script>
+
+        <!-- ANGULAR APP -->
+  		<script type="text/javascript" src="app/app.js"></script>
+
+	</head>
+	<body ng-controller="MainController as main">
+
+	<header>
+		<div class="navbar navbar-default">
+			<div class="container">
+				<div class="navbar-header">
+					<a href="/" class="navbar-brand"><span class="glyphicon glyphicon-book"></span>Team Manager</a>
+				</div>
+
+				<ul class="nav navbar-nav">
+					<li><a href="/features">Features</a></li>
+				</ul>
+				<ul class="nav navbar-nav">
+					<li><a href="/pricing">Pricing</a></li>
+				</ul>
+
+				<ul class="nav navbar-nav navbar-right">
+					<li ng-if="!main.loggedIn"><a href="#!login">Login</a></li>
+					<li ng-if="!main.loggedIn"><a href="#!signup">Sign Up</a></li>
+					<li ng-if="main.loggedIn"><a href="#">Hello {{ main.user.username }}</a></li>
+					<li ng-if="main.loggedIn"><a href="#" ng-click="main.doLogout()">Logout</a></li>
+				</ul>
+
+			</div>
+		</div>
+	</header>
+
+
+
+		<main class="container">
+	   		<div ng-view></div>
+	   	</main>
+	</body>
+</html>

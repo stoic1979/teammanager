@@ -6,8 +6,10 @@ var router = express.Router();
 var getUserData = require('./helper');
 
 
+
+
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get('/aaa', function(req, res, next) {
  
   getUserData(req)
   .then(function(data){

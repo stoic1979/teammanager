@@ -1,6 +1,6 @@
 var bodyParser = require('body-parser');
 var express    = require('express');
-var exphbs     = require('express-handlebars');
+//var exphbs     = require('express-handlebars');
 var mongoose   = require('mongoose');
 var path       = require('path');
 var session    = require('express-session');
@@ -23,8 +23,8 @@ const SECRET_KEY               = process.env.TEAM_MANAGER_SECRET_KEY;
 var app = express();
 
 app.set('views', path.join(__dirname, 'views'));
-app.engine('handlebars', exphbs({defaultLayout: 'main', extname: '.html'}));
-app.set('view engine', 'handlebars');
+//app.engine('handlebars', exphbs({defaultLayout: 'main', extname: '.html'}));
+//app.set('view engine', 'handlebars');
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -39,6 +39,14 @@ app.use('/',         index);
 app.use('/users',    users);
 app.use('/projects', projects);
 app.use('/tasks',    tasks);
+
+//-----------------------------------------------------
+//   APP ROUTES
+//-----------------------------------------------------
+
+app.get('/', function (req, res) {
+    res.sendFile(__dirname + "/public/views/" + "index.html" );
+})
 
 
 //----------------------------------------------------------------------------
