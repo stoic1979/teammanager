@@ -1,4 +1,4 @@
-angular.module("myApp", ['appRoutes', 'mainCtrl', 'authService', 'userService', 'userCtrl', 'storyService', 'storyCtrl'])
+angular.module("myApp", ['appRoutes', 'mainCtrl', 'authService', 'userService', 'userCtrl', 'projectService', 'projectCtrl'])
 
 .config(function($httpProvider) {
 

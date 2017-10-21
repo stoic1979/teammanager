@@ -6,7 +6,7 @@ angular.module("userService", [])
 
 
     userFactory.create = function(userData) {
-    	return $http.post('/api/signup', userData);	
+    	return $http.post('/users/signup', userData);	
     };
 
     userFactory.all = function() {

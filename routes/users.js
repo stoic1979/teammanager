@@ -34,27 +34,28 @@ router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
-router.post('/register', function(req, res, next) {
+router.post('/signup', function(req, res, next) {
 
    var user = new User({
 			first_name: req.body.first_name,
 			last_name: req.body.last_name,
+			username: req.body.username,
 			email: req.body.email,
 			password: req.body.password,
 			role: "MANAGER"
     });
 
+     var token = createToken(user);
 	user.save(function(err) {
 		if(err) {
 			res.send(err);
 			return;
 		}
 
-		// res.json({ message: 'User has been created !'});
-		console.log("user created");
+		res.json({ success: true, message: 'User has been created !', token: token});
+
 	});
 
-  res.render('home', { title: 'Team Manager' });
 });
 
 
