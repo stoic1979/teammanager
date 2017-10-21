@@ -9,7 +9,7 @@ angular.module("authService", [])
     //-------------------------------------------------
     authFactory.login = function(username, password) {
 
-     	return $http.post('/api/login', {
+     	return $http.post('/users/login', {
      		username: username,
      		password: password
      	})
@@ -46,7 +46,7 @@ angular.module("authService", [])
     //-------------------------------------------------
 	authFactory.getUser = function() {
         if(AuthToken.getToken()) {
-        	return $http.get("/api/me", 
+        	return $http.get("/users/me", 
         		{headers: {'x-access-token': AuthToken.getToken()}}
         	);
         } else {

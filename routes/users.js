@@ -65,7 +65,7 @@ router.post('/signup', function(req, res, next) {
 router.post('/login', function(req, res) {
 
 	User.findOne({
-		email: req.body.email
+		username: req.body.username
 	//}).select('password').exec(function(err, user) { // this will only select _id and password in user obj
 	}).exec(function(err, user) {	//// this will select all fields in user obj
 
@@ -82,18 +82,20 @@ router.post('/login', function(req, res) {
 				// login ok
 				// create token
 				 var token = createToken(user);
-				 req.session.user = user;
-				 console.log("user logged in: " + user);
-				 res.redirect('/');
+				 //req.session.user = user;
+				 //console.log("user logged in: " + user);
+				 //res.redirect('/');
 
 				 //FIXME - use it for REST APIS later !
-				 /*
+
+				 console.log("login ok");
+				 
 				 res.json({
 					success: true,
 					message: "Successfully login !",
 					token: token
 				 });
-				 */
+				 
 			}
 		}
 	});
@@ -108,5 +110,12 @@ router.get('/logout', function(req, res) {
    	});
    	res.redirect('/');
 });//logout
+
+//-----------------------------------------------------
+//   GET LOGGED IN USER INFO
+//-----------------------------------------------------
+router.get('/me', function(req, res){
+	res.json(req.decoded);
+});
 
 module.exports = router;
