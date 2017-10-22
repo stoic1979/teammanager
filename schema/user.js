@@ -4,9 +4,9 @@ const mongoose = require("mongoose");
 const bcrypt = require('bcrypt-nodejs');
 
 
-//--------------------------------------------------------------------
+//----------------------------------------
 // User schema definition
-//--------------------------------------------------------------------
+//----------------------------------------
 const UserSchema = new mongoose.Schema({
   first_name: { 
     type: String,
@@ -47,7 +47,6 @@ UserSchema.pre('save', function(next){
 
     var user = this; // this refers to UserSchema object
 
-
     var currentDate = new Date();
 
     // change the updated_at field to current date
@@ -58,7 +57,6 @@ UserSchema.pre('save', function(next){
     if (!user.created_at) {
        user.created_at = currentDate;
     }
-
 
     // hasing the password
     if(!user.isModified('password')) return next;

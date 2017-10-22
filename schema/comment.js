@@ -2,9 +2,9 @@
 
 const mongoose = require("mongoose");
 
-//--------------------------------------------------------------------
+//-------------------------------------------
 // Comment schema definition
-//--------------------------------------------------------------------
+//-------------------------------------------
 const CommentSchema = new mongoose.Schema({
   issue: {
     type: mongoose.Schema.Types.ObjectId, 
@@ -46,7 +46,6 @@ CommentSchema.pre('save', function(next){
     }
 
     next();
-
 });
 
 module.exports = mongoose.model("Comment", CommentSchema);

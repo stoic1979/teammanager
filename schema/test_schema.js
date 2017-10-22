@@ -113,8 +113,7 @@ var SchemaTest = function() {
 
         return comment;
     };
-
-};
+};//SchemaTest
 
 
 //----------------------------------------
@@ -142,7 +141,6 @@ function testSchema() {
     console.log("Added assignee: " + JSON.stringify(assignee));
 
     // creating a project
-    
     var pData     = JSON.parse(JSON.stringify(some_project));
     pData.manager = ST.manager._id
     var project   = ST.createProject(pData);
@@ -180,5 +178,4 @@ mongoose.connect(TEAM_MANAGER_TEST_MONGODB_URI, function(err) {
     console.log("[SchemaTest] Successfully connected to database. ");
 
     testSchema();
-
 });

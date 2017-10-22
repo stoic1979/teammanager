@@ -2,9 +2,9 @@
 
 const mongoose = require("mongoose");
 
-//--------------------------------------------------------------------
+//-------------------------------------------
 // Project schema definition
-//--------------------------------------------------------------------
+//-------------------------------------------
 const ProjectSchema = new mongoose.Schema({
   manager: {
   	type: mongoose.Schema.Types.ObjectId, 
@@ -42,7 +42,6 @@ ProjectSchema.pre('save', function(next){
     }
 
     next();
-
 });
 
 module.exports = mongoose.model("Project", ProjectSchema);

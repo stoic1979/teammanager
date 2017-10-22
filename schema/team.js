@@ -2,9 +2,9 @@
 
 const mongoose = require("mongoose");
 
-//--------------------------------------------------------------------
+//----------------------------------------
 // Team schema definition
-//--------------------------------------------------------------------
+//----------------------------------------
 const TeamSchema = new mongoose.Schema({
   manager: {
   	type: mongoose.Schema.Types.ObjectId, 
@@ -38,7 +38,6 @@ TeamSchema.pre('save', function(next){
     }
 
     next();
-
 });
 
 module.exports = mongoose.model("Team", TeamSchema);

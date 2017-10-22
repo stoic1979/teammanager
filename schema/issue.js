@@ -2,9 +2,9 @@
 
 const mongoose = require("mongoose");
 
-//--------------------------------------------------------------------
+//-----------------------------------------
 // Issue schema definition
-//--------------------------------------------------------------------
+//-----------------------------------------
 const IssueSchema = new mongoose.Schema({
   project: {
     type: mongoose.Schema.Types.ObjectId, 
