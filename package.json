@@ -25,6 +25,9 @@
     "express-handlebars": "^3.0.0",
     "express-session": "^1.15.6",
     "jsonwebtoken": "^8.1.0",
-    "mongoose": "^4.12.2"
+    "mongoose": "^4.12.2",
+    "nodemailer": "^4.2.0",
+    "nodemailer-mailgun-transport": "^1.3.5",
+    "xoauth2": "^1.2.0"
   }
 }
