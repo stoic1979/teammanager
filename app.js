@@ -97,7 +97,7 @@ mongoose.connect(TEAM_MANAGER_MONGODB_URI, function(err) {
 //----------------------------------------------------------------------------
 //                    START SERVER 
 //----------------------------------------------------------------------------
-var server = app.listen(TEAM_MANAGER_PORT, function (err) {
+var server = app.listen(process.env.PORT || TEAM_MANAGER_PORT, function (err) {
 
     if(err) {
         console.log(err);
