@@ -24,12 +24,12 @@ var transporter = nodemailer.createTransport({
 
 var mailer = function(){};
 
-mailer.prototype.sendMail = function (subject, html) {
+mailer.prototype.sendMail = function (to, subject, html) {
 
     // composing email options
     let options = {
         from: process.env.TEAM_MANAGER_EMAIL_FROM,
-        to: process.env.TEAM_MANAGER_EMAIL_TO,
+        to: to,
         subject: subject,
         html: html
     };

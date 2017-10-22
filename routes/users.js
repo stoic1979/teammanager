@@ -1,6 +1,11 @@
 var express      = require('express');
 var router       = express.Router();
 var jsonwebtoken = require('jsonwebtoken');
+
+
+const Mailer = require('../helpers/mailer');
+var mailer = new Mailer();
+
 var SECRET_KEY   = process.env.TEAM_MANAGER_SECRET_KEY;
 
 var User = require('../schema/user');
@@ -53,10 +58,17 @@ router.post('/signup', function(req, res, next) {
 		}
 
 		res.json({ success: true, message: 'User has been created !', token: token});
-
+		sendWelcomeEmail(user);
 	});
 
 });
+
+function sendWelcomeEmail(user) {
+   const subject = "Welcome to team manager";
+   const html = "<b>Hi " + user.username +  " </b>, <br> Welcome !!! <br> Team Manager is a perfect solution for managing your project and teams !!! <br> Thanks <br> Team Manager Team";
+
+    mailer.sendMail(user.email, subject, html);
+}
 
 
 //-----------------------------------------------------

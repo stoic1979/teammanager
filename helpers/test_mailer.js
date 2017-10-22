@@ -7,5 +7,5 @@ var mailer = new Mailer();
 
 const subject = "Welcome to team manager, manage your projects and teams efficiently";
 const html    = "Team Manager is a perfect solution for managing your project and teams !!!";
-
-mailer.sendMail(subject, html);
+const to      = process.env.TEAM_MANAGER_EMAIL_TO
+mailer.sendMail(to, subject, html);
