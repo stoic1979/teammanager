@@ -5,8 +5,8 @@ const mongoose = require("mongoose");
 //--------------------------------------------------------------------
 // Comment schema definition
 //--------------------------------------------------------------------
-const ProjectSchema = new mongoose.Schema({
-  task: {
+const CommentSchema = new mongoose.Schema({
+  issue: {
     type: mongoose.Schema.Types.ObjectId, 
     ref: 'Task'
   },
@@ -32,17 +32,17 @@ const ProjectSchema = new mongoose.Schema({
 //--------------------------------------------------------------------
 CommentSchema.pre('save', function(next){
 
-    var project = this; // this refers to CommentSchema object
+    var comment = this; // this refers to CommentSchema object
 
     var currentDate = new Date();
 
     // change the updated_at field to current date
-    project.updated_at = currentDate;
+    comment.updated_at = currentDate;
 
     // if created_at doesn't exist, add to that field
     // otherwise, only update_at will be set to current date
-    if (!project.created_at) {
-       project.created_at = currentDate;
+    if (!comment.created_at) {
+       comment.created_at = currentDate;
     }
 
     next();

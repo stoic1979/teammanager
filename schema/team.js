@@ -24,17 +24,17 @@ const TeamSchema = new mongoose.Schema({
 //--------------------------------------------------------------------
 TeamSchema.pre('save', function(next){
 
-    var project = this; // this refers to TeamSchema object
+    var team = this; // this refers to TeamSchema object
 
     var currentDate = new Date();
 
     // change the updated_at field to current date
-    project.updated_at = currentDate;
+    team.updated_at = currentDate;
 
     // if created_at doesn't exist, add to that field
     // otherwise, only update_at will be set to current date
-    if (!project.created_at) {
-       project.created_at = currentDate;
+    if (!team.created_at) {
+       team.created_at = currentDate;
     }
 
     next();
