@@ -92,6 +92,7 @@ var SchemaTest = function() {
         console.log("[SchemaTest] :: creating user");
         var project = new Project(data);
         project.save();
+
         return project;
     };
 
@@ -100,6 +101,7 @@ var SchemaTest = function() {
         console.log("[SchemaTest] :: creating issue");
         var issue = new Issue(data);
         issue.save();
+
         return issue;
     };
 
@@ -108,6 +110,8 @@ var SchemaTest = function() {
         console.log("[SchemaTest] :: creating comment");
         var comment = new Comment(data);
         comment.save();
+
+        return comment;
     };
 
 };
@@ -141,8 +145,8 @@ function testSchema() {
     
     var pData     = JSON.parse(JSON.stringify(some_project));
     pData.manager = ST.manager._id
-    var project = ST.createProject(pData);
-    ST.project  = project;
+    var project   = ST.createProject(pData);
+    ST.project    = project;
     console.log("Added project: " + JSON.stringify(project));
 
     // creating issue - to fill bucket of paint
