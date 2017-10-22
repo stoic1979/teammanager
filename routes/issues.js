@@ -1,19 +1,19 @@
 var express      = require('express');
 var router       = express.Router();
 
-var Task = require('../schema/task');
+var Issue = require('../schema/issue');
 
 router.get('/:id', function(req, res, next) {
-  res.send('Task id:' + req.params.id);
+  res.send('Issue id:' + req.params.id);
 });
 
 
 router.post('/add', function(req, res, next) {
 
 
-	console.log("save task: user id=" + req.session.user._id);
+	console.log("save issue: user id=" + req.session.user._id);
 
-   var task = new Task({
+   var issue = new Issue({
 			title: req.body.title,
 			description: req.body.description,
 			worker: req.body.worker,
@@ -22,25 +22,25 @@ router.post('/add', function(req, res, next) {
 
 
     if(req.body.start_date && req.body.start_date.length) {
-    	task.start_date = start_date;
+    	issue.start_date = start_date;
     }
 
     if(req.body.end_date && req.body.end_date.length) {
-    	task.end_date = end_date;
+    	issue.end_date = end_date;
     }
 
     //FIXME: dont use hard-coded project
-    task.project = "59e622e36af4fb62d7286eab";
+    issue.project = "59e622e36af4fb62d7286eab";
 
-	task.save(function(err) {
+	issue.save(function(err) {
 		if(err) {
-			console.log("task save error: " + err);
+			console.log("issue save error: " + err);
 			res.send(err);
 			return;
 		}
 
 		// res.json({ message: 'User has been created !'});
-		console.log("task created");
+		console.log("issue created");
 	});
   res.redirect('/');
 });

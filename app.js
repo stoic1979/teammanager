@@ -9,7 +9,7 @@ var jsonwebtoken = require('jsonwebtoken');
 var index    = require('./routes/index');
 var users    = require('./routes/users');
 var projects = require('./routes/projects');
-var tasks    = require('./routes/tasks');
+var issues    = require('./routes/issues');
 
 
 const TEAM_MANAGER_MONGODB_URI = process.env.TEAM_MANAGER_MONGODB_URI;
@@ -38,7 +38,7 @@ app.use(session({secret: "Your secret key"}));
 app.use('/',         index);
 app.use('/users',    users);
 app.use('/projects', projects);
-app.use('/tasks',    tasks);
+app.use('/issues',    issues);
 
 //-----------------------------------------------------
 //   APP ROUTES

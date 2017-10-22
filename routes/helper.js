@@ -1,5 +1,5 @@
 var Project = require('../schema/project');
-var Task = require('../schema/task');
+var Issue = require('../schema/issue');
 
 
 
@@ -20,19 +20,19 @@ function getUserProjects(req, data) {
   }); //Promise 1: get projects 
 }
 
-function getProjectTasks(project_id) {
+function getProjectIssues(project_id) {
 
-  console.log("[INFO] ::  getProjectTasks()");
+  console.log("[INFO] ::  getProjectIssues()");
 
   return new Promise(function(resolve, reject) {  //Promise 1: get tasks of current project 
 
-    Task.find({project: project_id}).exec().
-    then(function(tasks) {
-      resolve(tasks);
+    Issue.find({project: project_id}).exec().
+    then(function(issues) {
+      resolve(issues);
     }).
     catch(function(err) {
-         // no tasks added to this project or project no found
-         console.log("[ERROR] :: getProjectTasks, err: " + err);
+         // no issues added to this project or project no found
+         console.log("[ERROR] :: getProjectIssues, err: " + err);
          resolve([]);
     });
   }); //Promise 1: get projects 
@@ -50,8 +50,8 @@ function getUserData(req) {
   data.title = 'Team Manager';
 
 
-  // dummy tasks
-  var tasks = [
+  // dummy issues
+  var issues = [
      {
        title: 'fix bug 1',
        worker: 'tom'
@@ -63,7 +63,7 @@ function getUserData(req) {
 
   ];
 
-  data.tasks = tasks;
+  data.issues = issues;
 
   if(!req.session.user) {
     return new Promise(function(resolve, reject) {
@@ -78,10 +78,10 @@ function getUserData(req) {
   return getUserProjects(req).
   then(function(projects){
       data.projects = projects;
-      return getProjectTasks(project_id);
+      return getProjectIssues(project_id);
   })
-  .then(function(tasks){
-      data.tasks = tasks;
+  .then(function(issues){
+      data.issues = issues;
       return data;
   })
 }

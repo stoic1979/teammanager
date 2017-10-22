@@ -3,23 +3,38 @@
 const mongoose = require("mongoose");
 
 //--------------------------------------------------------------------
-// Task schema definition
+// Issue schema definition
 //--------------------------------------------------------------------
-const TaskSchema = new mongoose.Schema({
+const IssueSchema = new mongoose.Schema({
   project: {
     type: mongoose.Schema.Types.ObjectId, 
     ref: 'Project'
   },
-  worker: {
+  assignee: {
   	type: mongoose.Schema.Types.ObjectId, 
   	ref: 'User'
   },	
-  title: { 
+  summary: { 
     type: String,
     required: true
   },
   description: { 
     type: String,
+    required: true
+  },
+  type: {
+    type: String,
+    enum: ["TASK", "BUG", "ENHANCEMENT"],
+    required: true
+  },
+  priority: {
+    type: String,
+    enum: ["BLOCKER", "HIGH", "MEDIUM", "LOW"],
+    required: true
+  },
+  status: {
+    type: String,
+    enum: ["NOT-STARTED", "WORKING", "TESTING", "CLOSED", "REOPENED"],
     required: true
   },
   estimated_hours: {
@@ -40,23 +55,23 @@ const TaskSchema = new mongoose.Schema({
 // We can use the Schema pre method to have operations happen before
 // an object is saved
 //--------------------------------------------------------------------
-TaskSchema.pre('save', function(next){
+IssueSchema.pre('save', function(next){
 
-    var task = this; // this refers to TaskSchema object
+    var issue = this; // this refers to IssueSchema object
 
     var currentDate = new Date();
 
     // change the updated_at field to current date
-    task.updated_at = currentDate;
+    issue.updated_at = currentDate;
 
     // if created_at doesn't exist, add to that field
     // otherwise, only update_at will be set to current date
-    if (!task.created_at) {
-       task.created_at = currentDate;
+    if (!issue.created_at) {
+       issue.created_at = currentDate;
     }
 
     next();
 
 });
 
-module.exports = mongoose.model("Task", TaskSchema);
+module.exports = mongoose.model("Issue", IssueSchema);
