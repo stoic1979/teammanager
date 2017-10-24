@@ -3,12 +3,16 @@
     <head>
         <title>Team Manager</title>
         <script type="text/javascript" src="js/jquery.min.js"></script>
-        <link rel="stylesheet" href="css/bootstrap.min.css">
+
+        <!-- FIXME - fix the icon loading of sidebar -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
         <!-- Custom styles for this template -->
         <link href="css/sticky-footer.css" rel="stylesheet">
 
-        <link href="css/font-awesome.min.css" rel="stylesheet">
+        <link href='css/sidebar.css' rel='stylesheet' type='text/css'>
+
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/angular.min.js"></script>
         <script type="text/javascript" src="js/angular-route.min.js"></script>
@@ -34,7 +38,7 @@
     <body ng-controller="MainController as main">
 
         <header>
-            <div class="navbar navbar-inverse">
+            <div class="navbar navbar-inverse"> <!-- NAVBAR -->
                 <div class="container">
                     <div class="navbar-header">
                         <a href="/" class="navbar-brand">Team Manager</a>
@@ -85,10 +89,49 @@
                         <li ng-if="main.loggedIn"><a href="#">Hello {{ main.user.username }}</a></li>
                         <li ng-if="main.loggedIn"><a href="#" ng-click="main.doLogout()">Logout</a></li>
                     </ul>
-
-
-
                 </div>
+            </div><!-- NAVBAR -->
+
+
+            
+            <div id="wrapper"><!-- WRAPPER -->
+                <div id="sidebar-wrapper"><!-- Sidebar -->
+                    <ul class="sidebar-nav" style="margin-left:0;">
+                    <li class="sidebar-brand"></li>
+                    <li>
+                        <a href="#"><i class="glyphicon glyphicon-home " aria-hidden="true"> </i> <span style="margin-left:10px;">Home</span>  </a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="glyphicon glyphicon-stats " aria-hidden="true"> </i> <span style="margin-left:10px;">Reports</span>  </a>
+                    </li>
+
+                    <li>
+                        <a href="#"><i class="fa fa-sort-alpha-asc " aria-hidden="true"> </i> <span style="margin-left:10px;">Section</span>  </a>
+                    </li>
+                    <li>
+                        <a href="#"> <i class="fa fa-play-circle-o " aria-hidden="true"> </i> <span style="margin-left:10px;">Section</span> </a>
+                    </li>
+                    <li>
+                        <a href="#"> <i class="fa fa-puzzle-piece" aria-hidden="true"> </i> <span style="margin-left:10px;">Components</span> </a>
+                    </li>
+                    <li>
+                        <a href="#"> <i class="fa fa-font" aria-hidden="true"> </i> <span style="margin-left:10px;">Section</span> </a>
+                    </li>
+                    <li>
+                        <a href="#"> <i class="glyphicon glyphicon-question-sign" aria-hidden="true"> </i> <span style="margin-left:10px;">Issues</span> </a>
+                    </li>
+                    <li>
+                        <a href="#"><i class="fa fa-info-circle " aria-hidden="true"> </i> <span style="margin-left:10px;">Backlogs</span> </a>
+                    </li>
+                    <li>
+                        <a href="#"> <i class="fa fa-comment-o" aria-hidden="true"> </i> <span style="margin-left:10px;">Messages</span> </a>
+                    </li>
+                    <a href="#menu-toggle"  id="menu-toggle" style=";float:right; color: white;">
+                        <i class="fa fa-angle-double-left" style="font-size:20px !Important;" aria-hidden="true"> </i>
+                    </a>  
+                    </ul>
+                </div><!-- Sidebar -->
+            </div><!-- WRAPPER -->
             </div>
 
         </header>
@@ -115,5 +158,8 @@
                 </div>
             </div>
         </footer>
+
+        <!-- SIDEBAR TOGGLE JAVASCRIPT -->
+        <script type="text/javascript" src="js/toggle_sidebar.js"></script>
     </body>
 </html>
