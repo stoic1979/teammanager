@@ -15,8 +15,11 @@ angular.module("authService", [])
      	})
      	.then(function(response){
      		 console.log("authFactory.login() got data: " + JSON.stringify(response.data) );
-             AuthToken.setToken(response.data.token);
-             return data;
+
+             if(response.data.success) {
+                AuthToken.setToken(response.data.token);
+             }
+            return response.data;
      	})
      	.catch(function(data){
 
@@ -46,6 +49,8 @@ angular.module("authService", [])
     //-------------------------------------------------
 	authFactory.getUser = function() {
         if(AuthToken.getToken()) {
+            //console.log("getUser: token = " + AuthToken.getToken());
+
         	return $http.get("/users/me", 
         		{headers: {'x-access-token': AuthToken.getToken()}}
         	);

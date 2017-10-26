@@ -32,14 +32,6 @@ app.use(bodyParser.json());
 app.use(session({secret: "Your secret key"}));
 
 
-//----------------------------------------------------------------------------
-// adding routers
-//----------------------------------------------------------------------------
-app.use('/',         index);
-app.use('/users',    users);
-app.use('/projects', projects);
-app.use('/issues',    issues);
-
 //-----------------------------------------------------
 //   APP ROUTES
 //-----------------------------------------------------
@@ -48,17 +40,35 @@ app.get('/', function (req, res) {
     res.sendFile(__dirname + "/public/views/" + "index.html" );
 })
 
+//---------------------------------------------------
+// url ignore list for token validation middleware
+//---------------------------------------------------
+var ignore_list = [
+    '/users/signup', '/users/login',
+    '/favicon.ico'    
+];
 
 //----------------------------------------------------------------------------
 //   TOKEN VALIDATION
 // 
 //   This is middleware function with no mount path. 
 //   The function is executed every time the app receives a request.
+//   NOTE - register this middleware before registering routes
 //----------------------------------------------------------------------------
 
 app.use(function(req, res, next){
 
-    console.log("[INFO] api.use() :: Got some request, validating token !");
+    console.log("[INFO] api.use() :: Got some request, validating token, req=" + req.originalUrl);
+
+
+    // if url is in ignore list, move onto next()
+    if (ignore_list.indexOf(req.originalUrl) > -1) {
+        return next();
+    }
+
+    if(req.originalUrl.indexOf('/users/verify') > -1) {
+        return next();
+    }
 
     var token = req.body.token || req.params.token || req.headers['x-access-token'];
 
@@ -68,18 +78,28 @@ app.use(function(req, res, next){
 
             if(err) {
                 //res.status(403).send({success: false, message: "Failed to authenticate user"});
-                console.log("[ERROR] :: Failed to authenticate user");
+                console.log("[ERROR] api.use() :: :: Failed to authenticate user");
             } else {
                 req.decoded = decoded;
-                //console.log("decoded: " + req.decoded);
+                console.log("[INFO] api.use() :: -> decoded: " + JSON.stringify(req.decoded) );
                 next();
             } 	
         });
 
     } else {
+        console.log("[ERROR] api.use() :: No token provided");
         res.status(403).send({success: false, message: "No token provided"});
     }
 });//use
+
+
+//----------------------------------------------------------------------------
+// adding routers
+//----------------------------------------------------------------------------
+app.use('/',          index);
+app.use('/users',     users);
+app.use('/projects',  projects);
+app.use('/issues',    issues);
 
 
 //----------------------------------------------------------------------------

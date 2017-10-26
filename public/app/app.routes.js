@@ -6,7 +6,7 @@ angular.module('appRoutes', ['ngRoute'])
 
 		.when('/', {
 			templateUrl: 'views/pages/dashboard.html',
-			controller: 'MainController', // this controller will be used in home.html page
+			controller: 'MainController', // this controller will be used in dashboard.html page
 			controllerAs: 'main'          // this is a small-name/nickname for controller
 		})
 		.when('/login', {

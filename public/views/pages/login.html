@@ -1,6 +1,8 @@
 <div class="container" ng-controller="MainController as login">
+
 	<div class="row">
 		<div class="col-sm-6 col-md-4 col-md-offset-4">
+			<h4>{{ message }}</h3><br>
 			<h3><b>Login</b></h3>
 			<form class="form-signin" method="post" ng-submit="login.doLogin()">
 			Username: <input type="text" name="username" class="form-control" ng-model="login.loginData.username"><br>

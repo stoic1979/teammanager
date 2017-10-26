@@ -15,9 +15,7 @@ angular.module("mainCtrl", [])
 			.then(function(data){
 				vm.user = data.data;
 			})
-
 	});
-
 
 	vm.doLogin = function(){
 
@@ -31,6 +29,9 @@ angular.module("mainCtrl", [])
 
   				Auth.getUser()
 				.then(function(data){
+
+					console.log(">>--> data: " + JSON.stringify(data) );
+
 					vm.user = data.data;
 					console.log("vm.user: " + JSON.stringify(vm.user) );
 					$location.path('/');
