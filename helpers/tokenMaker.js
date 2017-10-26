@@ -4,9 +4,9 @@
 
 var jsonwebtoken = require('jsonwebtoken');
 
-var SECRET_KEY   = process.env.TEAM_MANAGER_SECRET_KEY;
-
-var TokenMaker = function(){};
+var TokenMaker = function(secretKey){
+	this.secretKey = secretKey;
+};
 
 
 TokenMaker.prototype.createUserToken = function(user) {
@@ -15,7 +15,7 @@ TokenMaker.prototype.createUserToken = function(user) {
 		_id: user._id,
 		name: user.name,
 		username: user.username
-	}, SECRET_KEY, {
+	}, this.secretKey, {
 		expiresIn: '1h'
 	});
 
@@ -28,7 +28,7 @@ TokenMaker.prototype.createVerificationToken = function(user) {
 		_id: user._id,
 		name: user.name,
 		username: user.username
-	}, SECRET_KEY, {
+	}, this.secretKey, {
 		expiresIn: '24h' // verification token will expire in 24 hours
 	});
 

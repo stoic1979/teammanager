@@ -4,7 +4,9 @@
 
 const TokenMaker = require('../tokenMaker');
 
-var tm = new TokenMaker();
+var secretKey = process.env.TEAM_MANAGER_SECRET_KEY;
+
+var tm = new TokenMaker(secretKey);
 
 // dummy user
 var user = {

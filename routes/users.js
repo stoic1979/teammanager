@@ -4,7 +4,10 @@ var jsonwebtoken = require('jsonwebtoken');
 const Mailer     = require('../helpers/mailer');
 const TokenMaker = require('../helpers/tokenMaker');
 
-var tokenMaker = new TokenMaker();
+
+var secretKey = process.env.TEAM_MANAGER_SECRET_KEY;
+
+var tokenMaker = new TokenMaker(secretKey);
 var mailer     = new Mailer();
 
 var User = require('../schema/user');
