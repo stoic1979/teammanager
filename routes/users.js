@@ -1,28 +1,14 @@
 var express      = require('express');
 var router       = express.Router();
 var jsonwebtoken = require('jsonwebtoken');
+const Mailer     = require('../helpers/mailer');
+const TokenMaker = require('../helpers/tokenMaker');
 
-
-const Mailer = require('../helpers/mailer');
-var mailer = new Mailer();
-
-var SECRET_KEY   = process.env.TEAM_MANAGER_SECRET_KEY;
+var tokenMaker = new TokenMaker();
+var mailer     = new Mailer();
 
 var User = require('../schema/user');
 var Team = require('../schema/team');
-
-function createToken(user) {
-
-	var token = jsonwebtoken.sign({
-		_id: user._id,
-		name: user.name,
-		username: user.username
-	}, SECRET_KEY, {
-		expiresIn: '1h'
-	});
-
-	return token;
-}
 
 function checkSignIn(req, res){
    if(req.session.user){
@@ -34,17 +20,12 @@ function checkSignIn(req, res){
    }
 }
 
-
 /* GET users listing. */
 router.get('/', function(req, res, next) {
   res.send('respond with a resource');
 });
 
 router.post('/signup', function(req, res, next) {
-
-
-	
-
 
    var user = new User({
 			first_name: req.body.first_name,
@@ -55,7 +36,7 @@ router.post('/signup', function(req, res, next) {
 			role: "MANAGER"
     });
 
-    var token = createToken(user);
+    var token = tokenMaker.createUserToken(user);
 	user.save(function(err) {
 		if(err) {
 			res.send(err);
@@ -114,7 +95,7 @@ router.post('/login', function(req, res) {
 			} else {
 				// login ok
 				// create token
-				 var token = createToken(user);
+				 var token = tokenMaker.createUserToken(user);
 				 //req.session.user = user;
 				 //console.log("user logged in: " + user);
 				 //res.redirect('/');

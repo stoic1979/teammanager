@@ -15,6 +15,6 @@ var user = {
 
 
 var SECRET_KEY = "some strong secret key";
-var token = tm.createUserToken(user, SECRET_KEY);
+var token = tm.createUserToken(user);
 
 console.log("Token: " + token);
