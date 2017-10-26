@@ -141,9 +141,35 @@ router.post('/login', function(req, res) {
 //   VERIFY
 //-----------------------------------------------------
 router.get('/verify/:token', function(req, res) {
-	var token = console.log("Got verification token: " + token);
+	var token = req.params.token;
 
-	res.send("ok");
+	console.log("Got verification token: " + token);
+
+  	if(!token) {
+  		res.send("No token found!");
+  		return;
+  	}
+
+    jsonwebtoken.verify(token, secretKey, function(err, decoded){
+
+            if(err) {
+                res.send("Token verification failed!");
+                return;
+            } 
+
+        // approving user
+		User.update({_id: decoded._id}, {is_verified: true}, function(err, numberAffected, rawResponse) {
+
+			console.log("-- saved: " + err);
+				if(err) res.send("Token verification failed!");
+				else res.send("User verification Successfully!");
+		})
+             	
+    });//jsonwebtoken
+
+    
+
+	//res.send("ok");
 });
 
 //-----------------------------------------------------
