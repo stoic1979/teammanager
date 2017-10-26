@@ -2,7 +2,8 @@
 //   Script for testing helper scripts
 //----------------------------------------------------------------
 
-const Mailer = require('./mailer');
+const Mailer = require('../mailer');
+
 var mailer = new Mailer();
 
 const subject = "Welcome to team manager, manage your projects and teams efficiently";
