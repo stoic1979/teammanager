@@ -9,6 +9,7 @@ var mailer = new Mailer();
 var SECRET_KEY   = process.env.TEAM_MANAGER_SECRET_KEY;
 
 var User = require('../schema/user');
+var Team = require('../schema/team');
 
 function createToken(user) {
 
@@ -41,6 +42,10 @@ router.get('/', function(req, res, next) {
 
 router.post('/signup', function(req, res, next) {
 
+
+	
+
+
    var user = new User({
 			first_name: req.body.first_name,
 			last_name: req.body.last_name,
@@ -50,15 +55,31 @@ router.post('/signup', function(req, res, next) {
 			role: "MANAGER"
     });
 
-     var token = createToken(user);
+    var token = createToken(user);
 	user.save(function(err) {
 		if(err) {
 			res.send(err);
 			return;
 		}
 
-		res.json({ success: true, message: 'User has been created !', token: token});
-		sendWelcomeEmail(user);
+		//------------------------
+		// create team for user
+		//------------------------
+		var team = new Team({
+			name: req.body.team_name,
+			manager: user._id,
+		});
+
+		team.save(function(err) {
+			if(err) {
+				res.send(err);
+				return;
+			}
+
+			res.json({ success: true, message: 'User has been created !', token: token});
+			sendWelcomeEmail(user);
+		});
+
 	});
 
 });

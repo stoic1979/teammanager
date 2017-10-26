@@ -5,7 +5,7 @@ angular.module('appRoutes', ['ngRoute'])
 	$routeProvider
 
 		.when('/', {
-			templateUrl: 'views/pages/home.html',
+			templateUrl: 'views/pages/dashboard.html',
 			controller: 'MainController', // this controller will be used in home.html page
 			controllerAs: 'main'          // this is a small-name/nickname for controller
 		})
