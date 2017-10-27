@@ -84,8 +84,17 @@
                     <ul class="nav navbar-nav navbar-right">
                         <li ng-if="!main.loggedIn"><a href="#!login">Login</a></li>
                         <li ng-if="!main.loggedIn"><a href="#!signup">Sign Up</a></li>
-                        <li ng-if="main.loggedIn"><a href="#">Hello {{ main.user.username }}</a></li>
-                        <li ng-if="main.loggedIn"><a href="#" ng-click="main.doLogout()">Logout</a></li>
+
+
+                        <!-- RIGHT DROPDOWN FOR LOGGED-IN ITEMS/OPTIONS -->
+                        <li class="dropdown" ng-if="main.loggedIn">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" target="_self">Hello {{ main.user.username }}<span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li ng-if="main.loggedIn"><a href="#" ng-click="main.doLogout()">Logout</a></li>
+                                <li class="divider"></li>
+                            </ul>
+                        </li>    
+
                     </ul>
                 </div>
             </div><!-- NAVBAR -->
