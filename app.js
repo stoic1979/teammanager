@@ -40,6 +40,10 @@ app.get('/', function (req, res) {
     res.sendFile(__dirname + "/public/views/" + "index.html" );
 })
 
+app.get('/test_verified_page', function (req, res) {
+    res.sendFile(__dirname + "/public/views/pages/" + "verification_done.html" );
+})
+
 //---------------------------------------------------
 // url ignore list for token validation middleware
 //---------------------------------------------------

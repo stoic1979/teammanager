@@ -34,7 +34,10 @@ angular.module('appRoutes', ['ngRoute'])
 			templateUrl: 'views/pages/reports.html'
 		})
 		.when('/profile', {
-			templateUrl: 'views/pages/reports.html'
+			templateUrl: 'views/pages/profile.html'
+		})
+		.when('/contact_us', {
+			templateUrl: 'views/pages/contact_us.html'
 		})
 		
 

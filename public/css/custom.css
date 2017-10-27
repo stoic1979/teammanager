@@ -1,0 +1,25 @@
+.h1 small {
+  font-size: 24px;
+}
+
+.verification-thumbnail
+{
+	width: 50%;
+	background-color: rgba(243, 243, 243, 0.22);
+	border: 2px solid #1f8c04;;
+
+}
+.verification-thumbnail img
+{
+    width:50%;
+}
+h1
+{
+	text-align: center;
+	color:#1f8c04;;
+}
+p
+{
+	text-align: center;
+    color:#808080;
+}

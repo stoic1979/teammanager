@@ -162,7 +162,12 @@ router.get('/verify/:token', function(req, res) {
 
 			console.log("-- saved: " + err);
 				if(err) res.send("Token verification failed!");
-				else res.send("User verification Successfully!");
+				else {
+
+					//res.send("User verification Successfully!");
+
+					res.sendFile(__dirname + "/public/views/pages" + "verification_done.html" );
+			}
 		})
              	
     });//jsonwebtoken
