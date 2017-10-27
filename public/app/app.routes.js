@@ -27,6 +27,15 @@ angular.module('appRoutes', ['ngRoute'])
 		.when('/pricing', {
 			templateUrl: 'views/pages/pricing.html'
 		})
+		.when('/invite_team', {
+			templateUrl: 'views/pages/invite_team.html'
+		})
+		.when('/reports', {
+			templateUrl: 'views/pages/reports.html'
+		})
+		.when('/profile', {
+			templateUrl: 'views/pages/reports.html'
+		})
 		
 
 
