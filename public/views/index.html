@@ -59,6 +59,7 @@
                             <ul class="dropdown-menu" role="menu">
                                 <li><a href="#!add_project">ADD PROJECT</a></li>
                                 <li class="divider"></li>
+                                <li ng-repeat="p in project.projects"><a href="#!" >{{ p.title }}</a></li>
                             </ul>
                         </li>
                     </ul>

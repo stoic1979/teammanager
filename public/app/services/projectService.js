@@ -20,7 +20,12 @@ angular.module("projectService", [])
     };
 
     projectFactory.all = function() {
-    	return $http.get('/api');	
+
+    	var payload = {
+    			headers: {'x-access-token': AuthToken.getToken()}
+    		};
+
+    	return $http.get('/projects/all', payload);	
     };
 
     return projectFactory;

@@ -1,16 +1,19 @@
 angular.module('projectCtrl', ['projectService'])
 
-.controller('ProjectController', function(Project){
+.controller('ProjectController', function(Project, $location, $window){
 
 	var vm = this;
 
+	vm.projects = [];
+
 	Project.all()
 	.then(function(response){
-		console.log("-- got stories: " + JSON.stringify(response.data));
+		console.log("-- got projects: " + JSON.stringify(response.data));
 
-		// show stories in reverse order of creation
+
+		// show projects in reverse order of creation
 		// means, latest at top pos in list
-		vm.stories = response.data.slice().reverse();
+		vm.projects = response.data.slice().reverse();
 	});	
 
 	vm.createProject = function() {
@@ -30,6 +33,8 @@ angular.module('projectCtrl', ['projectService'])
 
 			// insert latest project in begining of array
 			vm.projects.unshift(response.data.project);
+
+			$location.path('/');
 		});
 
 	};//createProject
