@@ -1,4 +1,17 @@
-angular.module("myApp", ['appRoutes', 'mainCtrl', 'authService', 'userService', 'userCtrl', 'projectService', 'projectCtrl'])
+//--------------------------------------------------
+// 
+//--------------------------------------------------
+
+var dependencies = [
+	'appRoutes', 
+	'mainCtrl', 
+	'authService', 
+	'userService', 
+	'userCtrl', 
+	'projectService', 
+	'projectCtrl'];
+
+angular.module("myApp", dependencies)
 
 .config(function($httpProvider) {
 
