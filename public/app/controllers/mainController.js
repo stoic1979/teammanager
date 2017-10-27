@@ -1,12 +1,20 @@
 angular.module("mainCtrl", [])
 
-.controller('MainController', function($rootScope, $location, Auth){
+.controller('MainController', function($rootScope, $location, Auth, Project){
 
 
 	var vm = this;
 
+	$rootScope.projects = [];
+
+
 	vm.loggedIn = Auth.isLoggedIn();
 
+
+	//-----------------------------------------------------------------------------
+	// listener on the $routeChangeStart event to track the next route navigation
+	// get the user information
+	//-----------------------------------------------------------------------------
 	$rootScope.$on('$routeChangeStart', function(){
 
 		vm.loggedIn = Auth.isLoggedIn();
@@ -15,8 +23,18 @@ angular.module("mainCtrl", [])
 			.then(function(data){
 				vm.user = data.data;
 			})
-	});
 
+	});//$rootScope.$on
+
+	// get projects of logged in user
+	Project.all()
+	.then(function(response){
+		$rootScope.projects = response.data.slice().reverse();
+	});	
+
+	//-------------------------
+	// doLogin()
+	//-------------------------
 	vm.doLogin = function(){
 
         console.log("MainController -> doLogin()");
@@ -46,6 +64,9 @@ angular.module("mainCtrl", [])
 			});
 	};//doLogin
 
+	//-------------------------
+	// doLogout()
+	//-------------------------
 	vm.doLogout = function(){
 		Auth.logout();
 		$location.path('/logout');
