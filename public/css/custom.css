@@ -105,3 +105,56 @@ p
 .price-active h4 {
   color: #36d7ac;
 }
+
+#profile-img{
+  border-radius: 50px;
+  margin-top:30px;
+}
+#wel{
+  margin-left: 0px;
+  margin-right: 0px;
+
+}
+#profile{
+  margin-top: 30px;
+}
+#name{
+  margin-left: 50px;
+  
+}
+#user{
+ margin-left: 10px;
+
+}
+#email{
+  margin-left: 60px;
+}
+#fullname{
+  margin-left: 30px;
+}
+#password{
+  margin-left: 30px;
+}
+#details{
+  margin-left: 100px;
+}
+
+#team{
+  margin-left: 50px;
+}
+#username{
+  margin-left: 60px;
+
+}
+#groups{
+  margin-left: 60px;
+}
+#preference{
+  margin-left: 60px;
+}
+#prefer{
+  margin-left: 80px;
+}
+#labs{
+  margin-left: 50px;
+}
