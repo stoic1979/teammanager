@@ -20,7 +20,8 @@ angular.module('projectCtrl', ['projectService'])
 		.then(function(response){
 
 			// clear up the form's fields
-			vm.projectData.content = '';
+			vm.projectData.title = '';
+			vm.projectData.description = '';
 
 			vm.message = response.data.message; 
 
@@ -28,7 +29,7 @@ angular.module('projectCtrl', ['projectService'])
 			console.log("project : " + response.data.project);
 
 			// insert latest project in begining of array
-			vm.stories.unshift(response.data.project);
+			vm.projects.unshift(response.data.project);
 		});
 
 	};//createProject
