@@ -27,10 +27,12 @@ angular.module("mainCtrl", [])
 	});//$rootScope.$on
 
 	// get projects of logged in user
-	Project.all()
-	.then(function(response){
-		$rootScope.projects = response.data.slice().reverse();
-	});	
+	if(vm.loggedIn) {
+		Project.all()
+		.then(function(response){
+			$rootScope.projects = response.data.slice().reverse();
+		});	
+	}
 
 	//-------------------------
 	// doLogin()

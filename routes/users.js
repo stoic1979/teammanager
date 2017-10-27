@@ -61,20 +61,23 @@ router.post('/signup', function(req, res, next) {
             }
 
             res.json({ success: true, message: 'User has been created !', token: token});
-            sendWelcomeEmail(user, tokenMaker.createVerificationToken(user) );
+            sendWelcomeEmail(req, user, tokenMaker.createVerificationToken(user) );
         });
 
     });
 
 });
 
-function sendWelcomeEmail(user, token) {
+function sendWelcomeEmail(req, user, token) {
     const subject = "Welcome to team manager";
     var html = "<b>Hi " + user.username +  " </b><br>, <br> Welcome !!! <br> Team Manager is a perfect solution for managing your project and teams !!! <br>";
 
     html += "<br> Click on following link to verify your email.";
 
-    html += "<br><a href='http://localhost:4444/users/verify/" + token + "'>VERIFY ME</a>";
+    // origin will tell localhost or server domain url's prefix
+    var origin = req.get('origin'); 
+
+    html += "<br><a href='" + origin + "/users/verify/" + token + "'>VERIFY ME</a>";
 
     html += "<br><br> Thanks <br> Team Manager Team";
 
@@ -86,6 +89,9 @@ function sendWelcomeEmail(user, token) {
 //   LOGIN
 //-----------------------------------------------------
 router.post('/login', function(req, res) {
+
+    
+
 
     User.findOne({
         username: req.body.username
@@ -102,10 +108,10 @@ router.post('/login', function(req, res) {
             //----------------------------------------------
             // before logging, ensure that user is verified
             //----------------------------------------------
-            /*if(!user.is_verified) {
+            if(!user.is_verified) {
                 res.send({ success: false, message: 'User is not verified !'});
                 return; 
-            }*/
+            }
 
             var validPassword = user.comparePassword(req.body.password);
 
@@ -166,7 +172,9 @@ router.get('/verify/:token', function(req, res) {
 
 					//res.send("User verification Successfully!");
 
-					res.sendFile(__dirname + "/public/views/pages" + "verification_done.html" );
+                    var parentDir  = __dirname.substring(0, __dirname.lastIndexOf('/'));
+
+					res.sendFile(parentDir + '/public/views/pages/verification_done.html') ;
 			}
 		})
              	
