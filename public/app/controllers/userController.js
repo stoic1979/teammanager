@@ -25,8 +25,9 @@ angular.module('userCtrl', ['userService'])
 			vm.userData = {};
 			vm.message = response.data.message;
 
-			$window.localStorage.setItem('token', response.data.token);
-			$location.path('/');
+			//$window.localStorage.setItem('token', response.data.token);
+
+			$location.path('/signup_done');
 		})
 	};
 

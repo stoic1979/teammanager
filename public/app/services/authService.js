@@ -22,7 +22,7 @@ angular.module("authService", [])
             return response.data;
      	})
      	.catch(function(data){
-
+            console.log("authFactory.login() got error: " + JSON.stringify(response.data) );
      	});
 
      	

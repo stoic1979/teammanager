@@ -47,11 +47,14 @@ angular.module("mainCtrl", [])
 			.then(function(data){
 				vm.processing = false;
 
+				// ensure sucess flag in response data
+				if(!data.success) {
+					vm.error = data.message;
+					return;
+				}
+
   				Auth.getUser()
 				.then(function(data){
-
-					console.log(">>--> data: " + JSON.stringify(data) );
-
 					vm.user = data.data;
 					console.log("vm.user: " + JSON.stringify(vm.user) );
 					$location.path('/');
@@ -62,7 +65,7 @@ angular.module("mainCtrl", [])
 
 			})
 			.catch(function(data){
-
+				vm.error = data.message;
 			});
 	};//doLogin
 

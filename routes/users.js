@@ -60,7 +60,8 @@ router.post('/signup', function(req, res, next) {
                 return;
             }
 
-            res.json({ success: true, message: 'User has been created !', token: token});
+            //res.json({ success: true, message: 'User has been created !', token: token});
+            res.json({ success: true, message: 'User has been created !'});
             sendWelcomeEmail(req, user, tokenMaker.createVerificationToken(user) );
         });
 
@@ -90,9 +91,6 @@ function sendWelcomeEmail(req, user, token) {
 //-----------------------------------------------------
 router.post('/login', function(req, res) {
 
-    
-
-
     User.findOne({
         username: req.body.username
             //}).select('password').exec(function(err, user) { // this will only select _id and password in user obj
@@ -110,14 +108,15 @@ router.post('/login', function(req, res) {
             //----------------------------------------------
             if(!user.is_verified) {
                 res.send({ success: false, message: 'User is not verified !'});
+                //res.status(403).send( { success: false, message: 'User is not verified !'});
                 return; 
             }
 
             var validPassword = user.comparePassword(req.body.password);
 
             if(!validPassword) {
-                //res.json({ success: false, message: 'Invalid Password !'});
-                res.status(403).send( { success: false, message: 'Invalid Password !'});
+                res.json({ success: false, message: 'Invalid Password !'});
+                //res.status(403).send( { success: false, message: 'Invalid Password !'});
             } else {
 
                 //-------------------------

@@ -40,6 +40,9 @@ angular.module('appRoutes', ['ngRoute'])
 		.when('/contact_us', {
 			templateUrl: 'views/pages/contact_us.html'
 		})
+		.when('/signup_done', {
+			templateUrl: 'views/pages/signup_done.html'
+		})
 		
 
 
