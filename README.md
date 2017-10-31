@@ -9,7 +9,7 @@ Team manager has the following features:-
  - A team manager registers his/her account, create a team and invites team members.
  - A team manager creates projects, assigns tasks and monitor progress.
  - A team member updates progress on tasks, can comment on tasks, changes status to done when finished etc.
- - Charts for visualizaing project status etc.
+ - Charts for visualizing project status etc.
  - Admin panel for administration.
 
 
