@@ -32,7 +32,7 @@ Technical Stack
  - Back-end: Node, Express, MongoDB
  - Front-End: JQuery, Bootstrap, Angularjs
 
-Motivation to create Team Mnager?
+Motivation to create Team Manager?
 -------------------------------
 I was using JIRA for task/project management but it is paid and has so many features that I dont need.
 I was looking for a compact minimalist team management system, so I created this one for myself and for my small team.
