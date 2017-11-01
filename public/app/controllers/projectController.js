@@ -4,9 +4,6 @@ angular.module('projectCtrl', ['projectService'])
 
 	var vm = this;
 
-
-
-
 	vm.createProject = function() {
 
 		vm.message = '';

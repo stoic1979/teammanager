@@ -8,6 +8,8 @@ var dependencies = [
 	'authService', 
 	'userService', 
 	'userCtrl', 
+	'teamCtrl',
+	'teamService',
 	'projectService', 
 	'projectCtrl'];
 

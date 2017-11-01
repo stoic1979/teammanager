@@ -1,11 +1,11 @@
-<div class="container" ng-controller="UserCreateController as ucc">
+<div class="container" ng-controller="TeamController as team">
     <div class="row">
         <div class="col-sm-6 col-md-4 col-md-offset-4">
             <div class="text-center"><h3><b>Invite Team member</b></h3></div>
-            <form id="ajax-register-form" action="/users/invite_team" method="post" role="form" autocomplete="off">
+            <form ng-submit="team.inviteTeamMember()"" method="post" role="form" autocomplete="off">
 
                 <div class="form-group">
-                    <input type="text" name="email" id="email" tabindex="1" class="form-control" placeholder="Email" value="">
+                    <input type="text" name="email" id="email" tabindex="1" class="form-control" placeholder="Email" ng-model="team.teamData.email">
                 </div>
 
                 <div class="form-group">
@@ -15,7 +15,9 @@
                         </div>
                     </div>
                 </div>
+                 <h4 class="text">{{ team.message }}</h4>
             </form>
         </div>
+
     </div>
 </div>

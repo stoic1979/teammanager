@@ -206,4 +206,41 @@ router.get('/me', function(req, res){
     res.json(req.decoded);
 });
 
+
+function sendInvitationEmail(req, email) {
+    const subject = "Invitation to join team manager";
+    var html = "<b>Hi " + email+  " </b><br>";
+
+    html += "<br> Click on following link to join team management system.";
+
+    // origin will tell localhost or server domain url's prefix
+    var origin = req.get('origin'); 
+
+    //html += "<br><a href='" + origin + "/users/verify/" + token + "'>VERIFY ME</a>";
+
+    html += "<br><br> Thanks <br> Team Manager Team";
+
+    mailer.sendMail(email, subject, html);
+}
+
+//-----------------------------------------------------
+//   INVITE USER TO TEAM
+//-----------------------------------------------------
+router.post('/invite_team_member', function(req, res) {
+    var email = req.body.email;
+
+    console.log("[INFO] :: sending invitation to : " + email);
+
+
+    // ensure that user is not already registered
+
+
+
+
+    // finally sending invitation to user
+    sendInvitationEmail(req, email);
+    res.json({ success: true, message: 'Invitation sent to ' + email});
+});
+
+
 module.exports = router;

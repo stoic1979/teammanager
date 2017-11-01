@@ -29,7 +29,8 @@ angular.module('appRoutes', ['ngRoute'])
 			templateUrl: 'views/pages/pricing.html'
 		})
 		.when('/my_team', {
-			templateUrl: 'views/pages/my_team.html'
+			templateUrl: 'views/pages/my_team.html',
+			controller: 'TeamController'
 		})
 		.when('/reports', {
 			templateUrl: 'views/pages/reports.html'
