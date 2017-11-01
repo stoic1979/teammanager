@@ -28,8 +28,8 @@ angular.module('appRoutes', ['ngRoute'])
 		.when('/pricing', {
 			templateUrl: 'views/pages/pricing.html'
 		})
-		.when('/invite_team', {
-			templateUrl: 'views/pages/invite_team.html'
+		.when('/my_team', {
+			templateUrl: 'views/pages/my_team.html'
 		})
 		.when('/reports', {
 			templateUrl: 'views/pages/reports.html'
