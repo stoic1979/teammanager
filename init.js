@@ -5,7 +5,6 @@
 //FIXME - add actual workflow later
 
 var workflow = new (require('events').EventEmitter)();
-var async = require('async');
 
 workflow.on('doTask1', function() {
     console.log("[INFO] doing task 1....");
