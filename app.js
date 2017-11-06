@@ -1,15 +1,15 @@
-var bodyParser = require('body-parser');
-var express    = require('express');
+var bodyParser   = require('body-parser');
+var express      = require('express');
 //var exphbs     = require('express-handlebars');
-var mongoose   = require('mongoose');
-var path       = require('path');
-var session    = require('express-session');
+var mongoose     = require('mongoose');
+var path         = require('path');
+var session      = require('express-session');
 var jsonwebtoken = require('jsonwebtoken');
-
-var index    = require('./routes/index');
-var users    = require('./routes/users');
-var projects = require('./routes/projects');
-var issues    = require('./routes/issues');
+var index        = require('./routes/index');
+var users        = require('./routes/users');
+var projects     = require('./routes/projects');
+var issues       = require('./routes/issues');
+const logger     = require('./helpers/logger');
 
 
 const TEAM_MANAGER_MONGODB_URI = process.env.TEAM_MANAGER_MONGODB_URI;
@@ -62,7 +62,7 @@ var ignore_list = [
 
 app.use(function(req, res, next){
 
-    console.log("[INFO] api.use() :: Got some request, validating token, req=" + req.originalUrl);
+    logger.debug("api.use() :: Got some request, validating token, req=" + req.originalUrl);
 
 
     // if url is in ignore list, move onto next()
@@ -82,16 +82,16 @@ app.use(function(req, res, next){
 
             if(err) {
                 //res.status(403).send({success: false, message: "Failed to authenticate user"});
-                console.log("[ERROR] api.use() :: :: Failed to authenticate user");
+                logger.warn("api.use() :: :: Failed to authenticate user");
             } else {
                 req.decoded = decoded;
-                console.log("[INFO] api.use() :: -> decoded: " + JSON.stringify(req.decoded) );
+                logger.debug("api.use() :: -> decoded: " + JSON.stringify(req.decoded) );
                 next();
             } 	
         });
 
     } else {
-        console.log("[ERROR] api.use() :: No token provided");
+        logger.warn("api.use() :: No token provided");
         res.status(403).send({success: false, message: "No token provided"});
     }
 });//use
@@ -111,9 +111,9 @@ app.use('/issues',    issues);
 //----------------------------------------------------------------------------
 mongoose.connect(TEAM_MANAGER_MONGODB_URI, function(err) {
     if(err) {
-        console.log("[ERROR] failed to connect to database: " + err);
+        logger.warn("Failed to connect to database: " + err);
     } else {
-        console.log("[INFO] Successfully connected to database. ");
+        logger.info("Successfully connected to database. ");
     }
 });
 
@@ -130,6 +130,6 @@ var server = app.listen(process.env.PORT || TEAM_MANAGER_PORT, function (err) {
         var host = server.address().address
             var port = server.address().port
 
-            console.log("Team Manager sever listening at http://%s:%s", host, port)
+            logger.info("Team Manager sever listening at http://%s:%s", host, port)
     }
 })
