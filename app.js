@@ -29,7 +29,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(session({secret: "Your secret key"}));
+//app.use(session({secret: "Your secret key"}));
 
 
 //-----------------------------------------------------
@@ -109,7 +109,8 @@ app.use('/issues',    issues);
 //----------------------------------------------------------------------------
 //   CONNECT TO MONGODB
 //----------------------------------------------------------------------------
-mongoose.connect(TEAM_MANAGER_MONGODB_URI, function(err) {
+mongoose.Promise = global.Promise;
+mongoose.connection.openUri(TEAM_MANAGER_MONGODB_URI, function(err) {
     if(err) {
         logger.warn("Failed to connect to database: " + err);
     } else {
