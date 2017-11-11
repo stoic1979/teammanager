@@ -22,6 +22,8 @@ angular.module('projectCtrl', ['projectService'])
 			// insert latest project in begining of array
 			$rootScope.projects.unshift(response.data.project);
 
+			$rootScope.currentProject = response.data.project;			
+
 			$location.path('/');
 		});
 
