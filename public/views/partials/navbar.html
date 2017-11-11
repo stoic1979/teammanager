@@ -1,0 +1,63 @@
+<div class="navbar navbar-inverse"> <!-- NAVBAR -->
+    <div class="container">
+        <div class="navbar-header">
+            <a href="#!/" class="navbar-brand">Team Manager</a>
+        </div>
+
+        <ul class="nav navbar-nav" ng-if="!main.loggedIn">
+            <li><a href="#!features">Features</a></li>
+        </ul>
+        <ul class="nav navbar-nav" ng-if="!main.loggedIn">
+            <li><a href="#!pricing">Pricing</a></li>
+        </ul>
+
+        <!-- PROJECTS -->
+        <ul class="nav navbar-nav" ng-if="main.loggedIn">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" target="_self">Projects<span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#!add_project">ADD PROJECT</a></li>
+                    <li class="divider"></li>
+                    <li ng-repeat="p in projects"><a href="#!" >{{ p.title }}</a></li>
+                    <li class="divider"></li>
+                </ul>
+            </li>
+        </ul>
+
+        <!-- ISSUES -->
+        <ul class="nav navbar-nav" ng-if="main.loggedIn">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" target="_self">Issues<span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#!add_issue">ADD ISSUE</a></li>
+                    <li class="divider"></li>
+                </ul>
+            </li>
+        </ul>
+
+        <!-- SEARCH -->
+        <form class="navbar-form navbar-left" role="search">
+            <div class="form-group">
+                <input type="text" class="form-control" placeholder="Search Team Manager">
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+
+        <!-- LOGIN/SIGNUP/PROFILE -->
+        <ul class="nav navbar-nav navbar-right">
+            <li ng-if="!main.loggedIn"><a href="#!login">Login</a></li>
+            <li ng-if="!main.loggedIn"><a href="#!signup">Sign Up</a></li>
+
+
+            <!-- RIGHT DROPDOWN FOR LOGGED-IN ITEMS/OPTIONS -->
+            <li class="dropdown" ng-if="main.loggedIn">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" target="_self">Hello {{ main.user.username }}<span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#!profile">Profile</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#!/" ng-click="main.doLogout()">Logout</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div><!-- NAVBAR -->

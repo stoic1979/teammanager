@@ -11,9 +11,8 @@
         <!-- Custom styles for this template -->
         <link href="css/sticky-footer.css" rel="stylesheet">
 
-        
-        <link href="css/custom.css" rel="stylesheet">
 
+        <link href="css/custom.css" rel="stylesheet">
 
         <link href='css/sidebar.css' rel='stylesheet' type='text/css'>
 
@@ -46,137 +45,17 @@
     <body ng-controller="MainController as main">
 
         <header>
-            <div class="navbar navbar-inverse"> <!-- NAVBAR -->
-                <div class="container">
-                    <div class="navbar-header">
-                        <a href="#!/" class="navbar-brand">Team Manager</a>
-                    </div>
 
-                    <ul class="nav navbar-nav" ng-if="!main.loggedIn">
-                        <li><a href="#!features">Features</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav" ng-if="!main.loggedIn">
-                        <li><a href="#!pricing">Pricing</a></li>
-                    </ul>
-
-                    <!-- PROJECTS -->
-                    <ul class="nav navbar-nav" ng-if="main.loggedIn">
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" target="_self">Projects<span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#!add_project">ADD PROJECT</a></li>
-                                <li class="divider"></li>
-                                <li ng-repeat="p in projects"><a href="#!" >{{ p.title }}</a></li>
-                                <li class="divider"></li>
-                            </ul>
-                        </li>
-                    </ul>
-
-                    <!-- ISSUES -->
-                    <ul class="nav navbar-nav" ng-if="main.loggedIn">
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" target="_self">Issues<span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#!add_issue">ADD ISSUE</a></li>
-                                <li class="divider"></li>
-                            </ul>
-                        </li>
-                    </ul>
-
-					<!-- SEARCH -->
-                    <form class="navbar-form navbar-left" role="search">
-                        <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Search Team Manager">
-                        </div>
-                        <button type="submit" class="btn btn-default">Submit</button>
-                    </form>
-
-                    <ul class="nav navbar-nav navbar-right">
-                        <li ng-if="!main.loggedIn"><a href="#!login">Login</a></li>
-                        <li ng-if="!main.loggedIn"><a href="#!signup">Sign Up</a></li>
-
-
-                        <!-- RIGHT DROPDOWN FOR LOGGED-IN ITEMS/OPTIONS -->
-                        <li class="dropdown" ng-if="main.loggedIn">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" target="_self">Hello {{ main.user.username }}<span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="#!profile">Profile</a></li>
-                                <li class="divider"></li>
-                                <li><a href="#!/" ng-click="main.doLogout()">Logout</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-            </div><!-- NAVBAR -->
-
-            
-            <div id="wrapper" ng-if="main.loggedIn"><!-- WRAPPER -->
-                <div id="sidebar-wrapper"><!-- Sidebar -->
-                    <ul class="sidebar-nav" style="margin-left:0;">
-                    <li class="sidebar-brand"></li>
-                    <li>
-                        <a href="#!/"><i class="glyphicon glyphicon-home " aria-hidden="true"> </i> <span style="margin-left:10px;">Home</span>  </a>
-                    </li>
-                    <li>
-                        <a href="#!reports"><i class="glyphicon glyphicon-stats " aria-hidden="true"> </i> <span style="margin-left:10px;">Reports</span>  </a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-sort-alpha-asc " aria-hidden="true"> </i> <span style="margin-left:10px;">Section</span>  </a>
-                    </li>
-                    <li>
-                        <a href="#"> <i class="fa fa-play-circle-o " aria-hidden="true"> </i> <span style="margin-left:10px;">Section</span> </a>
-                    </li>
-                    <li>
-                        <a href="#"> <i class="fa fa-puzzle-piece" aria-hidden="true"> </i> <span style="margin-left:10px;">Components</span> </a>
-                    </li>
-                    <li>
-                        <a href="#"> <i class="fa fa-font" aria-hidden="true"> </i> <span style="margin-left:10px;">Section</span> </a>
-                    </li>
-                    <li>
-                        <a href="#"> <i class="glyphicon glyphicon-question-sign" aria-hidden="true"> </i> <span style="margin-left:10px;">Issues</span> </a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-info-circle " aria-hidden="true"> </i> <span style="margin-left:10px;">Backlogs</span> </a>
-                    </li>
-                    <li>
-                        <a href="#"> <i class="fa fa-comment-o" aria-hidden="true"> </i> <span style="margin-left:10px;">Messages</span> </a>
-                    </li>
-                    <li>
-                        <a href="#!my_team"> <i class="fa fa-user" aria-hidden="true"> </i> <span style="margin-left:10px;">My team</span> </a>
-                    </li>
-                    </ul>
-                    <a href="#menu-toggle"  id="menu-toggle" style="position: absolute; right: 10%; bottom: 10%; color: white;">
-                        <i class="fa fa-angle-double-left" style="font-size:20px !Important;" aria-hidden="true"> </i>
-                    </a>  
-                </div><!-- Sidebar -->
-            </div><!-- WRAPPER -->
-            </div>
+            <div ng-include="'views/partials/navbar.html'"></div>
+            <div ng-include="'views/partials/sidebar.html'"></div>    
 
         </header>
 
         <main class="container">
-
-        <div class="jumbotron" ng-view></div>
+            <div class="jumbotron" ng-view></div>
         </main>
 
-        <footer class="footer">
-            <div class="container">
-                <div class="col-sm-6 col-md-4 col-md-offset-4">
-                    <ul class="nav navbar-nav">
-                        <li><a href="#!features">Features</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav">
-                        <li><a href="#!pricing">Pricing</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav">
-                        <li><a href="#!about_us">About Us</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav">
-                        <li><a href="#!contact_us">Contact Us</a></li>
-                    </ul>
-                </div>
-            </div>
-        </footer>
+        <div ng-include="'views/partials/footer.html'"></div>
 
         <!-- SIDEBAR TOGGLE JAVASCRIPT -->
         <script type="text/javascript" src="js/toggle_sidebar.js"></script>
