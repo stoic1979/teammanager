@@ -1,39 +1,46 @@
 <div class="container" ng-controller="UserCreateController as ucc">
-    <div class="row">
 
-        <div class="col-sm-6 col-md-4 col-md-offset-4">
-            <div class="text-center"><h3><b>Sign Up As Team Manager</b></h3></div>
-            <form class="form-signin" method="post" ng-submit="ucc.signupUser()">
-                <div class="form-group">
-                    <input type="text" name="team_name" id="team_name" tabindex="1" class="form-control" placeholder="Team Name" value="" ng-model="ucc.userData.team_name">
-                    
+    <div class="panel panel-primary"> <!-- div panel -->
+        <div class="panel-heading">Sign Up As Team Manager</div>
+        <div class="panel-body">
+
+            <div class="row">
+
+                <div class="col-sm-6 col-md-4 col-md-offset-4">
+                    <form class="form-signin" method="post" ng-submit="ucc.signupUser()">
+                        <div class="form-group">
+                            <input type="text" name="team_name" id="team_name" tabindex="1" class="form-control" placeholder="Team Name" value="" ng-model="ucc.userData.team_name">
+
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="first_name" id="first_name" tabindex="1" class="form-control" placeholder="First Name" value="" ng-model="ucc.userData.first_name">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="last_name" id="last_name" tabindex="1" class="form-control" placeholder="Last Name" value="" ng-model="ucc.userData.last_name">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="" ng-model="ucc.userData.username">
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="" ng-model="ucc.userData.email">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password" ng-model="ucc.userData.password">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" name="confirm_password" id="confirm_password" tabindex="2" class="form-control" placeholder="Confirm Password"  ng-model="ucc.userData.confirm_password">
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-xs-6 col-xs-offset-3">
+                                    <button type="submit" class="btn btn-primary">SIGN UP</button>
+                                </div> 
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <div class="form-group">
-                    <input type="text" name="first_name" id="first_name" tabindex="1" class="form-control" placeholder="First Name" value="" ng-model="ucc.userData.first_name">
-                </div>
-                <div class="form-group">
-                    <input type="text" name="last_name" id="last_name" tabindex="1" class="form-control" placeholder="Last Name" value="" ng-model="ucc.userData.last_name">
-                </div>
-                <div class="form-group">
-                    <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="" ng-model="ucc.userData.username">
-                </div>
-                <div class="form-group">
-                    <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="" ng-model="ucc.userData.email">
-                </div>
-                <div class="form-group">
-                    <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password" ng-model="ucc.userData.password">
-                </div>
-                <div class="form-group">
-                    <input type="password" name="confirm_password" id="confirm_password" tabindex="2" class="form-control" placeholder="Confirm Password"  ng-model="ucc.userData.confirm_password">
-                </div>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-xs-6 col-xs-offset-3">
-                            <button type="submit" class="btn btn-success">SIGN UP</button>
-                        </div> 
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+            </div>
+        </div><!-- div panel-body -->
+    </div><!-- div panel -->
+
+</div><!-- div controller -->

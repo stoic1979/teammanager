@@ -1,34 +1,36 @@
 <div class="container" ng-controller="ProjectController as project">
-    <div class="row">
-        <div class="col-sm-6 col-md-4 col-md-offset-4">
-            <div class="text-center"><h3><b>Add Project</b></h3></div>
-            <form method="post" role="form" autocomplete="off" ng-submit="project.createProject()">
+    <div class="panel panel-primary"> <!-- div panel -->
+        <div class="panel-heading">Add Project</div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-6 col-md-4 col-md-offset-4">
+                    <form method="post" role="form" autocomplete="off" ng-submit="project.createProject()">
 
-                <div class="form-group">
-                    <input type="text" name="title" id="title" tabindex="1" class="form-control" placeholder="Title" ng-model="project.projectData.title">
-                </div>
-
-                <div class="form-group">
-                    <input type="text" name="description" id="description" tabindex="1" class="form-control" placeholder="Description" ng-model="project.projectData.description">
-                </div>
-
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-xs-6 col-xs-offset-3">
-                            <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-success" value="Save Project">
+                        <div class="row">
+                            <label> Title </label>
+                            <input type="text" tabindex="1" class="form-control"  ng-model="project.projectData.title">
                         </div>
-                    </div>
+
+                        <div class="row">
+                            <label> Descripition </label>
+                            <textarea name="description" class="form-control" ng-model="project.projectData.description"> 
+                            </textarea>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-primary" value="Save Project">
+                        </div>
+                    </form>
                 </div>
-            </form>
-        </div>
-    </div>
+            </div>
 
 
+            <br>
+            <ul>
+                <li ng-repeat="p in project.projects"><a href="#!" >{{ p.title }}</a></li>
+            </ul>
 
-<br>
-<ul>
-    <li ng-repeat="p in project.projects"><a href="#!" >{{ p.title }}</a></li>
-</ul>
-
-</div>
+        </div><!-- div panel-body -->
+    </div><!-- div panel -->
+</div><!-- div controller -->
 

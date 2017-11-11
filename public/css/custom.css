@@ -27,7 +27,7 @@ p
 .pricing {
   position: relative;
   margin-bottom: 15px;
-  border: 3px solid  #5cb85c;;
+  border: 3px solid  #000080;;
 }
 .pricing-active {
   border: 3px solid   #228B22;
@@ -35,10 +35,10 @@ p
   box-shadow: 7px 7px rgba(54, 215, 172, 0.2);
 }
 .pricing:hover {
-  border: 3px solid   #228B22;
+  border: 3px solid   #ff0000;
 }
 .pricing:hover h4 {
-  color:    #228B22;
+  color:    #ff0000;
 }
 .pricing-head {
   text-align: center;
@@ -60,10 +60,10 @@ p
   color: #fafafa;
   padding: 12px 0;
   font-size: 27px;
-  background:  #5cb85c;
+  background:  #428bca;
   }
 .pricing-head h4 {
-  color: #5cb85c;;
+  color: #000080;;
   padding: 5px 0;
   font-size: 54px;
   font-weight: 300;
@@ -86,7 +86,7 @@ p
   position: relative;
 }
 .pricing-content li {
-  color: #888;
+  color: #‎428bca;
   font-size: 12px;
   padding: 7px 15px;
   border-bottom: solid 1px #f5f9e7;
