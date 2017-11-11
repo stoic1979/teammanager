@@ -21,6 +21,10 @@ router.post('/add', function(req, res, next) {
 
   logger.debug("add issue got req with data: \n" + JSON.stringify(req.body.data) );
 
+
+  //fixme later !!!!!
+  req.body.data.assignee = user_id;
+
    var issue = new Issue(
 			req.body.data
     );

@@ -1,6 +1,6 @@
 angular.module("issueService", [])
 
-.factory('Issue', function($http, $q, AuthToken) {
+.factory('Issue', function($rootScope, $http, $q, AuthToken) {
 
     var issueFactory = {};
 
@@ -9,6 +9,8 @@ angular.module("issueService", [])
 
     	console.log("issueService :: create, token: " + AuthToken.getToken());
     	console.log("issueData: " + JSON.stringify(issueData) );
+
+        issueData.project = $rootScope.currentProject._id;
 
     	var payload = {
     			data: 	 issueData,

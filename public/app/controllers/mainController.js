@@ -26,11 +26,20 @@ angular.module("mainCtrl", [])
 
 	});//$rootScope.$on
 
+	//--------------------------------------
 	// get projects of logged in user
+	//--------------------------------------
 	if(vm.loggedIn) {
 		Project.all()
 		.then(function(response){
 			$rootScope.projects = response.data.slice().reverse();
+
+			console.log("got projects: " + $rootScope.projects.length);
+			// if current project is not set in root scope, 
+			// set it to the first one by default
+			if(!$rootScope.currentProject && $rootScope.projects.length > 0) {
+				$rootScope.currentProject = $rootScope.projects[0];
+			}
 		});	
 	}
 
@@ -79,6 +88,7 @@ angular.module("mainCtrl", [])
 
 	vm.setProject = function(project) {
 		$rootScope.currentProject = project;
+		console.log("current project is set to: " + $rootScope.currentProject._id);
 	}
 
 });//MainController
