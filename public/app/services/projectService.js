@@ -10,6 +10,8 @@ angular.module("projectService", [])
     	console.log("projectService :: create, token: " + AuthToken.getToken());
     	console.log("projectData: " + JSON.stringify(projectData) );
 
+        
+
     	var payload = {
     			title: 			projectData.title,
     			description: 	projectData.description,

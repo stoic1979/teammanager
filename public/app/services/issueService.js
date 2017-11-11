@@ -11,9 +11,8 @@ angular.module("issueService", [])
     	console.log("issueData: " + JSON.stringify(issueData) );
 
     	var payload = {
-    			title: 			issueData.title,
-    			description: 	issueData.description,
-    			headers: 		{'x-access-token': AuthToken.getToken()}
+    			data: 	 issueData,
+    			headers: {'x-access-token': AuthToken.getToken()}
     		}; 
 
     	return $http.post('/issues/add', payload);	

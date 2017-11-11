@@ -131,6 +131,6 @@ var server = app.listen(process.env.PORT || TEAM_MANAGER_PORT, function (err) {
         var host = server.address().address
             var port = server.address().port
 
-            logger.info("Team Manager sever listening at http://%s:%s", host, port)
+            logger.info("Team Manager server listening at http://%s:%s", host, port)
     }
 })

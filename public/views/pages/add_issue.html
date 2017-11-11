@@ -7,7 +7,7 @@
 
                 <div class="col-sm-6 col-md-4 col-md-offset-4">
                     <div class="text-center"><h3><b>Add Issue</b></h3></div>
-                    <form method="post" action="tasks/add">
+                    <form method="post" ng-submit="issue.createIssue()">
 
                         <div class="row">
                             <label>Summary</label>
@@ -45,7 +45,7 @@
                         </div>
                         <div class="row">
                             <label>Status</label><br>
-                            <select class="form-control selectpicker" ng-model="issue.issueData.type">
+                            <select class="form-control selectpicker" ng-model="issue.issueData.status">
                                 <option value="NOT-STARTED">Not Started</option>
                                 <option value="WORKING">Working</option>
                                 <option value="TESTING">Testing</option>

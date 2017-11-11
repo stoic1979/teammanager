@@ -13,17 +13,17 @@ router.get('/:id', function(req, res, next) {
 router.post('/add', function(req, res, next) {
 
 
-   logger.debug("save issue: user id=" + req.session.user._id);
+  var user_id = req.decoded._id;
 
-   logger.debug("add issue got req with body: \n" + JSON.stringify(req.body) );
+  logger.debug("save issue: user id=" + user_id);
 
+  logger.debug("add issue got req with body: \n" + JSON.stringify(req.body) );
 
-   var issue = new Issue({
-			title: req.body.title,
-			description: req.body.description,
-			assignee: req.body.assignee,
-			estimated_hours: req.body.estimated_hours,
-    });
+  logger.debug("add issue got req with data: \n" + JSON.stringify(req.body.data) );
+
+   var issue = new Issue(
+			req.body.data
+    );
 
 
     if(req.body.start_date && req.body.start_date.length) {
