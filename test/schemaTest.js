@@ -74,16 +74,89 @@ mongoose.connection.openUri(TEAM_MANAGER_TEST_MONGODB_URI);
 //------------------------------------------------------------------
 describe('Schema', function(){
 
-	//-----------------
-	// add new user	
-	//-----------------
-	it('Schema should add new user', function(){
-		var user = new User(tomsawyer);
-        user.save(function(err, user){
-        	assert.isNull(err, 'there was not error');
-        	assert.isEqual(tomsawyer.username, user.username);
+  //-----------------
+  // create manager
+  //-----------------
+  var manager = new User(auntpolly);
+  it('Schema should create a user for project/team manager', function(){
+    
+        manager.save(function(err, user){
+          assert.isNull(err, 'there was not error');
+          assert.isEqual(auntpolly.username, user.username);
         });
+
+  });
+  
+	//---------------------------------
+	// manager should create a team
+	//---------------------------------
+  myteam.manager = manager;
+  var team = new Team(myteam);
+	it('Manager should create a team', function(){
+		
+        team.save(function(err, team){
+        	assert.isNull(err, 'there was not error');
+        	assert.isEqual(team.name, myteam.name);
+        });
+
 	});
 
-});
+  //-----------------
+  // add new user 
+  //-----------------
+  var assignee = new User(tomsawyer);
+  it('Schema should add new user', function(){
+    
+        assignee.save(function(err, user){
+          assert.isNull(err, 'there was not error');
+          assert.isEqual(tomsawyer.username, user.username);
+        });
+
+  });
+
+  //-----------------
+  // add new ptroject 
+  //-----------------
+  some_project.manager = manager;
+  var project = new Project(some_project);
+  it('Manager should add new project', function(){
+    
+        project.save(function(err, project){
+          assert.isNull(err, 'there was not error');
+          assert.isEqual(some_project.title, project.title);
+        });
+
+  });
+
+  //--------------------------------------------------
+  // add an issue to project and assign it to a user
+  //--------------------------------------------------
+  issue_fill_bucket.project = project;
+  issue_fill_bucket.assignee = assignee;
+  var issue = new Issue(issue_fill_bucket);
+  it('Manager should add an issue to project and assign it to a user', function(){
+    
+        issue.save(function(err, issue){
+          assert.isNull(err, 'there was not error');
+          assert.isEqual(issue_fill_bucket.title, issue.summary);
+        });
+
+  });
+
+  //--------------------------------------------------
+  // assignee should make a comment on issue
+  //--------------------------------------------------
+  some_comment.writer = assignee;
+  some_comment.issue  = issue;
+  var comment = new Comment(some_comment);
+  it('Assignee should make a comment on issue', function(){
+    
+        comment.save(function(err, comment){
+          assert.isNull(err, 'there was not error');
+          assert.isEqual(some_comment.title, comment.title);
+        });
+
+  });
+
+});//describe-Schema
 
