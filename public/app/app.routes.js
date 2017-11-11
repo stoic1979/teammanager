@@ -44,6 +44,11 @@ angular.module('appRoutes', ['ngRoute'])
 		.when('/signup_done', {
 			templateUrl: 'views/pages/signup_done.html'
 		})
+		.when('/projects', {
+			templateUrl: 'views/pages/projects.html',
+			controller: 'MainController',
+			controllerAs: 'main' 
+		})
 		.when('/project_info', {
 			templateUrl: 'views/pages/project_info.html'
 		})
