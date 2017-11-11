@@ -11,7 +11,10 @@ var dependencies = [
 	'teamCtrl',
 	'teamService',
 	'projectService', 
-	'projectCtrl'];
+	'projectCtrl',
+	'issueService', 
+	'issueCtrl'
+	];
 
 angular.module("myApp", dependencies)
 
