@@ -44,7 +44,9 @@ angular.module('appRoutes', ['ngRoute'])
 		.when('/signup_done', {
 			templateUrl: 'views/pages/signup_done.html'
 		})
-		
+		.when('/project_info', {
+			templateUrl: 'views/pages/project_info.html'
+		})
 
 
     //FIXME: its not working
