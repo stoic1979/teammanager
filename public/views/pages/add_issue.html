@@ -1,94 +1,78 @@
+<div class="container" ng-controller="IssueController as issue"> <!-- div controller -->
 
-<html>
-<head>
-<style>
+    <div class="panel panel-success"> <!-- div panel -->
+        <div class="panel-heading">ADD ISSUE</div>
+        <div class="panel-body">
+            <div class="row">
 
+                <div class="col-sm-6 col-md-4 col-md-offset-4">
+                    <div class="text-center"><h3><b>Add Issue</b></h3></div>
+                    <form method="post" action="tasks/add">
 
-.drp{
-    display: none;
-}
-.down:hover .drp{
-    display: block;
-}
+                        <div class="row">
+                            <label>Summary</label>
+                            <input  type="text" class="form-control" ng-model="issue.issueData.summary"> 
+                        </div>
+                        <div class="row">
+                            <label> Descripition </label>
+                            <br><textarea name="description" class="form-control" ng-model="issue.issueData.description"> 
+                            </textarea>
+                        </div>
+                        <div class="row">
+                            <label>Assignee</label><br>
+                            <select class="form-control selectpicker" ng-model="issue.issueData.assignee">
+                                <option value="Nsk">NSK</option>
+                                <option value="Tom">Tom</option>
+                            </select>
+                        </div>
+                        <div class="row">
+                            <label>Priority</label><br>
+                            <select class="form-control selectpicker" ng-model="issue.issueData.priority">
+                                <option value="BLOCKER">Blocker</option>
+                                <option value="HIGH">High</option>
+                                <option value="MEDIUM">Medium</option>
+                                <option value="LOW">Low</option>
+                            </select>                 
+                        </div>
+                        <div class="row">
+                            <label>Type</label><br>
+                            <select class="form-control selectpicker" ng-model="issue.issueData.type">
+                                <option value="TASK">Task</option>
+                                <option value="BUG">Bug</option>
+                                <option value="ENHANCEMENT">Enhancement</option>
+                            </select>
 
-</style>
-</head>
-<div class="container" ng-controller="UserCreateController as ucc">
-    <div class="row">
+                        </div>
+                        <div class="row">
+                            <label>Status</label><br>
+                            <select class="form-control selectpicker" ng-model="issue.issueData.type">
+                                <option value="NOT-STARTED">Not Started</option>
+                                <option value="WORKING">Working</option>
+                                <option value="TESTING">Testing</option>
+                                <option value="CLOSED">Closed</option>
+                                <option value="REOPENED">Reopened</option>
+                            </select>
 
-        <div class="col-sm-6 col-md-4 col-md-offset-4">
-            <div class="text-center"><h3><b>Add Issue</b></h3></div>
-            <form method="post" action="tasks/add">
+                        </div>
+                        <div class="row">
+                            <label>Start Date</label> 
+                            <input type="date" class="form-control" ng-model="issue.issueData.start_date"> 
+                        </div>
+                        <div class="row">
+                            <label>End Date</label> 
+                            <input type="date" class="form-control" ng-model="issue.issueData.end_date"> 
+                        </div>
+                        <div class="row">
+                            <label>Estimated Hours:</label>
+                            <input type="text" class="form-control"  ng-model="issue.issueData.estimated_hours">
+                        </div><br>
+                        <div class="row">         
+                            <input type="submit"  style="width: 300px; name="login-submit" id="login-submit" tabindex="2" class="btn btn-success" value="Add Task">                  
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div><!-- div panel-body -->
+    </div><!-- div panel -->
 
-                <div class="row">
-                    <label>Summary</label>
-                    <input  type="text" name="title" id="title"  class="form-control"> 
-                </div>
-                <div class="row">
-                    <label> Descripition </label>
-                    <br><textarea name="description" id="description"  class="form-control">    
-                    </textarea>
-                </div>
-                <div class="row">
-                    <label>Assignee</label><br>
-                    <select class="form-control selectpicker">
-                    <option>NSK</option>
-                    <option>Tom</option>
-                    </select>
-                   
-                </div>
-                <div class="row">
-                    <label>Priority</label><br>
-                    <select class="form-control selectpicker" >
-                    <option>BLOCKER</option>
-                    <option>HIGH</option>
-                    <option>MEDIUM</option>
-                    <option>LOW</option>
-
-                    </select>
-                   
-                </div>
-                <div class="row">
-                    <label>Type</label><br>
-                    <select class="form-control selectpicker">
-                    <option>Task</option>
-                    <option>Bug</option>
-                    <option>Enhancement</option>
-                    </select>
-                   
-                </div>
-                <div class="row">
-                    <label>Status</label><br>
-                    <select class="form-control selectpicker">
-                    <option>NOT-STARTED</option>
-                    <option>WORKING</option>
-                    <option>TESTING</option>
-                    <option>CLOSED</option>
-                    <option>REOPENED</option>
-                    </select>
-                   
-                </div>
-                <div class="row">
-                    <label>Start Date</label> 
-                    <input type="date" name="start_date" id="start_date"  class="form-control"> 
-                </div>
-                <div class="row">
-                    <label>End Date</label> 
-                    <input type="date" name="end_date" id="end_date"  class="form-control"> 
-                </div>
-                <div class="row">
-                    <label>Estimated Hours:</label>
-                    <input type="text" name="estimated_hours" id="estimated_hours"  class="form-control">
-                </div><br>
-                <div class="row">
-                    
-                    <input type="submit"  style="width: 300px; name="login-submit" id="login-submit" tabindex="2" class="btn btn-success" value="Add Task">
-                    
-                </div>
-                  
-
-
-            </form>
-        </div>
-    </div>
-</div>
+</div><!-- div controller -->
