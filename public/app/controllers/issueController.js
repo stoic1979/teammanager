@@ -4,6 +4,8 @@ angular.module('issueCtrl', ['issueService'])
 
 	var vm = this;
 
+	$rootScope.issues = [];
+
 	vm.createIssue = function() {
 
 		vm.message = '';
