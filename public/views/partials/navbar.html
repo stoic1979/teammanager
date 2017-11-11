@@ -18,7 +18,7 @@
                 <ul class="dropdown-menu" role="menu">
                     <li><a href="#!add_project">ADD PROJECT</a></li>
                     <li class="divider"></li>
-                    <li ng-repeat="p in projects"><a href="#!" >{{ p.title }}</a></li>
+                    <li ng-repeat="p in projects"><a href="#!project_info" ng-click="main.setProject(p)">{{ p.title }}</a></li>
                     <li class="divider"></li>
                 </ul>
             </li>

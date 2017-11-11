@@ -77,4 +77,8 @@ angular.module("mainCtrl", [])
 		$location.path('/logout');
 	};
 
+	vm.setProject = function(project) {
+		$rootScope.currentProject = project;
+	}
+
 });//MainController
