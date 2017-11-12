@@ -50,7 +50,9 @@ angular.module('appRoutes', ['ngRoute'])
 			controllerAs: 'main' 
 		})
 		.when('/project_info', {
-			templateUrl: 'views/general/project_info.html'
+			templateUrl: 'views/general/project_info.html',
+			controller: 'IssueController',
+			controllerAs: 'issue'
 		})
 		.otherwise({
       		templateUrl: 'views/general/404.html'
