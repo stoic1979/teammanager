@@ -9,6 +9,8 @@ Team manager has the following features:-
  - A team manager registers his/her account, create a team and invites team members.
  - A team manager creates projects, assigns tasks and monitor progress.
  - A team member updates progress on tasks, can comment on tasks, changes status to done when finished etc.
+ - User role based UI
+ - Unit tests with Mocha/Chai
  - Charts for visualizing project status etc.
  - Admin panel for administration.
 
@@ -23,14 +25,16 @@ Run these commands in your terminal in the directory of the cloned repository.
 
 ```
 npm install
+node test
 node start
 ```
 
 Technical Stack
 ---------------
 
- - Back-end: Node, Express, MongoDB
+ - Back-end: Node, Express, Mongoose/MongoDB
  - Front-End: JQuery, Bootstrap, Angularjs
+ - Unit Tests: Mocha, Chai
 
 Motivation to create Team Manager?
 -------------------------------
