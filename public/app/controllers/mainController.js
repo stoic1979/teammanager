@@ -2,14 +2,14 @@ angular.module("mainCtrl", [])
 
 .controller('MainController', function($rootScope, $location, Auth, Project){
 
-
 	var vm = this;
 
 	$rootScope.projects = [];
 
 
-	vm.loggedIn = Auth.isLoggedIn();
+	$rootScope.showSidebar = false;
 
+	vm.loggedIn = Auth.isLoggedIn();
 
 	//-----------------------------------------------------------------------------
 	// listener on the $routeChangeStart event to track the next route navigation
@@ -21,7 +21,7 @@ angular.module("mainCtrl", [])
 
 		Auth.getUser()
 			.then(function(data){
-				vm.user = data.data;
+				$rootScope.user = data.data;
 			})
 
 	});//$rootScope.$on
@@ -30,6 +30,9 @@ angular.module("mainCtrl", [])
 	// get projects of logged in user
 	//--------------------------------------
 	if(vm.loggedIn) {
+
+		$rootScope.showSidebar = true;
+
 		Project.all()
 		.then(function(response){
 			$rootScope.projects = response.data.slice().reverse();
@@ -59,17 +62,21 @@ angular.module("mainCtrl", [])
 				// ensure sucess flag in response data
 				if(!data.success) {
 					vm.error = data.message;
+					$rootScope.showSidebar = false;
 					return;
 				}
 
   				Auth.getUser()
 				.then(function(data){
-					vm.user = data.data;
-					console.log("vm.user: " + JSON.stringify(vm.user) );
+					$rootScope.user = data.data;
+					console.log("$rootScope.user: " + JSON.stringify($rootScope.user) );
+
+					$rootScope.showSidebar = true;
 					$location.path('/');
 				})
 				.catch(function(data){
 					vm.error = data.message;
+					$rootScope.showSidebar = false;
 				});
 
 			})
@@ -83,12 +90,28 @@ angular.module("mainCtrl", [])
 	//-------------------------
 	vm.doLogout = function(){
 		Auth.logout();
+		$rootScope.showSidebar = false;
 		$location.path('/logout');
 	};
 
 	vm.setProject = function(project) {
 		$rootScope.currentProject = project;
 		console.log("current project is set to: " + $rootScope.currentProject._id);
+	};
+
+	vm.isManager = function() {
+		if(!$rootScope.user) return false;
+		return $rootScope.user.role == "MANAGER";
+	};
+
+	vm.isSidebarEnabled = function() {
+		return $rootScope.showSidebar;
+	}
+
+	vm.toggleSidebar = function() {
+		$("#wrapper").toggleClass("toggled");
+		$("#menu-toggle").find('i').toggleClass('fa fa-angle-double-left').toggleClass('fa fa-angle-double-right');
 	}
 
 });//MainController
+          

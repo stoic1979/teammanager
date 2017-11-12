@@ -1,4 +1,4 @@
-<div id="wrapper" ng-if="main.loggedIn"><!-- WRAPPER -->
+<div id="wrapper" ng-if="main.isSidebarEnabled()"><!-- WRAPPER -->
     <div id="sidebar-wrapper"><!-- Sidebar -->
         <ul class="sidebar-nav" style="margin-left:0;">
             <li class="sidebar-brand"></li>
@@ -25,7 +25,7 @@
             </li>
 
         </ul>
-        <a href="#menu-toggle"  id="menu-toggle" style="position: absolute; right: 10%; bottom: 10%; color: white;">
+        <a href ng-click="main.toggleSidebar()" id="menu-toggle" style="position: absolute; right: 10%; bottom: 10%; color: white;"  target="_self">
             <i class="fa fa-angle-double-left" style="font-size:20px !Important;" aria-hidden="true"> </i>
         </a>  
     </div><!-- Sidebar -->
