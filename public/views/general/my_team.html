@@ -3,26 +3,37 @@
         <div class="panel-heading">Invite Team member</div>
         <div class="panel-body">
 
-    <div class="row">
-        <div class="col-sm-6 col-md-4 col-md-offset-4">
-            <form ng-submit="team.inviteTeamMember()"" method="post" role="form" autocomplete="off">
+            <div class="row">
+                <div class="col-sm-6 col-md-4 col-md-offset-4">
+                    <form ng-submit="team.inviteTeamMember()"" method="post" role="form" autocomplete="off">
 
-                <div class="form-group">
-                    <input type="text" name="email" id="email" tabindex="1" class="form-control" placeholder="Email" ng-model="team.teamData.email">
-                </div>
-
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-xs-6 col-xs-offset-3">
-                            <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-primary" value="Send Invitation">
+                        <div class="form-group">
+                            <input type="text" name="email" id="email" tabindex="1" class="form-control" placeholder="Email" ng-model="team.teamData.email">
                         </div>
-                    </div>
-                </div>
-                 <h4 class="text">{{ team.message }}</h4>
-            </form>
-        </div>
 
-    </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-xs-6 col-xs-offset-3">
+                                    <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-primary" value="Send Invitation">
+                                </div>
+                            </div>
+                        </div>
+                        <h4 class="text">{{ team.message }}</h4>
+                    </form>
+                </div>
+            </div><!-- add team form -->
+
+
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+            </table>
+
 
         </div><!-- div panel-body -->
     </div><!-- div panel -->
