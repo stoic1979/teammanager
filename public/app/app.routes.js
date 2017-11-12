@@ -38,6 +38,15 @@ angular.module('appRoutes', ['ngRoute'])
 		.when('/profile', {
 			templateUrl: 'views/general/profile.html'
 		})
+		.when('/about_us', {
+			templateUrl: 'views/general/about_us.html'
+		})
+		.when('/messages', {
+			templateUrl: 'views/general/messages.html'
+		})
+		.when('/backlogs', {
+			templateUrl: 'views/general/backlogs.html'
+		})
 		.when('/contact_us', {
 			templateUrl: 'views/general/contact_us.html'
 		})
