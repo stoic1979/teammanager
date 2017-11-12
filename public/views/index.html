@@ -66,6 +66,6 @@
             <div ng-view></div>
         </main>
 
-        <div ng-include="'views/general/partials/footer.html'"></div>
+        <div ng-if="main.loggedIn" ng-include="'views/general/partials/footer.html'"></div>
     </body>
 </html>

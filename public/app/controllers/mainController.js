@@ -90,6 +90,7 @@ angular.module("mainCtrl", [])
 	//-------------------------
 	vm.doLogout = function(){
 		Auth.logout();
+		$rootScope.user = null;
 		$rootScope.showSidebar = false;
 		$location.path('/logout');
 	};
