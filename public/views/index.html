@@ -52,6 +52,7 @@
             <div ng-if="main.isManager()" ng-include="'views/manager/partials/navbar.html'"></div>
             <div ng-if="main.isWorker()" ng-include="'views/worker/partials/navbar.html'"></div>
             <div ng-if="main.isAdmin()" ng-include="'views/admin/partials/navbar.html'"></div>
+            <div ng-if="!main.loggedIn" ng-include="'views/general/partials/navbar.html'"></div>
 
 
             <!-- decide sidebar on basis of user role -->
@@ -66,6 +67,6 @@
             <div ng-view></div>
         </main>
 
-        <div ng-if="main.loggedIn" ng-include="'views/general/partials/footer.html'"></div>
+        <div ng-include="'views/general/partials/footer.html'"></div>
     </body>
 </html>

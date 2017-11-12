@@ -1,0 +1,21 @@
+<div class="navbar navbar-inverse"> <!-- NAVBAR -->
+    <div class="container">
+        <div class="navbar-header">
+            <a href="#!/" class="navbar-brand">TEAM MANAGER</a>
+        </div>
+
+        <ul class="nav navbar-nav">
+            <li><a href="#!/">Home</a></li>
+        </ul>
+
+        <ul class="nav navbar-nav">
+            <li><a href="#!features">Features</a></li>
+        </ul>
+
+        <!-- LOGIN/SIGNUP/PROFILE -->
+        <ul class="nav navbar-nav navbar-right">
+            <li ng-if="!main.loggedIn"><a href="#!login">Login</a></li>
+            <li ng-if="!main.loggedIn"><a href="#!signup">Sign Up</a></li>
+        </ul>
+    </div>
+</div><!-- NAVBAR -->
