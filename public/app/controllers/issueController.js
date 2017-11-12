@@ -6,6 +6,9 @@ angular.module('issueCtrl', ['issueService'])
 
 	$rootScope.issues = [];
 
+
+
+
 	vm.createIssue = function() {
 
 		vm.message = '';
@@ -28,5 +31,26 @@ angular.module('issueCtrl', ['issueService'])
 		});
 
 	};//createIssue
+
+	vm.getIssuesForCurrentProject = function() {
+
+		if(!$rootScope.currentProject) {
+			console.log("getIssuesForCurrentProject - no current project is selected/found!");
+			return; // FIXME - handle this error !!!
+		}
+
+		console.log("IssueController getting issues for current project");
+		Issue.getIssuesForCurrentProject($rootScope.currentProject._id)
+		.then(function(response){
+			console.log("got issues: " + JSON.stringify(response));
+			$rootScope.issues = response.data;
+		});
+	}
+
+	console.log("IssueController");
+
+	if($rootScope.currentProject) {
+		vm.getIssuesForCurrentProject();
+	}
 
 });//IssueController

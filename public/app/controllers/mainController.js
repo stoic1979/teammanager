@@ -1,6 +1,6 @@
 angular.module("mainCtrl", [])
 
-.controller('MainController', function($rootScope, $location, Auth, Project){
+.controller('MainController', function($rootScope, $location, Auth, Project, Issue){
 
 	var vm = this;
 

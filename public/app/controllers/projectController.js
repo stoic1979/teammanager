@@ -1,8 +1,11 @@
 angular.module('projectCtrl', ['projectService'])
 
-.controller('ProjectController', function($rootScope, Project, $location, $window){
+.controller('ProjectController', function($rootScope, Project, Issue, $location, $window){
 
 	var vm = this;
+
+
+
 
 	vm.createProject = function() {
 

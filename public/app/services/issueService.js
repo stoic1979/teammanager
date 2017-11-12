@@ -20,6 +20,17 @@ angular.module("issueService", [])
     	return $http.post('/issues/add', payload);	
     };
 
+    issueFactory.getIssuesForCurrentProject = function(project_id) {
+
+        var payload = {
+                headers: {'x-access-token': AuthToken.getToken()}
+            };
+
+        return $http.get('/issues/all_by_project/' + project_id, payload);   
+    };
+
+
+
     issueFactory.all = function() {
 
     	var payload = {

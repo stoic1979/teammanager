@@ -61,9 +61,6 @@ router.post('/add', function(req, res, next) {
     	issue.end_date = end_date;
     }
 
-    //FIXME: dont use hard-coded project
-    issue.project = "59e622e36af4fb62d7286eab";
-
 	issue.save(function(err) {
 		if(err) {
 			console.log("issue save error: " + err);

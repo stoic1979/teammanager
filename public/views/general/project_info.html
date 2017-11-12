@@ -9,7 +9,7 @@
         <thead>
         	<tr>
         		<th>#</th>
-        		<th>Title</th>
+        		<th>Summart</th>
         		<th>Worker</th>
         		<th>Type</th>
         		<th>Status</th>
@@ -17,7 +17,13 @@
         	</tr>
         </thead>
         <tbody>
-        	
+        	<tr ng-repeat="issue in issues">
+        		<td>{{$index+1}}</td>
+        		<td>{{issue.summary}}</td>
+        		<td>{{issue.assignee}}</td>
+        		<td>{{issue.type}}</td>
+        		<td>{{issue.status}}</td>
+    		</tr>
         </tbody>
         </table>
 
