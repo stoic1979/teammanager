@@ -11,19 +11,6 @@
             <li><a href="#!pricing">Pricing</a></li>
         </ul>
 
-        <!-- PROJECTS -->
-        <ul class="nav navbar-nav" ng-if="main.loggedIn && main.isManager()">
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" target="_self">Projects<span class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a href="#!add_project">ADD PROJECT</a></li>
-                    <li class="divider"></li>
-                    <li ng-repeat="p in projects"><a href="#!project_info" ng-click="main.setProject(p)">{{ p.title }}</a></li>
-                    <li class="divider"></li>
-                </ul>
-            </li>
-        </ul>
-
         <!-- ISSUES -->
         <ul class="nav navbar-nav" ng-if="main.loggedIn">
             <li class="dropdown">

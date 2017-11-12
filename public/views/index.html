@@ -48,8 +48,16 @@
 
         <header>
 
-            <div ng-include="'views/partials/navbar.html'"></div>
-            <div ng-include="'views/partials/sidebar.html'"></div>    
+            <!-- decide navbar on basis of user role -->
+            <div ng-if="main.isManager()" ng-include="'views/manager/partials/navbar.html'"></div>
+            <div ng-if="main.isWorker()" ng-include="'views/worker/partials/navbar.html'"></div>
+            <div ng-if="main.isAdmin()" ng-include="'views/admin/partials/navbar.html'"></div>
+
+
+            <!-- decide sidebar on basis of user role -->
+            <div ng-if="main.isManager()" ng-include="'views/manager/partials/sidebar.html'"></div>    
+            <div ng-if="main.isWorker()" ng-include="'views/worker/partials/sidebar.html'"></div>    
+            <div ng-if="main.isAdmin()" ng-include="'views/admin/partials/sidebar.html'"></div>    
 
         </header>
 
@@ -58,9 +66,6 @@
             <div ng-view></div>
         </main>
 
-        <div ng-include="'views/partials/footer.html'"></div>
-
-        <!-- SIDEBAR TOGGLE JAVASCRIPT -->
-        <script type="text/javascript" src="js/toggle_sidebar.js"></script>
+        <div ng-include="'views/general/partials/footer.html'"></div>
     </body>
 </html>

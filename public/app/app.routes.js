@@ -5,55 +5,55 @@ angular.module('appRoutes', ['ngRoute'])
 	$routeProvider
 
 		.when('/', {
-			templateUrl: 'views/pages/dashboard.html',
+			templateUrl: 'views/general/dashboard.html',
 			controller: 'MainController', // this controller will be used in dashboard.html page
 			controllerAs: 'main'          // this is a small-name/nickname for controller
 		})
 		.when('/login', {
-			templateUrl: 'views/pages/login.html'
+			templateUrl: 'views/general/login.html'
 		})
 		.when('/signup', {
-			templateUrl: 'views/pages/signup.html'
+			templateUrl: 'views/general/signup.html'
 		})
 		.when('/add_project', {
-			templateUrl: 'views/pages/add_project.html',
+			templateUrl: 'views/general/add_project.html',
 			controller: 'ProjectController',
 		})
 		.when('/add_issue', {
-			templateUrl: 'views/pages/add_issue.html'
+			templateUrl: 'views/general/add_issue.html'
 		})
 		.when('/features', {
-			templateUrl: 'views/pages/features.html'
+			templateUrl: 'views/general/features.html'
 		})
 		.when('/pricing', {
-			templateUrl: 'views/pages/pricing.html'
+			templateUrl: 'views/general/pricing.html'
 		})
 		.when('/my_team', {
-			templateUrl: 'views/pages/my_team.html',
+			templateUrl: 'views/general/my_team.html',
 			controller: 'TeamController'
 		})
 		.when('/reports', {
-			templateUrl: 'views/pages/reports.html'
+			templateUrl: 'views/general/reports.html'
 		})
 		.when('/profile', {
-			templateUrl: 'views/pages/profile.html'
+			templateUrl: 'views/general/profile.html'
 		})
 		.when('/contact_us', {
-			templateUrl: 'views/pages/contact_us.html'
+			templateUrl: 'views/general/contact_us.html'
 		})
 		.when('/signup_done', {
-			templateUrl: 'views/pages/signup_done.html'
+			templateUrl: 'views/general/signup_done.html'
 		})
 		.when('/projects', {
-			templateUrl: 'views/pages/projects.html',
+			templateUrl: 'views/general/projects.html',
 			controller: 'MainController',
 			controllerAs: 'main' 
 		})
 		.when('/project_info', {
-			templateUrl: 'views/pages/project_info.html'
+			templateUrl: 'views/general/project_info.html'
 		})
 		.otherwise({
-      		templateUrl: 'views/pages/404.html'
+      		templateUrl: 'views/general/404.html'
     	});
 
     //FIXME: its not working

@@ -104,6 +104,16 @@ angular.module("mainCtrl", [])
 		return $rootScope.user.role == "MANAGER";
 	};
 
+	vm.isWorker = function() {
+		if(!$rootScope.user) return false;
+		return $rootScope.user.role == "WORKER";
+	};
+
+	vm.isAdmin = function() {
+		if(!$rootScope.user) return false;
+		return $rootScope.user.role == "ADMIN";
+	};
+
 	vm.isSidebarEnabled = function() {
 		return $rootScope.showSidebar;
 	}
