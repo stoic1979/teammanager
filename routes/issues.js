@@ -5,13 +5,36 @@ const logger   = require('../helpers/logger');
 
 var Issue = require('../schema/issue');
 
+//-----------------------------------------------------------
+//   GET ISSUES BY ISSUE ID
+//-----------------------------------------------------------
 router.get('/:id', function(req, res, next) {
   res.send('Issue id:' + req.params.id);
 });
 
+//-----------------------------------------------------------
+//   GET ALL ISSUES FOR PROJECT ID
+//-----------------------------------------------------------
+router.get('/all_by_project/:id', function(req, res, next) {
 
+  var project_id = req.params.id;
+
+  logger.debug("getting issue for project: " + project_id);
+
+  Issue.find( {project: project_id}, function(err, issues) {
+
+    if(err) {
+      res.send(err);
+      return;
+    }
+    res.json(issues);
+  });
+});
+
+//-----------------------------------------------------------
+//   ADD NEW ISSUE
+//-----------------------------------------------------------
 router.post('/add', function(req, res, next) {
-
 
   var user_id = req.decoded._id;
 
