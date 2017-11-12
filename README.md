@@ -18,6 +18,12 @@ Team manager has the following features:-
 # Watch Demo
 [Live Demo On Heroku](https://teammanager9.herokuapp.com)
 
+# Dashboard screenshot
+![Alt text](screenshots/dashboard.png?raw=true "Dashboard - add project")
+
+# Mocha unit test screenshot
+![Alt text](screenshots/mocha_tests.png?raw=true "Dashboard - add project")
+
 ## Getting started
 First of all, you must have **nodejs** and **mongodb** installed on your computer.
 
