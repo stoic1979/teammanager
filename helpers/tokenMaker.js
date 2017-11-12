@@ -14,7 +14,8 @@ TokenMaker.prototype.createUserToken = function(user) {
 	var token = jsonwebtoken.sign({
 		_id: user._id,
 		name: user.name,
-		username: user.username
+		username: user.username,
+		role: user.role
 	}, this.secretKey, {
 		expiresIn: '1h'
 	});
