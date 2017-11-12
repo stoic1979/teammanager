@@ -9,11 +9,12 @@
         <thead>
         	<tr>
         		<th>#</th>
-        		<th>Summart</th>
+        		<th>Summary</th>
         		<th>Worker</th>
         		<th>Type</th>
+        		<th>Priority</th>
         		<th>Status</th>
-        		<th></th>
+        		<th>Details</th>
         	</tr>
         </thead>
         <tbody>
@@ -22,10 +23,11 @@
         		<td>{{issue.summary}}</td>
         		<td>{{issue.assignee}}</td>
         		<td>{{issue.type}}</td>
+        		<td>{{issue.priority}}</td>
         		<td>{{issue.status}}</td>
+        		<td><a href="#!task_info/{{issue._id}}" class="btn btn-primary">Details</a></td>
     		</tr>
         </tbody>
         </table>
-
     </div><!-- div panel-body -->
 </div><!-- div panel -->
