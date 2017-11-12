@@ -11,6 +11,7 @@ Team manager has the following features:-
  - A team member updates progress on tasks, can comment on tasks, changes status to done when finished etc.
  - User role based UI
  - Unit tests with Mocha/Chai
+ - Database seeding with demo data - manager, team, project, assignee etc.
  - Charts for visualizing project status etc.
  - Admin panel for administration.
 
