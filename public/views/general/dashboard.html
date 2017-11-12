@@ -25,14 +25,18 @@
 
 <!-- GENERAL INTRODUCTION OF TEAM MANAGER ENDS -->
 
-<div ng-if="main.isManager()">
-   <br> logged in as manager !!!<br>
-</div>
+
 
 <div class="row" ng-if="main.loggedIn">
     <div class="panel panel-primary"> <!-- div panel -->
         <div class="panel-heading">My Dashboard</div>
         <div class="panel-body">
+
+
+        <div ng-if="main.isManager()" ng-include="'views/manager/dashboard.html'"></div>
+        <div ng-if="main.isWorker()"  ng-include="'views/worker/dashboard.html'"></div>
+        <div ng-if="main.isAdmin()"   ng-include="'views/admin/dashboard.html'"></div>
+
         </div><!-- div panel-body -->
     </div><!-- div panel -->
 </div><!-- if logged in -->
