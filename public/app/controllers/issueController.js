@@ -6,9 +6,6 @@ angular.module('issueCtrl', ['issueService'])
 
 	$rootScope.issues = [];
 
-
-
-
 	vm.createIssue = function() {
 
 		vm.message = '';
@@ -27,7 +24,7 @@ angular.module('issueCtrl', ['issueService'])
 			// insert latest issue in begining of array
 			$rootScope.issues.unshift(response.data.issue);
 
-			$location.path('/');
+			$location.path('/project_info');
 		});
 
 	};//createIssue

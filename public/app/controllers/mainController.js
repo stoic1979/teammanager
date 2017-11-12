@@ -98,6 +98,14 @@ angular.module("mainCtrl", [])
 	vm.setProject = function(project) {
 		$rootScope.currentProject = project;
 		console.log("current project is set to: " + $rootScope.currentProject._id);
+		//IssueController.getIssuesForCurrentProject();
+
+		Issue.getIssuesForCurrentProject($rootScope.currentProject._id)
+		.then(function(response){
+			console.log("main controller got issues: " + JSON.stringify(response));
+			$rootScope.issues = response.data;
+		});
+
 	};
 
 	vm.isManager = function() {
