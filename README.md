@@ -18,6 +18,8 @@ Team manager has the following features:-
 
 # Watch Demo
 [Live Demo On Heroku](https://teammanager9.herokuapp.com)
+Username: tmmanager
+Password: 123
 
 # Dashboard screenshot
 ![Alt text](screenshots/dashboard.png?raw=true "Dashboard - add project")
