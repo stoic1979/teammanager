@@ -10,13 +10,28 @@
                             <label> Title </label>
                             <input type="text" tabindex="1" class="form-control"  ng-model="project.projectData.title">
                         </div>
-
+                        <br>
                         <div class="row">
                             <label> Descripition </label>
                             <textarea name="description" class="form-control" ng-model="project.projectData.description"> 
                             </textarea>
                         </div>
                         <br>
+                        <div class="row">
+                            <label>Start Date</label> 
+                            <input type="date" class="form-control" ng-model="issue.issueData.start_date"> 
+                        </div>
+                        <br>
+                        <div class="row">
+                            <label>End Date</label> 
+                            <input type="date" class="form-control" ng-model="issue.issueData.end_date"> 
+                        </div>
+                        <br>
+                        <div class="row">
+                            <label>Estimated Hours:</label>
+                            <input type="text" class="form-control"  ng-model="issue.issueData.estimated_hours">
+                        </div><br>
+
                         <div class="row">
                             <input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-primary" value="Save Project">
                         </div>
