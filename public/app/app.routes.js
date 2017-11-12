@@ -52,7 +52,9 @@ angular.module('appRoutes', ['ngRoute'])
 		.when('/project_info', {
 			templateUrl: 'views/pages/project_info.html'
 		})
-
+		.otherwise({
+      		templateUrl: 'views/pages/404.html'
+    	});
 
     //FIXME: its not working
 	//$locationProvider.html5Mode(true);	
