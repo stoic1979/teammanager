@@ -21,6 +21,9 @@ Team manager has the following features:-
 # Dashboard screenshot
 ![Alt text](screenshots/dashboard.png?raw=true "Dashboard - add project")
 
+# Issues screenshot
+![Alt text](screenshots/issues.png?raw=true "Issues for a project")
+
 # Mocha unit test screenshot
 ![Alt text](screenshots/mocha_tests.png?raw=true "Dashboard - add project")
 
