@@ -21,7 +21,7 @@
         	<tr ng-repeat="issue in issues">
         		<td>{{$index+1}}</td>
         		<td>{{issue.summary}}</td>
-        		<td>{{issue.assignee}}</td>
+        		<td>{{issue.assignee.email}}</td>
         		<td>{{issue.type}}</td>
         		<td>{{issue.priority}}</td>
         		<td>{{issue.status}}</td>
