@@ -21,15 +21,18 @@ router.get('/all_by_project/:id', function(req, res, next) {
 
   logger.debug("getting issue for project: " + project_id);
 
-  Issue.find( {project: project_id}, function(err, issues) {
-
-    if(err) {
-      res.send(err);
-      return;
-    }
+  Issue.find( {project: project_id} )
+  .populate('assignee')  // fieldname to be furhter looked-up 
+  .populate('project')   // fieldname to be furhter looked-up
+  .exec(function(err, issues) {
+      if(err) {
+        res.send(err);
+        return;
+      }
+    logger.debug("--- issues: " + JSON.stringify(issues));  
     res.json(issues);
   });
-});
+});//all_by_project
 
 //-----------------------------------------------------------
 //   ADD NEW ISSUE
@@ -72,7 +75,7 @@ router.post('/add', function(req, res, next) {
 		console.log("issue created");
 	});
   res.redirect('/');
-});
+});//add
 
 
 module.exports = router;
