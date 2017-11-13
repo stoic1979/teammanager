@@ -46,7 +46,6 @@
     </head>
     <body ng-controller="MainController as main">
 
-        <header>
 
             <!-- decide navbar on basis of user role -->
             <div ng-if="main.isManager()" ng-include="'views/manager/partials/navbar.html'"></div>
@@ -54,18 +53,26 @@
             <div ng-if="main.isAdmin()" ng-include="'views/admin/partials/navbar.html'"></div>
             <div ng-if="!main.loggedIn" ng-include="'views/general/partials/navbar.html'"></div>
 
+<div id="wrapper" ><!-- WRAPPER -->
+
 
             <!-- decide sidebar on basis of user role -->
             <div ng-if="main.isManager()" ng-include="'views/manager/partials/sidebar.html'"></div>    
             <div ng-if="main.isWorker()" ng-include="'views/worker/partials/sidebar.html'"></div>    
             <div ng-if="main.isAdmin()" ng-include="'views/admin/partials/sidebar.html'"></div>    
 
-        </header>
 
-        <main class="container">
-            <!-- <div class="jumbotron" ng-view></div> -->
-            <div ng-view></div>
-        </main>
+        <div id="page-content-wrapper">
+            <div class="page-content">
+                <div class="container-fluid">
+                    <main class="container">
+                        <!-- <div class="jumbotron" ng-view></div> -->
+                        <div ng-view></div>
+                    </main>
+                </div>
+            </div>
+        </div>   
+</div><!-- WRAPPER -->
 
         <div ng-include="'views/general/partials/footer.html'"></div>
     </body>

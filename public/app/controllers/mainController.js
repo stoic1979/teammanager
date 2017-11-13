@@ -128,7 +128,7 @@ angular.module("mainCtrl", [])
 	}
 
 	vm.toggleSidebar = function() {
-		$("#wrapper").toggleClass("toggled");
+		$("#wrapper").toggleClass("active");
 		$("#menu-toggle").find('i').toggleClass('fa fa-angle-double-left').toggleClass('fa fa-angle-double-right');
 	}
 
