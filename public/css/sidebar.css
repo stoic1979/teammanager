@@ -26,7 +26,7 @@
 
 #page-content-wrapper {
   width: 100%;
-  padding-top: 20px;
+  padding-top: 70px;
   transition: all 0.4s ease 0s;
 }
 
@@ -40,7 +40,7 @@
 }
 
 .sidebar-nav li {
-  line-height: 40px;
+  line-height: 20px;
   text-indent: 20px;
 }
 

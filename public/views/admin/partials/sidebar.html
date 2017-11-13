@@ -1,6 +1,6 @@
-
-    <div id="sidebar-wrapper" ng-if="main.isSidebarEnabled()"><!-- Sidebar -->
-        <ul class="sidebar-nav" style="margin-left:0;">
+<div id="sidebar-wrapper" ng-if="main.isSidebarEnabled()"><!-- Sidebar -->
+    <nav id="spy">
+        <ul class="sidebar-nav nav">
             <li class="sidebar-brand"></li>
             <li>
                 <a href="#!/"><i class="glyphicon glyphicon-home " aria-hidden="true"> </i> <span style="margin-left:10px;">Home</span>  </a>
@@ -19,5 +19,6 @@
         <a href ng-click="main.toggleSidebar()" id="menu-toggle" style="position: absolute; right: 10%; bottom: 10%; color: white;"  target="_self">
             <i class="fa fa-angle-double-left" style="font-size:20px !Important;" aria-hidden="true"> </i>
         </a>  
-    </div><!-- Sidebar -->
+    </nav>
+</div><!-- Sidebar -->
 
