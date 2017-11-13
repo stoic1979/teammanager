@@ -14,6 +14,7 @@ const TeamSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  members: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   created_at: Date,
   updated_at: Date
 });
