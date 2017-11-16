@@ -10,6 +10,7 @@ var users        = require('./routes/users');
 var projects     = require('./routes/projects');
 var issues       = require('./routes/issues');
 const logger     = require('./helpers/logger');
+const cors       = require('cors');
 
 
 const TEAM_MANAGER_MONGODB_URI = process.env.TEAM_MANAGER_MONGODB_URI;
@@ -21,6 +22,7 @@ const SECRET_KEY               = process.env.TEAM_MANAGER_SECRET_KEY;
 //  SETUP APP
 //----------------------------------------------------------------------------
 var app = express();
+app.use(cors());
 
 app.set('views', path.join(__dirname, 'views'));
 //app.engine('handlebars', exphbs({defaultLayout: 'main', extname: '.html'}));
