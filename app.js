@@ -107,6 +107,13 @@ app.use('/users',     users);
 app.use('/projects',  projects);
 app.use('/issues',    issues);
 
+app.get('/time', function(request, response) {
+
+   var d = new Date();
+   res.send("Current Date: " + d);
+
+});
+
 
 //----------------------------------------------------------------------------
 //   CONNECT TO MONGODB
