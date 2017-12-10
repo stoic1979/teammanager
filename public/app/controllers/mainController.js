@@ -37,7 +37,7 @@ angular.module("mainCtrl", [])
 		.then(function(response){
 			$rootScope.projects = response.data.slice().reverse();
 
-			console.log("got projects: " + $rootScope.projects.length);
+			console.log("got projects: " + JSON.stringify($rootScope.projects) );
 			// if current project is not set in root scope, 
 			// set it to the first one by default
 			if(!$rootScope.currentProject && $rootScope.projects.length > 0) {

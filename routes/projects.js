@@ -38,7 +38,9 @@ router.get('/all', function(req, res) {
 	var user_id = req.decoded._id;
 	console.log("get all project for user: " + user_id);
 
-	Project.find( {manager: user_id}, function(err, projects) {
+	Project.find( {manager: user_id})
+	.populate('manager', ['_id', 'first_name', 'last_name', 'username'])
+	.exec(function(err, projects) {
 
 		if(err) {
 			res.send(err);
