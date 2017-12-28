@@ -99,8 +99,8 @@ router.post('/login', function(req, res) {
         if(err) throw err;
 
         if(!user) {
-            //res.send({ success: false, message: 'User does not exist !'});
-            res.status(403).send( {success: false, message: 'User does not exist !'});
+            res.send({ success: false, message: 'User does not exist !'});
+            //res.status(403).send( {success: false, message: 'User does not exist !'});
         } else if(user) {
 
             //----------------------------------------------
@@ -136,7 +136,7 @@ router.post('/login', function(req, res) {
 
                 res.json({
                     success: true,
-                    message: "Successfully login !",
+                    message: "Successfully login",
                     role: user.role,
                     user_id: user._id,
                     email: user.email,
