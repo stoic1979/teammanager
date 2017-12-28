@@ -12,6 +12,8 @@ var issues       = require('./routes/issues');
 const logger     = require('./helpers/logger');
 const cors       = require('cors');
 
+var fileUpload = require('express-fileupload');
+
 
 const TEAM_MANAGER_MONGODB_URI = process.env.TEAM_MANAGER_MONGODB_URI;
 const TEAM_MANAGER_PORT        = process.env.TEAM_MANAGER_PORT;
@@ -23,6 +25,10 @@ const SECRET_KEY               = process.env.TEAM_MANAGER_SECRET_KEY;
 //----------------------------------------------------------------------------
 var app = express();
 app.use(cors());
+
+
+app.use(fileUpload());
+
 
 app.set('views', path.join(__dirname, 'views'));
 //app.engine('handlebars', exphbs({defaultLayout: 'main', extname: '.html'}));
@@ -46,11 +52,37 @@ app.get('/test_verified_page', function (req, res) {
     res.sendFile(__dirname + "/public/views/pages/" + "verification_done.html" );
 })
 
+app.get('/file_upload', function (req, res) {
+    res.sendFile(__dirname + "/public/views/general/" + "file_upload.html" );
+})
+
+app.post('/file_upload', function (req, res) {
+
+    if (!req.files)
+    return res.status(400).send('No files were uploaded.');
+
+// The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
+  var sampleFile = req.files.sampleFile;
+
+  console.log("sampleFile" + sampleFile.name);
+
+  var filePath = "./" + sampleFile.name;
+ 
+  // Use the mv() method to place the file somewhere on your server
+  sampleFile.mv(filePath, function(err) {
+    if (err)
+      return res.status(500).send(err);
+ 
+    res.send('File uploaded!');
+  });
+
+})
+
 //---------------------------------------------------
 // url ignore list for token validation middleware
 //---------------------------------------------------
 var ignore_list = [
-    '/users/signup', '/users/login',
+    '/users/signup', '/users/login', 'file_upload',
     '/favicon.ico'    
 ];
 
