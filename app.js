@@ -64,7 +64,7 @@ app.post('/file_upload', function (req, res) {
 // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
   var sampleFile = req.files.sampleFile;
 
-  console.log("sampleFile" + sampleFile.name);
+  console.log("sampleFile: " + sampleFile.name);
 
   var filePath = "./" + sampleFile.name;
  
