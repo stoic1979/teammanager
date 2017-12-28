@@ -107,8 +107,11 @@ router.post('/login', function(req, res) {
             // before logging, ensure that user is verified
             //----------------------------------------------
             if(!user.is_verified) {
-                res.send({ success: false, message: 'User is not verified !'});
-                //res.status(403).send( { success: false, message: 'User is not verified !'});
+
+                console.log("------------ user not verified ----");
+
+                res.send(JSON.stringify( { success: false, message: 'User is not verified, please check you email for verification. '} )  );
+                //res.status(403).send( JSON.stringify( { success: false, message: 'User is not verified !'} )  );
                 return; 
             }
 
@@ -178,7 +181,7 @@ router.get('/verify/:token', function(req, res) {
 
                     var parentDir  = __dirname.substring(0, __dirname.lastIndexOf('/'));
 
-					res.sendFile(parentDir + '/public/views/pages/verification_done.html') ;
+					res.sendFile(parentDir + '/public/views/general/verification_done.html') ;
 			}
 		})
              	
