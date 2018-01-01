@@ -224,7 +224,7 @@ function sendInvitationEmail(req, email) {
     // origin will tell localhost or server domain url's prefix
     var origin = req.get('origin'); 
 
-    //html += "<br><a href='" + origin + "/users/verify/" + token + "'>VERIFY ME</a>";
+    // html += "<br><a href='" + origin + "/users/verify/" + token + "'>VERIFY ME</a>";
 
     html += "<br><br> Thanks <br> Team Manager Team";
 
@@ -242,12 +242,36 @@ router.post('/invite_team_member', function(req, res) {
 
     // ensure that user is not already registered
 
+//     User.findOne({
+//         email: req.body.email
+//             //}).select('password').exec(function(err, user) { // this will only select _id and password in user obj
+//         }).exec(function(err, user) {   //// this will select all fields in user obj
 
+//         if(err) throw err;
 
+//         if(!user) {
+//             res.send({ success: false, message: 'User does not exist !'});
+//             //res.status(403).send( {success: false, message: 'User does not exist !'});
+//         } else if(user) {
 
-    // finally sending invitation to user
+//             //----------------------------------------------
+//             // before logging, ensure that user is verified
+//             //----------------------------------------------
+//             if(!user.is_verified) {
+
+//                 console.log("------------ user not verified ----");
+
+//                 res.send(JSON.stringify( { success: false, message: 'User is not verified, please check you email for verification. '} )  );
+//                 //res.status(403).send( JSON.stringify( { success: false, message: 'User is not verified !'} )  );
+//                 return; 
+//             }
+
+//         // finally sending invitation to user
+//     // 
+
+// }
     sendInvitationEmail(req, email);
-    res.json({ success: true, message: 'Invitation sent to ' + email});
+    res.json({ success: true, message: 'Invitation sent to ' + email}); 
 });
 
 
