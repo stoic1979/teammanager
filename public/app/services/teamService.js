@@ -15,7 +15,7 @@ angular.module("teamService", [])
     			headers: 	{'x-access-token': AuthToken.getToken()}
     		}; 
 
-    	return $http.post('/users/invite_team_member', payload);	
+    	return $http.post('/members/invite_team_member', payload);	
     };
 
     return teamFactory;

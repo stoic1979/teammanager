@@ -231,82 +231,73 @@ function sendInvitationEmail(req, email, token) {
     mailer.sendMail(email, subject, html);
 }
 
-//-----------------------------------------------------
-//   INVITE USER TO TEAM
-//-----------------------------------------------------
-router.post('/invite_team_member', function(req, res) {
-    var email = req.body.email;
+// //-----------------------------------------------------
+// //   INVITE USER TO TEAM
+// //-----------------------------------------------------
+// router.post('/invite_team_member', function(req, res) {
+//     var email = req.body.email;
 
-    // console.log("[INFO] :: sending invitation to : " + email);
+//     // console.log("[INFO] :: sending invitation to : " + email);
 
 
-    // if user is not registered - check for email
-    // send back error, user not found
-    // ensure that user is not already registered
+//     // if user is not registered - check for email
+//     // send back error, user not found
+//     // ensure that user is not already registered
 
-    User.findOne({
-        email: req.body.email
-            //}).select('password').exec(function(err, user) { // this will only select _id and password in user obj
-        }).exec(function(err, user) {   //// this will select all fields in user obj
+//     User.findOne({
+//         email: req.body.email
+//             //}).select('password').exec(function(err, user) { // this will only select _id and password in user obj
+//         }).exec(function(err, user) {   //// this will select all fields in user obj
 
-        if(err) throw err;
+//         if(err) throw err;
 
-        if(!user) {
-            res.send({ success: false, message: 'User does not exist !'});
-            //res.status(403).send( {success: false, message: 'User does not exist !'});
-        } else if(user) {
+//         if(!user) {
+//             res.send({ success: false, message: 'User does not exist !'});
+//             //res.status(403).send( {success: false, message: 'User does not exist !'});
+//         } else if(user) {
 
-            //----------------------------------------------
-            // before logging, ensure that user is verified
-            //----------------------------------------------
-            if(!user.is_verified) {
+//             //----------------------------------------------
+//             // before logging, ensure that user is verified
+//             //----------------------------------------------
+//             if(!user.is_verified) {
 
-                console.log("------------ user not verified ----");
+//                 console.log("------------ user not verified ----");
 
-                res.send(JSON.stringify( { success: false, message: 'User is not verified, please check you email for verification. '} )  );
-                //res.status(403).send( JSON.stringify( { success: false, message: 'User is not verified !'} )  );
-                return; 
-            }
+//                 res.send(JSON.stringify( { success: false, message: 'User is not verified, please check you email for verification. '} )  );
+//                 //res.status(403).send( JSON.stringify( { success: false, message: 'User is not verified !'} )  );
+//                 return; 
+//             }
 
-             else {
+//              else {
 
-                console.log("User  exists");
+//                 console.log("User  exists");
 
-                //-------------------------
-                // user exists , create token
-                //-------------------------
-                var token = tokenMaker.createUserToken(user);
-                //req.session.user = user;
+//                 //-------------------------
+//                 // user exists , create token
+//                 //-------------------------
+//                 var token = tokenMaker.createUserToken(user);
+//                 //req.session.user = user;
                 
 
-                res.json({
-                    success: true,
-                    message: "User Exists",
-                    role: user.role,
-                    user_id: user._id,
-                    email: user.email,
-                    first_name: user.first_name,
-                    last_name: user.last_name,
-                    });
+//                 //FIXME - use it for REST APIS later !
 
                
                
-                res.json({ success: true, message: 'Invitation sent to ' + email}); 
-                sendInvitationEmail(req, email, tokenMaker.createVerificationToken(user));
+
+//                 sendInvitationEmail(req, email, tokenMaker.createVerificationToken(user));
                 
 
-            }
-        }
-    });
+//             }
+//         }
+//     });
     
     
 
     
 
 
-    sendInvitationEmail(req, email);
-    res.json({ success: true, message: 'Invitation sent to ' + email}); 
-});
+//     
+// });
 
 
 module.exports = router;

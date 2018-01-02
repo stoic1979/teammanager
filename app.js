@@ -106,9 +106,14 @@ app.use(function(req, res, next){
         return next();
     }
 
+    if(req.originalUrl.indexOf('/members/verify/') > -1) {
+        return next();
+    }
+
     if(req.originalUrl.indexOf('/users/verify/') > -1) {
         return next();
     }
+
 
     var token = req.body.token || req.params.token || req.headers['x-access-token'];
 
