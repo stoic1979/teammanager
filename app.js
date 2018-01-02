@@ -9,6 +9,8 @@ var index        = require('./routes/index');
 var users        = require('./routes/users');
 var projects     = require('./routes/projects');
 var issues       = require('./routes/issues');
+var members       = require('./routes/members');
+
 const logger     = require('./helpers/logger');
 const cors       = require('cors');
 
@@ -138,6 +140,7 @@ app.use('/',          index);
 app.use('/users',     users);
 app.use('/projects',  projects);
 app.use('/issues',    issues);
+app.use('/members',   members);
 
 app.get('/time', function(request, response) {
 

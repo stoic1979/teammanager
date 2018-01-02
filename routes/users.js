@@ -32,11 +32,11 @@ router.post('/signup', function(req, res, next) {
 
     var user = new User({
         first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        username: req.body.username,
-        email: req.body.email,
-        password: req.body.password,
-        role: "MANAGER"
+        last_name:  req.body.last_name,
+        username:   req.body.username,
+        email:      req.body.email,
+        password:   req.body.password,
+        role:       req.body.role,
     });
 
     var token = tokenMaker.createUserToken(user);
@@ -215,16 +215,16 @@ router.get('/me', function(req, res){
 });
 
 
-function sendInvitationEmail(req, email) {
-    const subject = "Invitation to join team manager";
-    var html = "<b>Hi " + email+  " </b><br>";
+function sendInvitationEmail(req, email, token) {
+    const subject = "Welcome to team manager";
+    var html = "<b>Hi   </b><br>, <br> Welcome !!! <br> Team Manager is a perfect solution for managing your project and teams !!! <br>";
 
-    html += "<br> Click on following link to join team management system.";
+    html += "<br> Click on following link to verify your email.";
 
     // origin will tell localhost or server domain url's prefix
     var origin = req.get('origin'); 
 
-    // html += "<br><a href='" + origin + "/users/verify/" + token + "'>VERIFY ME</a>";
+    html += "<br><a href='" + origin + "/users/verify/" + token + "'>VERIFY ME</a>";
 
     html += "<br><br> Thanks <br> Team Manager Team";
 
@@ -237,39 +237,73 @@ function sendInvitationEmail(req, email) {
 router.post('/invite_team_member', function(req, res) {
     var email = req.body.email;
 
-    console.log("[INFO] :: sending invitation to : " + email);
+    // console.log("[INFO] :: sending invitation to : " + email);
 
 
+    // if user is not registered - check for email
+    // send back error, user not found
     // ensure that user is not already registered
 
-//     User.findOne({
-//         email: req.body.email
-//             //}).select('password').exec(function(err, user) { // this will only select _id and password in user obj
-//         }).exec(function(err, user) {   //// this will select all fields in user obj
+    User.findOne({
+        email: req.body.email
+            //}).select('password').exec(function(err, user) { // this will only select _id and password in user obj
+        }).exec(function(err, user) {   //// this will select all fields in user obj
 
-//         if(err) throw err;
+        if(err) throw err;
 
-//         if(!user) {
-//             res.send({ success: false, message: 'User does not exist !'});
-//             //res.status(403).send( {success: false, message: 'User does not exist !'});
-//         } else if(user) {
+        if(!user) {
+            res.send({ success: false, message: 'User does not exist !'});
+            //res.status(403).send( {success: false, message: 'User does not exist !'});
+        } else if(user) {
 
-//             //----------------------------------------------
-//             // before logging, ensure that user is verified
-//             //----------------------------------------------
-//             if(!user.is_verified) {
+            //----------------------------------------------
+            // before logging, ensure that user is verified
+            //----------------------------------------------
+            if(!user.is_verified) {
 
-//                 console.log("------------ user not verified ----");
+                console.log("------------ user not verified ----");
 
-//                 res.send(JSON.stringify( { success: false, message: 'User is not verified, please check you email for verification. '} )  );
-//                 //res.status(403).send( JSON.stringify( { success: false, message: 'User is not verified !'} )  );
-//                 return; 
-//             }
+                res.send(JSON.stringify( { success: false, message: 'User is not verified, please check you email for verification. '} )  );
+                //res.status(403).send( JSON.stringify( { success: false, message: 'User is not verified !'} )  );
+                return; 
+            }
 
-//         // finally sending invitation to user
-//     // 
+             else {
 
-// }
+                console.log("User  exists");
+
+                //-------------------------
+                // user exists , create token
+                //-------------------------
+                var token = tokenMaker.createUserToken(user);
+                //req.session.user = user;
+                
+
+                res.json({
+                    success: true,
+                    message: "User Exists",
+                    role: user.role,
+                    user_id: user._id,
+                    email: user.email,
+                    first_name: user.first_name,
+                    last_name: user.last_name,
+                    });
+
+               
+               
+                res.json({ success: true, message: 'Invitation sent to ' + email}); 
+                sendInvitationEmail(req, email, tokenMaker.createVerificationToken(user));
+                
+
+            }
+        }
+    });
+    
+    
+
+    
+
+
     sendInvitationEmail(req, email);
     res.json({ success: true, message: 'Invitation sent to ' + email}); 
 });
