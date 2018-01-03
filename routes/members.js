@@ -23,9 +23,8 @@ router.get('/all', function(req, res) {
     var user_id = req.decoded._id;
     console.log("get all members for user: " + user_id);
 
-    Member.find( {manager: user_id})
-        .populate('manager', ['_id', 'first_name', 'last_name', 'username'])
-        .exec(function(err, members) {
+    Member.find( {user: user_id})
+       .exec(function(err, members) {
 
             if(err) {
                 res.send(err);
