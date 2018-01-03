@@ -22,8 +22,8 @@ router.get('/all', function(req, res) {
 
     var manager_id = req.decoded._id;
 
-    Team.findOne( {manager:manager_id })
-    
+    Team.findOne( {manager:manager_id})
+
     .exec(function(err, team) {
 
         if(err) {
@@ -33,8 +33,8 @@ router.get('/all', function(req, res) {
         
         var team_id=team._id;
         
-        Member.find( {team: team_id })
-       .exec(function(err, members) {
+        Member.find( {team: team_id }&&{'is_accepted':'true'})
+        .exec(function(err, members) {
 
             if(err) {
                 res.send(err);
@@ -42,7 +42,7 @@ router.get('/all', function(req, res) {
             }
             res.json(members);
         });
-    }); // Team
+    }); 
 });
 
 //-----------------------------------------------------
@@ -69,21 +69,17 @@ router.get('/verify/:token', function(req, res) {
         Member.update({user: decoded._id}, {is_accepted: true}, function(err, numberAffected, rawResponse) {
 
             console.log("-- saved: " + err);
+
             if(err) res.send("Token verification failed!");
+
             else {
 
-                //res.send("User verification Successfully!");
-
                 var parentDir  = __dirname.substring(0, __dirname.lastIndexOf('/'));
-
                 res.sendFile(parentDir + '/public/views/general/verification_done.html') ;
-            }
-        })
-
-    });//jsonwebtoken
-
-    //res.send("ok");
-});
+                }
+            })
+        });//jsonwebtoken
+    });
 
 function sendInvitationEmail(req, email, token) {
     const subject = "Welcome to team manager";
@@ -162,6 +158,7 @@ router.post('/invite_team_member', function(req, res) {
         });
 
         member.save(function(err) {
+            
             if(err) {
                 console.log("member save error: " + err);
                 res.send(err);
