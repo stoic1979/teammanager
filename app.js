@@ -122,7 +122,7 @@ app.use(function(req, res, next){
         jsonwebtoken.verify(token, SECRET_KEY, function(err, decoded){
 
             if(err) {
-                //res.status(403).send({success: false, message: "Failed to authenticate user"});
+                res.status(403).send({success: false, message: "Failed to authenticate user"});
                 logger.warn("api.use() :: :: Failed to authenticate user");
             } else {
                 req.decoded = decoded;

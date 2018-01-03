@@ -104,73 +104,80 @@ router.post('/invite_team_member', function(req, res) {
     
     var manager_id = req.decoded._id;
     var email = req.body.email;
+    if(!email){
+        res.send({success:false ,message:'Email can not be empty'});
+        return;
+    }
+    console.log("manager id" +manager_id);
+    console.log("requested email "+email);
 
     User.findOne({
-        email: req.body.email
+        email: email
             
         }).exec(function(err, user) {   
 
-        if(err) throw err;
+        if(err) res.send(err);
 
         if(!user) {
             res.send({ success: false, message: 'User does not exist !'});
-            
-        } else if(user) {
-
-            //----------------------------------------------
-            // before logging, ensure that user is verified
-            //----------------------------------------------
-            if(!user.is_verified) {
-
-                console.log("------------ user not verified ----");
-
-                res.send(JSON.stringify( { success: false, message: 'User is not verified, please check you email for verification. '} )  );
-                return; 
-            }
-
-            else {
-
-                console.log("User  exists");
-                var user_id=user._id;
-                console.log("user id is "+user_id);
-                var token = tokenMaker.createUserToken(user);
-                
-                // res.json({ success: true, message: 'Invitation sent to ' + email}); 
-                sendInvitationEmail(req, email, tokenMaker.createVerificationToken(user));
-
-             }
-        }
-    Team.findOne( {manager:manager_id })
-    
-    .exec(function(err, team) {
-
-        if(err) {
-            res.send({ success: false, message: 'Team not found'});
             return;
-        }
-        
-        var team_id=team._id;
-        
-        var member = new Member({
-            team: team_id,
-            user: user_id,
-            
-        });
+        } 
 
-        member.save(function(err) {
-            
+        //----------------------------------------------
+        // before logging, ensure that user is verified
+        //----------------------------------------------
+        if(!user.is_verified) {
+
+            console.log("------------ user not verified ----");
+
+            res.send(JSON.stringify( { success: false, message: 'User is not verified, please check you email for verification. '} )  );
+            return; 
+        }
+
+        else {
+
+            console.log("User  exists");
+            var user_id=user._id;
+            console.log("user id is "+user_id);
+            var token = tokenMaker.createUserToken(user);
+                
+            // res.json({ success: true, message: 'Invitation sent to ' + email}); 
+            sendInvitationEmail(req, email, tokenMaker.createVerificationToken(user));
+
+            }
+        
+
+        Team.findOne( {manager:manager_id })
+    
+        .exec(function(err, team) {
+
             if(err) {
-                console.log("member save error: " + err);
-                res.send(err);
+                res.send({ success: false, message: 'Team not found'});
                 return;
             }
-            console.log("member created");
-        });
+        
+            var team_id=team._id;
+        
+            var member = new Member({
+                team: team_id,
+                user: user_id,
+            
+            });
 
-        res.json({ success: true, message: 'member created !', member: member});
+            member.save(function(err) {
 
-        }); // Team
+                if(err) {
+                    console.log("member save error: " + err);
+                    res.send(err);
+                    return;
+                }
+                console.log("member created");
+            });
+
+            res.json({ success: true, message: 'member created !', member: member});
+
+            }); // Team
+        }); // User
     });
 
-});
 module.exports = router;

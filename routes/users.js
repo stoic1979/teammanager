@@ -39,13 +39,16 @@ router.post('/signup', function(req, res, next) {
         role:       req.body.role,
     });
 
+    console.log("user data" +user);
+    
     var token = tokenMaker.createUserToken(user);
     user.save(function(err) {
         if(err) {
             res.send(err);
+            console.log("error "+err);
             return;
         }
-
+        console.log("user registered Successfully" +user);
         //------------------------
         // create team for user
         //------------------------
