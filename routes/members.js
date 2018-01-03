@@ -15,26 +15,6 @@ var User = require('../schema/user');
 var Team = require('../schema/team');
 
 
-router.post('/add', function(req, res, next) {
-
-    var member = new Member({
-        team: req.body.team,
-        user: req.body.user,
-
-    });
-
-    member.save(function(err) {
-        if(err) {
-            console.log("member save error: " + err);
-            res.send(err);
-            return;
-        }
-        console.log("member created");
-    });
-
-    res.json({ success: true, message: 'member created !', member: member});
-});
-
 //-----------------------------------------------------
 //   Get Members
 //-----------------------------------------------------
@@ -115,25 +95,51 @@ function sendInvitationEmail(req, email, token) {
 //   INVITE USER TO TEAM
 //-----------------------------------------------------
 router.post('/invite_team_member', function(req, res) {
+    
+    var team_id;
+    var manager_id = req.decoded._id;
     var email = req.body.email;
 
-    // console.log("[INFO] :: sending invitation to : " + email);
+    Team.findOne( {manager:manager_id })
+    
+    .exec(function(err, team) {
 
+        if(err) {
+            res.send({ success: false, message: 'Team not found'});
+            return;
+        }
+        
+        team_id=team._id;
+        
+        var member = new Member({
+            team: team_id,
+            user: manager_id,
+            
+        });
 
-    // if user is not registered - check for email
-    // send back error, user not found
-    // ensure that user is not already registered
+        member.save(function(err) {
+            if(err) {
+                console.log("member save error: " + err);
+                res.send(err);
+                return;
+            }
+            console.log("member created");
+        });
+
+        res.json({ success: true, message: 'member created !', member: member});
+
+        }); // Team
 
     User.findOne({
         email: req.body.email
-            //}).select('password').exec(function(err, user) { // this will only select _id and password in user obj
-        }).exec(function(err, user) {   //// this will select all fields in user obj
+            
+        }).exec(function(err, user) {   
 
         if(err) throw err;
 
         if(!user) {
             res.send({ success: false, message: 'User does not exist !'});
-            //res.status(403).send( {success: false, message: 'User does not exist !'});
+            
         } else if(user) {
 
             //----------------------------------------------
@@ -156,26 +162,11 @@ router.post('/invite_team_member', function(req, res) {
                 // user exists , create token
                 //-------------------------
                 var token = tokenMaker.createUserToken(user);
-                //req.session.user = user;
-
-
-                // res.json({
-                //     success: true,
-                //     message: "User Exists",
-                //     role: user.role,
-                //     user_id: user._id,
-                //     email: user.email,
-                //     first_name: user.first_name,
-                //     last_name: user.last_name,
-                //     });
-
-
-
-                res.json({ success: true, message: 'Invitation sent to ' + email}); 
+                
+                // res.json({ success: true, message: 'Invitation sent to ' + email}); 
                 sendInvitationEmail(req, email, tokenMaker.createVerificationToken(user));
 
-
-            }
+             }
         }
     });
 
