@@ -20,10 +20,20 @@ var Team = require('../schema/team');
 //-----------------------------------------------------
 router.get('/all', function(req, res) {
 
-    var user_id = req.decoded._id;
-    console.log("get all members for user: " + user_id);
+    var manager_id = req.decoded._id;
+    
+    Team.findOne( {manager:manager_id })
+    
+    .exec(function(err, team) {
 
-    Member.find( {user: user_id})
+        if(err) {
+            res.send({ success: false, message: 'Team not found'});
+            return;
+        }
+        
+        var team_id=team._id;
+        
+        Member.find( {team: team_id })
        .exec(function(err, members) {
 
             if(err) {
@@ -32,6 +42,7 @@ router.get('/all', function(req, res) {
             }
             res.json(members);
         });
+    }); // Team
 });
 
 //-----------------------------------------------------
@@ -149,17 +160,14 @@ router.post('/invite_team_member', function(req, res) {
                 console.log("------------ user not verified ----");
 
                 res.send(JSON.stringify( { success: false, message: 'User is not verified, please check you email for verification. '} )  );
-                //res.status(403).send( JSON.stringify( { success: false, message: 'User is not verified !'} )  );
                 return; 
             }
 
             else {
 
                 console.log("User  exists");
-
-                //-------------------------
-                // user exists , create token
-                //-------------------------
+                var user_id=user._id;
+                console.log("user id is "+user_id);
                 var token = tokenMaker.createUserToken(user);
                 
                 // res.json({ success: true, message: 'Invitation sent to ' + email}); 
