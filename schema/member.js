@@ -12,7 +12,8 @@ const MemberSchema = new mongoose.Schema({
   },	
   user: { 
     type: mongoose.Schema.Types.ObjectId, 
-    ref: 'User'
+    ref: 'User',
+    unique: true
   },
   is_accepted: {
     type: Boolean, 
