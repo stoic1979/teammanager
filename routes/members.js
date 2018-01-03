@@ -21,7 +21,7 @@ var Team = require('../schema/team');
 router.get('/all', function(req, res) {
 
     var manager_id = req.decoded._id;
-    
+
     Team.findOne( {manager:manager_id })
     
     .exec(function(err, team) {
@@ -106,39 +106,8 @@ function sendInvitationEmail(req, email, token) {
 //-----------------------------------------------------
 router.post('/invite_team_member', function(req, res) {
     
-    var team_id;
     var manager_id = req.decoded._id;
     var email = req.body.email;
-
-    Team.findOne( {manager:manager_id })
-    
-    .exec(function(err, team) {
-
-        if(err) {
-            res.send({ success: false, message: 'Team not found'});
-            return;
-        }
-        
-        team_id=team._id;
-        
-        var member = new Member({
-            team: team_id,
-            user: manager_id,
-            
-        });
-
-        member.save(function(err) {
-            if(err) {
-                console.log("member save error: " + err);
-                res.send(err);
-                return;
-            }
-            console.log("member created");
-        });
-
-        res.json({ success: true, message: 'member created !', member: member});
-
-        }); // Team
 
     User.findOne({
         email: req.body.email
@@ -175,6 +144,35 @@ router.post('/invite_team_member', function(req, res) {
 
              }
         }
+    Team.findOne( {manager:manager_id })
+    
+    .exec(function(err, team) {
+
+        if(err) {
+            res.send({ success: false, message: 'Team not found'});
+            return;
+        }
+        
+        var team_id=team._id;
+        
+        var member = new Member({
+            team: team_id,
+            user: user_id,
+            
+        });
+
+        member.save(function(err) {
+            if(err) {
+                console.log("member save error: " + err);
+                res.send(err);
+                return;
+            }
+            console.log("member created");
+        });
+
+        res.json({ success: true, message: 'member created !', member: member});
+
+        }); // Team
     });
 
 });
