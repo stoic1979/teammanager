@@ -64,9 +64,10 @@ router.get('/verify/:token', function(req, res) {
             res.send("Token verification failed!");
             return;
         } 
-
+        var _id=decoded._id;
+        console.log("id -------------->" +_id);
         // approving user
-        Member.update({user: decoded._id}, {is_accepted: true}, function(err, numberAffected, rawResponse) {
+        Member.update({_id: decoded._id}, {is_accepted: true}, function(err, numberAffected, rawResponse) {
 
             console.log("-- saved: " + err);
 
@@ -81,11 +82,11 @@ router.get('/verify/:token', function(req, res) {
         });//jsonwebtoken
     });
 
-function sendInvitationEmail(req, email, token) {
+function sendMemberInvitationEmail(req, email, token) {
     const subject = "Welcome to team manager";
     var html = "<b>Hi   </b><br>, <br> Welcome !!! <br> Team Manager is a perfect solution for managing your project and teams !!! <br>";
 
-    html += "<br> Click on following link to verify your email.";
+    html += "<br> Click on following link to accept your invitation to join team.";
 
     // origin will tell localhost or server domain url's prefix
     var origin = req.get('origin'); 
@@ -121,32 +122,8 @@ router.post('/invite_team_member', function(req, res) {
         if(!user) {
             res.send({ success: false, message: 'User does not exist !'});
             return;
-        } 
-
-        //----------------------------------------------
-        // before logging, ensure that user is verified
-        //----------------------------------------------
-        if(!user.is_verified) {
-
-            console.log("------------ user not verified ----");
-
-            res.send(JSON.stringify( { success: false, message: 'User is not verified, please check you email for verification. '} )  );
-            return; 
-        }
-
-        else {
-
-            console.log("User  exists");
-            var user_id=user._id;
-            console.log("user id is "+user_id);
-            var token = tokenMaker.createUserToken(user);
-                
-            // res.json({ success: true, message: 'Invitation sent to ' + email}); 
-            sendInvitationEmail(req, email, tokenMaker.createVerificationToken(user));
-
-            }
-        
-
+        }      
+        var user_id=user._id;
         Team.findOne( {manager:manager_id })
     
         .exec(function(err, team) {
@@ -164,7 +141,7 @@ router.post('/invite_team_member', function(req, res) {
             
             });
 
-            member.save(function(err) {
+            member.save(function(err, savedMember) {
 
                 if(err) {
                     console.log("member save error: " + err);
@@ -172,9 +149,21 @@ router.post('/invite_team_member', function(req, res) {
                     return;
                 }
                 console.log("member created");
-            });
 
-            res.json({ success: true, message: 'member created !', member: member});
+
+                console.log("User  exists");
+                var member_id=savedMember._id;
+                console.log("member_id-------->"+member_id);
+                console.log("user id is "+user_id);
+                var token = tokenMaker.createUserToken(member_id);
+                
+                // res.json({ success: true, message: 'Invitation sent to ' + email}); 
+                sendMemberInvitationEmail(req, email, tokenMaker.createMembershipToken(member_id));
+
+                res.json({ success: true, message: 'member created !', member: member});
+
+
+            });// member.save
 
             }); // Team
         }); // User
