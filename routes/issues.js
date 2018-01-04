@@ -22,14 +22,14 @@ router.get('/all_by_project/:id', function(req, res, next) {
   logger.debug("getting issue for project: " + project_id);
 
   Issue.find( {project: project_id} )
-  .populate('assignee')  // fieldname to be furhter looked-up 
+  .populate('assignee')  // fieldname to be furhter looked-up
   .populate('project')   // fieldname to be furhter looked-up
   .exec(function(err, issues) {
       if(err) {
         res.send(err);
         return;
       }
-    logger.debug("--- issues: " + JSON.stringify(issues));  
+    logger.debug("--- issues: " + JSON.stringify(issues));
     res.json(issues);
   });
 });//all_by_project
@@ -39,6 +39,11 @@ router.get('/all_by_project/:id', function(req, res, next) {
 //-----------------------------------------------------------
 router.post('/add', function(req, res, next) {
 
+  if(!req.body.project || !req.body.summary|| !req.body.description || !req.body.type || !req.body.priority || !req.body.status || !req.body.estimated_hours || !req.body.start_date || !req.body.end_date){
+
+      res.send({success:false ,message:'one or  more fields are  missing'});
+      return;
+  }
   var user_id = req.decoded._id;
 
   logger.debug("save issue: user id=" + user_id);
@@ -49,32 +54,41 @@ router.post('/add', function(req, res, next) {
 
 
   //fixme later !!!!!
-  req.body.data.assignee = user_id;
+  // req.body.data.assignee = user_id;
 
-   var issue = new Issue(
-			req.body.data
-    );
+   var issue = new Issue({
+     project         : req.body.project,
+     assignee        : user_id,
+     summary         : req.body.summary,
+     description     : req.body.description,
+     type            : req.body.type,
+     priority        : req.body.priority,
+     status          : req.body.status,
+     estimated_hours : req.body.estimated_hours,
+     start_date      : req.body.start_date,
+     end_date        : req.body.end_date,
+    });
 
 
-    if(req.body.start_date && req.body.start_date.length) {
-    	issue.start_date = start_date;
-    }
-
-    if(req.body.end_date && req.body.end_date.length) {
-    	issue.end_date = end_date;
-    }
+    // if(req.body.start_date && req.body.start_date.length) {
+    // 	issue.start_date = start_date;
+    // }
+    //
+    // if(req.body.end_date && req.body.end_date.length) {
+    // 	issue.end_date = end_date;
+    // }
 
 	issue.save(function(err) {
 		if(err) {
-			console.log("issue save error: " + err);
-			res.send(err);
+		  res.send(err);
+      console.log("issue save error: " + err);
 			return;
 		}
 
-		// res.json({ message: 'User has been created !'});
+		res.json({ message: 'Issue has been created !'});
 		console.log("issue created");
 	});
-  res.redirect('/');
+  // res.redirect('/');
 });//add
 
 
