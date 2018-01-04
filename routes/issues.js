@@ -58,7 +58,7 @@ router.post('/add', function(req, res, next) {
 
    var issue = new Issue({
      project         : req.body.project,
-     assignee        : user_id,
+     assignee        : req.body.assignee,
      summary         : req.body.summary,
      description     : req.body.description,
      type            : req.body.type,
