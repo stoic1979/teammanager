@@ -24,8 +24,18 @@ function checkSignIn(req, res){
 }
 
 /* GET users listing. */
-router.get('/', function(req, res, next) {
-    res.send('respond with a resource');
+router.get('/all', function(req, res) {
+
+    User.find({is_verified:true})
+    // .populate('user',  ['_id', 'first_name', 'last_name', 'username'])
+    .exec(function(err, users) {
+
+        if(err) {
+            res.send(err);
+            return;
+        }
+        res.json(users);
+    });
 });
 
 router.post('/signup', function(req, res, next) {
