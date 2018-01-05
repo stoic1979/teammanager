@@ -50,7 +50,7 @@ router.post('/signup', function(req, res, next) {
     });
 
     console.log("user data" +user);
-    
+
     var token = tokenMaker.createUserToken(user);
     user.save(function(err) {
         if(err) {
@@ -89,7 +89,7 @@ function sendWelcomeEmail(req, user, token) {
     html += "<br> Click on following link to verify your email.";
 
     // origin will tell localhost or server domain url's prefix
-    var origin = req.get('origin'); 
+    var origin = req.get('origin');
 
     html += "<br><a href='" + origin + "/users/verify/" + token + "'>VERIFY ME</a>";
 
@@ -125,7 +125,7 @@ router.post('/login', function(req, res) {
 
                 res.send(JSON.stringify( { success: false, message: 'User is not verified, please check you email for verification. '} )  );
                 //res.status(403).send( JSON.stringify( { success: false, message: 'User is not verified !'} )  );
-                return; 
+                return;
             }
 
             var validPassword = user.comparePassword(req.body.password);
@@ -181,7 +181,7 @@ router.get('/verify/:token', function(req, res) {
             if(err) {
                 res.send("Token verification failed!");
                 return;
-            } 
+            }
 
         // approving user
 		User.update({_id: decoded._id}, {is_verified: true}, function(err, numberAffected, rawResponse) {
@@ -197,10 +197,10 @@ router.get('/verify/:token', function(req, res) {
 					res.sendFile(parentDir + '/public/views/general/verification_done.html') ;
 			}
 		})
-             	
+
     });//jsonwebtoken
 
-    
+
 
 	//res.send("ok");
 });
@@ -235,7 +235,7 @@ function sendInvitationEmail(req, email, token) {
     html += "<br> Click on following link to verify your email.";
 
     // origin will tell localhost or server domain url's prefix
-    var origin = req.get('origin'); 
+    var origin = req.get('origin');
 
     html += "<br><a href='" + origin + "/users/verify/" + token + "'>VERIFY ME</a>";
 
@@ -278,7 +278,7 @@ function sendInvitationEmail(req, email, token) {
 
 //                 res.send(JSON.stringify( { success: false, message: 'User is not verified, please check you email for verification. '} )  );
 //                 //res.status(403).send( JSON.stringify( { success: false, message: 'User is not verified !'} )  );
-//                 return; 
+//                 return;
 //             }
 
 //              else {
@@ -290,26 +290,26 @@ function sendInvitationEmail(req, email, token) {
 //                 //-------------------------
 //                 var token = tokenMaker.createUserToken(user);
 //                 //req.session.user = user;
-                
+
 
 //                 //FIXME - use it for REST APIS later !
 
-               
-               
+
+
 
 //                 sendInvitationEmail(req, email, tokenMaker.createVerificationToken(user));
-                
+
 
 //             }
 //         }
 //     });
-    
-    
-
-    
 
 
-//     
+
+
+
+
+//
 // });
 
 

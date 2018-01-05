@@ -9,7 +9,11 @@ router.get('/id/:id', function(req, res, next) {
 
 
 router.post('/add', function(req, res, next) {
+  if(!req.body.title || !req.body.description){
 
+      res.send({success:false ,message:'one or  more fields are  missing'});
+      return;
+  }
 	var user_id = req.decoded._id;
 
    	var project = new Project({

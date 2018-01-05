@@ -30,13 +30,13 @@ router.get('/all', function(req, res) {
             res.send({ success: false, message: 'Team not found'});
             return;
         }
-        
+
         var team_id=team._id;
         var team_name=team.name;
         console.log("team name" +team_name);
         Member.find( {team: team_id})
         .populate('team')
-        .populate('user', ['_id', 'first_name', 'last_name', 'username'])
+        .populate('user', ['_id', 'first_name', 'last_name', 'username', 'email'])
         .exec(function(err, members) {
 
             if(err) {
@@ -45,7 +45,7 @@ router.get('/all', function(req, res) {
             }
             res.json(members);
         });
-    }); 
+    });
 });
 
 //-----------------------------------------------------
@@ -66,7 +66,7 @@ router.get('/verify/:token', function(req, res) {
         if(err) {
             res.send("Token verification failed!");
             return;
-        } 
+        }
         var _id=decoded._id;
         console.log("id -------------->" +_id);
         // approving user
@@ -92,7 +92,7 @@ function sendMemberInvitationEmail(req, email, token) {
     html += "<br> Click on following link to accept your invitation to join team.";
 
     // origin will tell localhost or server domain url's prefix
-    var origin = req.get('origin'); 
+    var origin = req.get('origin');
 
     html += "<br><a href='" + origin + "/members/verify/" + token + "'>VERIFY ME</a>";
 
@@ -105,7 +105,7 @@ function sendMemberInvitationEmail(req, email, token) {
 //   INVITE USER TO TEAM
 //-----------------------------------------------------
 router.post('/invite_team_member', function(req, res) {
-    
+
     var manager_id = req.decoded._id;
     var email = req.body.email;
     if(!email){
@@ -117,31 +117,31 @@ router.post('/invite_team_member', function(req, res) {
 
     User.findOne({
         email: email
-            
-        }).exec(function(err, user) {   
+
+        }).exec(function(err, user) {
 
         if(err) res.send(err);
 
         if(!user) {
             res.send({ success: false, message: 'User does not exist !'});
             return;
-        }      
+        }
         var user_id=user._id;
         Team.findOne( {manager:manager_id })
-    
+
         .exec(function(err, team) {
 
             if(err) {
                 res.send({ success: false, message: 'Team not found'});
                 return;
             }
-        
+
             var team_id=team._id;
-        
+
             var member = new Member({
                 team: team_id,
                 user: user_id,
-            
+
             });
 
             member.save(function(err, savedMember) {
@@ -159,8 +159,8 @@ router.post('/invite_team_member', function(req, res) {
                 console.log("member_id-------->"+member_id);
                 console.log("user id is "+user_id);
                 var token = tokenMaker.createUserToken(member_id);
-                
-                // res.json({ success: true, message: 'Invitation sent to ' + email}); 
+
+                // res.json({ success: true, message: 'Invitation sent to ' + email});
                 sendMemberInvitationEmail(req, email, tokenMaker.createMembershipToken(member_id));
 
                 res.json({ success: true, message: 'member created !', member: member});
