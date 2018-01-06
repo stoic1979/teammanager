@@ -13,7 +13,16 @@ angular.module("issueService", [])
         issueData.project = $rootScope.currentProject._id;
 
     	var payload = {
-    			data: 	 issueData,
+    			project         : ssueData.project,
+                assignee        : issueData.assignee,
+                summary         : issueData.summary,
+                description     : issueData.description,
+                type            : issueData.type,
+                priority        : issueData.priority,
+                status          : issueData.status,
+                estimated_hours : issueData.estimated_hours,
+                start_date      : issueData.start_date,
+                end_date        : issueData.end_date,
     			headers: {'x-access-token': AuthToken.getToken()}
     		}; 
 
