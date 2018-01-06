@@ -13,7 +13,7 @@ angular.module("issueService", [])
         issueData.project = $rootScope.currentProject._id;
 
     	var payload = {
-    			project         : ssueData.project,
+    			project         : issueData.project,
                 assignee        : issueData.assignee,
                 summary         : issueData.summary,
                 description     : issueData.description,
