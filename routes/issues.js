@@ -44,7 +44,12 @@ router.post('/add', function(req, res, next) {
       res.send({success:false ,message:'one or  more fields are  missing'});
       return;
   }
-  var user_id = req.decoded._id;
+  if(req.body.assignee){
+    var user_id=req.body.assignee;
+  }
+  else {
+    user_id = req.decoded._id;
+   }
 
   logger.debug("save issue: user id=" + user_id);
 
