@@ -36,7 +36,7 @@ router.get('/all', function(req, res) {
         console.log("team name" +team_name);
         Member.find( {team: team_id})
         .populate('team')
-        .populate('user', ['_id', 'first_name', 'last_name', 'username', 'email'])
+        .populate('user', ['_id', 'first_name', 'last_name', 'email'])
         .exec(function(err, members) {
 
             if(err) {

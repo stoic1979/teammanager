@@ -5,6 +5,8 @@ const Mailer     = require('../helpers/mailer');
 const TokenMaker = require('../helpers/tokenMaker');
 
 
+
+
 var secretKey = process.env.TEAM_MANAGER_SECRET_KEY;
 
 var tokenMaker = new TokenMaker(secretKey);
@@ -27,7 +29,6 @@ function checkSignIn(req, res){
 router.get('/all', function(req, res) {
 
     User.find({is_verified:true})
-    // .populate('user',  ['_id', 'first_name', 'last_name', 'username'])
     .exec(function(err, users) {
 
         if(err) {
@@ -43,7 +44,6 @@ router.post('/signup', function(req, res, next) {
     var user = new User({
         first_name: req.body.first_name,
         last_name:  req.body.last_name,
-        username:   req.body.username,
         email:      req.body.email,
         password:   req.body.password,
         role:       req.body.role,
@@ -63,7 +63,7 @@ router.post('/signup', function(req, res, next) {
         // create team for user
         //------------------------
         if(req.body.role=="MANAGER"){
-            
+
             var team = new Team({
                 name: req.body.team_name,
                 manager: user._id,
@@ -88,7 +88,7 @@ router.post('/signup', function(req, res, next) {
 
 function sendWelcomeEmail(req, user, token) {
     const subject = "Welcome to team manager";
-    var html = "<b>Hi " + user.username +  " </b><br>, <br> Welcome !!! <br> Team Manager is a perfect solution for managing your project and teams !!! <br>";
+    var html = "<b>Hi " + user.first_name + " " + user.last_name + " </b><br>, <br> Welcome !!! <br> Team Manager is a perfect solution for managing your project and teams !!! <br>";
 
     html += "<br> Click on following link to verify your email.";
 
@@ -109,7 +109,7 @@ function sendWelcomeEmail(req, user, token) {
 router.post('/login', function(req, res) {
 
     User.findOne({
-        username: req.body.username
+        email: req.body.email
             //}).select('password').exec(function(err, user) { // this will only select _id and password in user obj
         }).exec(function(err, user) {	//// this will select all fields in user obj
 

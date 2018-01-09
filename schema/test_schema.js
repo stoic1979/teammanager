@@ -23,7 +23,6 @@ var myteam = {
 var auntpolly = {
     first_name: "Aunt",
     last_name: "Polly",
-    username: "auntpolly",
     email: "auntpolly@gmail.com",
     password: "123",
     role: "MANAGER"
@@ -32,7 +31,6 @@ var auntpolly = {
 var tomsawyer = {
     first_name: "Tom",
     last_name: "Sawyer",
-    username: "tomsawyer",
     email: "tomsawer@gmail.com",
     password: "123",
     role: "WORKER"

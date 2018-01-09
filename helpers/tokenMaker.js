@@ -13,8 +13,9 @@ TokenMaker.prototype.createUserToken = function(user) {
 
 	var token = jsonwebtoken.sign({
 		_id: user._id,
-		name: user.name,
-		username: user.username,
+		first_name: user.first_name,
+		last_name:user.last_name,
+		email: user.email,
 		role: user.role
 	}, this.secretKey, {
 		expiresIn: '1h'
@@ -27,8 +28,9 @@ TokenMaker.prototype.createVerificationToken = function(user) {
 
 	var token = jsonwebtoken.sign({
 		_id: user._id,
-		name: user.name,
-		username: user.username
+		first_name: user.first_name,
+		last_name:user.last_name,
+		email: user.email
 	}, this.secretKey, {
 		expiresIn: '24h' // verification token will expire in 24 hours
 	});

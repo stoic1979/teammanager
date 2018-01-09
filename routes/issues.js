@@ -22,7 +22,7 @@ router.get('/all_by_project/:id', function(req, res, next) {
   logger.debug("getting issue for project: " + project_id);
 
   Issue.find( {project: project_id} )
-  .populate('assignee',['_id', 'first_name', 'last_name', 'username', 'email'])  // fieldname to be furhter looked-up
+  .populate('assignee',['_id', 'first_name', 'last_name', 'email'])  // fieldname to be furhter looked-up
   .populate('project')   // fieldname to be furhter looked-up
   .exec(function(err, issues) {
       if(err) {
