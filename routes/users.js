@@ -62,21 +62,25 @@ router.post('/signup', function(req, res, next) {
         //------------------------
         // create team for user
         //------------------------
-        var team = new Team({
-            name: req.body.team_name,
-            manager: user._id,
-        });
+        if(req.body.role=="MANAGER"){
+            
+            var team = new Team({
+                name: req.body.team_name,
+                manager: user._id,
+            });
 
-        team.save(function(err) {
-            if(err) {
-                res.send(err);
-                return;
-            }
+            team.save(function(err) {
+                if(err) {
+                    // res.send(err);
+                    console.log("Error while saving team "+err);
+                    return;
+                }
+                console.log("team is saved Successfully " +team);
+            });
+        }
 
-            //res.json({ success: true, message: 'User has been created !', token: token});
-            res.json({ success: true, message: 'User has been created !'});
-            sendWelcomeEmail(req, user, tokenMaker.createVerificationToken(user) );
-        });
+    res.json({ success: true, message: 'User has been created !'});
+    sendWelcomeEmail(req, user, tokenMaker.createVerificationToken(user) );
 
     });
 
