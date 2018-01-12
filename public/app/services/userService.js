@@ -1,6 +1,6 @@
 angular.module("userService", [])
 
-.factory('User', function($http) {
+.factory('User', function($http, AuthToken) {
 
     var userFactory = {};
 
@@ -10,7 +10,10 @@ angular.module("userService", [])
     };
 
     userFactory.all = function() {
-    	return $http.get('/api/users');	
+    	var payload = {
+    			headers: {'x-access-token': AuthToken.getToken()}
+    		};
+    	return $http.get('/users/all',payload);	
     };
 
 

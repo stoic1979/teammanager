@@ -148,7 +148,7 @@ router.post('/invite_team_member', function(req, res) {
 
                 if(err) {
                     console.log("member save error: " + err);
-                    res.send(err);
+                    res.send({ success: false, message: 'member already exists'});
                     return;
                 }
                 console.log("member created");

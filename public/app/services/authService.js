@@ -7,10 +7,10 @@ angular.module("authService", [])
     //-------------------------------------------------
     //             LOGIN
     //-------------------------------------------------
-    authFactory.login = function(username, password) {
+    authFactory.login = function(email, password) {
 
      	return $http.post('/users/login', {
-     		username: username,
+     		email: email,
      		password: password
      	})
      	.then(function(response){

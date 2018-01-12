@@ -20,8 +20,8 @@
                         <div class="row">
                             <label>Assignee</label><br>
                             <select class="form-control selectpicker" ng-model="issue.issueData.assignee">
-                                <option value="Nsk">NSK</option>
-                                <option value="Tom">Tom</option>
+                                <option ng-repeat="u in users" value="{{u._id}}">{{u.first_name}}
+                                </option>
                             </select>
                         </div>
                         <div class="row">

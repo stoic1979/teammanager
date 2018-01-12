@@ -1,11 +1,12 @@
 angular.module("mainCtrl", [])
 
-.controller('MainController', function($rootScope, $location, Auth, Project, Issue){
+.controller('MainController', function($rootScope, $location, User, Team, Auth, Project, Issue){
 
 	var vm = this;
 
 	$rootScope.projects = [];
-
+	$rootScope.users = [];
+	$rootScope.team_data =[];
 
 	$rootScope.showSidebar = false;
 
@@ -46,6 +47,29 @@ angular.module("mainCtrl", [])
 		});	
 	}
 
+	// -----------------------------------------
+	// get list og registered user
+	// ------------------------------------------
+	if(vm.loggedIn) {
+
+		$rootScope.showSidebar = true;
+
+		User.all()
+		.then(function(response){
+			$rootScope.users = response.data;
+
+			console.log("got users: " + JSON.stringify($rootScope.users) );
+			
+		});	
+
+		Team.all()
+		.then(function(response){
+			$rootScope.team_data=response.data;
+
+			console.log("got team :" +JSON.stringify($rootScope.team_data));
+		});
+	}
+
 	//-------------------------
 	// doLogin()
 	//-------------------------
@@ -55,7 +79,7 @@ angular.module("mainCtrl", [])
 
 		vm.processing = true;
 		vm.error = '';
-		Auth.login(vm.loginData.username, vm.loginData.password)
+		Auth.login(vm.loginData.email, vm.loginData.password)
 			.then(function(data){
 				vm.processing = false;
 

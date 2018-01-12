@@ -5,7 +5,10 @@ angular.module("teamService", [])
     var teamFactory = {};
 
     teamFactory.all = function(teamData) {
-    	return $http.post('/teams/', teamData);	//FIXME - do it later...
+        var payload = {
+                headers: {'x-access-token': AuthToken.getToken()}
+            };
+    	return $http.get('/members/all', payload);	
     };
 
     teamFactory.invite = function(teamData) {

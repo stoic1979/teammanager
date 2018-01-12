@@ -9,7 +9,7 @@ angular.module("issueService", [])
 
     	console.log("issueService :: create, token: " + AuthToken.getToken());
     	console.log("issueData: " + JSON.stringify(issueData) );
-
+        
         issueData.project = $rootScope.currentProject._id;
 
     	var payload = {
