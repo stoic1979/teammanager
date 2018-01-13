@@ -85,20 +85,20 @@ router.get('/verify/:token', function(req, res) {
         });//jsonwebtoken
     });
 
-function sendMemberInvitationEmail(req, email, token) {
+function sendMemberInvitationEmail(req, user, team, manager, token) {
     const subject = "Welcome to team manager";
-    var html = "<b>Hi   </b><br>, <br> Welcome !!! <br> Team Manager is a perfect solution for managing your project and teams !!! <br>";
+    var html = "<b>Hi " + user.first_name + " " + user.last_name + " </b><br>, <br> You are invited to join the team "+team.name+ " by " +manager+ "<br>";
 
-    html += "<br> Click on following link to accept your invitation to join team.";
+    html += "<br> Click on the following link to accept your invitation to join team.";
 
     // origin will tell localhost or server domain url's prefix
     var origin = req.get('origin');
 
-    html += "<br><a href='" + origin + "/members/verify/" + token + "'>VERIFY ME</a>";
+    html += "<br><a href='" + origin + "/members/verify/" + token + "'>ACCEPT</a>";
 
     html += "<br><br> Thanks <br> Team Manager Team";
 
-    mailer.sendMail(email, subject, html);
+    mailer.sendMail(user.email, subject, html);
 }
 
 //-----------------------------------------------------
@@ -107,6 +107,8 @@ function sendMemberInvitationEmail(req, email, token) {
 router.post('/invite_team_member', function(req, res) {
 
     var manager_id = req.decoded._id;
+    var manager= req.decoded.first_name+" "+req.decoded.last_name;
+
     var email = req.body.email;
     if(!email){
         res.send({success:false ,message:'Email can not be empty'});
@@ -126,7 +128,9 @@ router.post('/invite_team_member', function(req, res) {
             res.send({ success: false, message: 'User does not exist !'});
             return;
         }
+
         var user_id=user._id;
+
         Team.findOne( {manager:manager_id })
 
         .exec(function(err, team) {
@@ -161,7 +165,7 @@ router.post('/invite_team_member', function(req, res) {
                 var token = tokenMaker.createUserToken(member_id);
 
                 // res.json({ success: true, message: 'Invitation sent to ' + email});
-                sendMemberInvitationEmail(req, email, tokenMaker.createMembershipToken(member_id));
+                sendMemberInvitationEmail(req, user, team, manager, tokenMaker.createMembershipToken(member_id));
 
                 res.json({ success: true, message: 'member created !', member: member});
 

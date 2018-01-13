@@ -84,9 +84,9 @@ function sendAssigneeEmail(req, manager, project, assignee, savedIssue, token) {
     const subject = "Welcome to team manager";
     var html = "<b>Hi " + assignee.first_name + " " + assignee.last_name + " </b><br>";
 
-    html += "<br> You are assigned a task to resolve the "+ savedIssue.summary + " "+ "issue in "+project.title +" project by " +manager.first_name+ " "+manager.last_name+" ";
+    html += "<br> You are assigned a task to resolve the "+ savedIssue.summary + " "+ "issue in "+project.title +" project by " +manager+" ";
 
-    html += "<br> Click on following link to accept your task ";
+    html += "<br> Click on the  following link to accept your task ";
 
     // origin will tell localhost or server domain url's prefix
     var origin = req.get('origin');
@@ -111,6 +111,8 @@ router.post('/add', function(req, res, next) {
   }
 
   var manager_id = req.decoded._id;
+  var manager= req.decoded.first_name+" "+req.decoded.last_name;
+  console.log("manager name----"+manager);
 
   var issue = new Issue({
      project         : req.body.project,
@@ -137,22 +139,13 @@ router.post('/add', function(req, res, next) {
     var project_id  = savedIssue.project;
     var issue_id    = savedIssue._id;
 
-    User.findOne({_id:manager_id})
-    .exec(function(err, manager) {
+    Project.findOne({_id:project_id})
+      .exec(function(err, project) {
 
         if(err) {
-            // res.send(err);
-            console.log('error while finding the manager data '+err);
-            return;
-        }
-
-        Project.findOne({_id:project_id})
-        .exec(function(err, project) {
-
-          if(err) {
-            // res.send(err);
-            console.log('error while finding the project data '+err);
-            return;
+          // res.send(err);
+          console.log('error while finding the project data '+err);
+          return;
         }
 
         User.findOne({_id:assignee_id})
@@ -167,9 +160,8 @@ router.post('/add', function(req, res, next) {
         sendAssigneeEmail(req, manager, project, assignee, savedIssue, tokenMaker.createAssigneeToken(assignee_id, issue_id));
         res.json({ message: 'Issue has been created !'});
 
-        });// find assignee
-      });// find project
-    });// find manager
+      });// find assignee
+    });// find project
   });// add issue
 });//add
 
