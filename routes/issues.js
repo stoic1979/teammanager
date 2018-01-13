@@ -11,6 +11,7 @@ var mailer     = new Mailer();
 
 var Issue = require('../schema/issue');
 var User  = require('../schema/user');
+
 //-----------------------------------------------------------
 //   GET ISSUES BY ISSUE ID
 //-----------------------------------------------------------
@@ -80,9 +81,9 @@ router.get('/verify/:token', function(req, res) {
 
 function sendAssigneeEmail(req, user, savedIssue, token) {
     const subject = "Welcome to team manager";
-    var html = "<b>Hi " + user.first_name + " " + user.last_name + "   </b><br>, <br> Welcome !!! <br> Team Manager is a perfect solution for managing your project and teams !!! <br>";
+    var html = "<b>Hi " + user.first_name + " " + user.last_name + "   </b><br>, You are assigned a task to resolve the "+ savedIssue.summary +" <br>";
 
-    html += "<br> You are assigned a task to resolve the "+ savedIssue.summary + " ";
+    html += "<br> You are assigned a task to resolve the "+ savedIssue.summary + "issue ";
 
     html += "<br> Click on following link to accept your task ";
 
