@@ -36,6 +36,7 @@ router.get('/all', function(req, res) {
             return;
         }
         res.json(users);
+        console.log("-------------------getting users"+users.email);
     });
 });
 
@@ -248,74 +249,5 @@ function sendInvitationEmail(req, email, token) {
 
     mailer.sendMail(email, subject, html);
 }
-
-// //-----------------------------------------------------
-// //   INVITE USER TO TEAM
-// //-----------------------------------------------------
-// router.post('/invite_team_member', function(req, res) {
-//     var email = req.body.email;
-
-//     // console.log("[INFO] :: sending invitation to : " + email);
-
-
-//     // if user is not registered - check for email
-//     // send back error, user not found
-//     // ensure that user is not already registered
-
-//     User.findOne({
-//         email: req.body.email
-//             //}).select('password').exec(function(err, user) { // this will only select _id and password in user obj
-//         }).exec(function(err, user) {   //// this will select all fields in user obj
-
-//         if(err) throw err;
-
-//         if(!user) {
-//             res.send({ success: false, message: 'User does not exist !'});
-//             //res.status(403).send( {success: false, message: 'User does not exist !'});
-//         } else if(user) {
-
-//             //----------------------------------------------
-//             // before logging, ensure that user is verified
-//             //----------------------------------------------
-//             if(!user.is_verified) {
-
-//                 console.log("------------ user not verified ----");
-
-//                 res.send(JSON.stringify( { success: false, message: 'User is not verified, please check you email for verification. '} )  );
-//                 //res.status(403).send( JSON.stringify( { success: false, message: 'User is not verified !'} )  );
-//                 return;
-//             }
-
-//              else {
-
-//                 console.log("User  exists");
-
-//                 //-------------------------
-//                 // user exists , create token
-//                 //-------------------------
-//                 var token = tokenMaker.createUserToken(user);
-//                 //req.session.user = user;
-
-
-//                 //FIXME - use it for REST APIS later !
-
-
-
-
-//                 sendInvitationEmail(req, email, tokenMaker.createVerificationToken(user));
-
-
-//             }
-//         }
-//     });
-
-
-
-
-
-
-//
-// });
-
 
 module.exports = router;

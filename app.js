@@ -110,6 +110,10 @@ app.use(function(req, res, next){
         return next();
     }
 
+    if(req.originalUrl.indexOf('/issues/verify/') > -1) {
+        return next();
+    }
+
     if(req.originalUrl.indexOf('/users/verify/') > -1) {
         return next();
     }

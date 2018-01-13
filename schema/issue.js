@@ -14,6 +14,10 @@ const IssueSchema = new mongoose.Schema({
   	type: mongoose.Schema.Types.ObjectId, 
   	ref: 'User'
   },	
+  is_accepted: {
+    type: Boolean, 
+    default: false
+  },
   summary: { 
     type: String,
     required: true

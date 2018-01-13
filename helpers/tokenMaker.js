@@ -49,4 +49,16 @@ TokenMaker.prototype.createMembershipToken = function(member_id) {
 	return token;
 };
 
+TokenMaker.prototype.createAssigneeToken = function(assignee_id,issue_id) {
+
+	var token = jsonwebtoken.sign({
+		_id: assignee_id,
+		issue : issue_id,
+	}, this.secretKey, {
+		expiresIn: '24h' // verification token will expire in 24 hours
+	});
+
+	return token;
+};
+
 module.exports = TokenMaker;

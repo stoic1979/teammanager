@@ -1,10 +1,16 @@
-const express  = require('express');
-const router   = express.Router();
-const logger   = require('../helpers/logger');
+const express    = require('express');
+const router     = express.Router();
+const logger     = require('../helpers/logger');
+var jsonwebtoken = require('jsonwebtoken');
+const Mailer     = require('../helpers/mailer');
+const TokenMaker = require('../helpers/tokenMaker');
 
+var secretKey  = process.env.TEAM_MANAGER_SECRET_KEY;
+var tokenMaker = new TokenMaker(secretKey);
+var mailer     = new Mailer();
 
 var Issue = require('../schema/issue');
-
+var User  = require('../schema/user');
 //-----------------------------------------------------------
 //   GET ISSUES BY ISSUE ID
 //-----------------------------------------------------------
@@ -19,8 +25,6 @@ router.get('/all_by_project/:id', function(req, res, next) {
 
   var project_id = req.params.id;
 
-  logger.debug("getting issue for project: " + project_id);
-
   Issue.find( {project: project_id} )
   .populate('assignee',['_id', 'first_name', 'last_name', 'email'])  // fieldname to be furhter looked-up
   .populate('project')   // fieldname to be furhter looked-up
@@ -29,10 +33,69 @@ router.get('/all_by_project/:id', function(req, res, next) {
         res.send(err);
         return;
       }
-    logger.debug("--- issues: " + JSON.stringify(issues));
     res.json(issues);
   });
 });//all_by_project
+
+//-----------------------------------------------------
+//   VERIFY
+//-----------------------------------------------------
+router.get('/verify/:token', function(req, res) {
+    var token = req.params.token;
+
+    console.log("Got verification token: " + token);
+
+    if(!token) {
+        res.send("No token found!");
+        return;
+    }
+
+    jsonwebtoken.verify(token, secretKey, function(err, decoded){
+
+        if(err) {
+            res.send("Token verification failed!");
+            return;
+        }
+        var _id=decoded._id;
+        console.log("id -------------->" +_id);
+        // approving user
+        Issue.update({_id: decoded.issue}, {is_accepted: true}, function(err, numberAffected, rawResponse) {
+
+            console.log("-- saved: " + err);
+
+            if(err) res.send("Token verification failed!");
+
+            else {
+
+                var parentDir  = __dirname.substring(0, __dirname.lastIndexOf('/'));
+                res.sendFile(parentDir + '/public/views/general/verification_done.html') ;
+                }
+            })
+        });//jsonwebtoken
+    });
+
+// ----------------------------------------------------------
+// send email to assigneee of issue
+// ------------------------------------------------------------
+
+function sendAssigneeEmail(req, user, savedIssue, token) {
+    const subject = "Welcome to team manager";
+    var html = "<b>Hi " + user.first_name + " " + user.last_name + "   </b><br>, <br> Welcome !!! <br> Team Manager is a perfect solution for managing your project and teams !!! <br>";
+
+    html += "<br> You are assigned a task to resolve the "+ savedIssue.summary + " ";
+
+    html += "<br> Click on following link to accept your task ";
+
+    // origin will tell localhost or server domain url's prefix
+    var origin = req.get('origin');
+
+     html += "<br><a href='" + origin + "/issues/verify/" + token + "'>VERIFY ME</a>";
+
+    html += "<br><br> Thanks <br> Team Manager Team";
+    console.log("user email-----"+user.email);
+    mailer.sendMail(user.email, subject, html);
+}
+
 
 //-----------------------------------------------------------
 //   ADD NEW ISSUE
@@ -44,26 +107,10 @@ router.post('/add', function(req, res, next) {
       res.send({success:false ,message:'one or  more fields are  missing'});
       return;
   }
-  if(req.body.assignee){
-    var user_id=req.body.assignee;
-  }
-  else {
-    user_id = req.decoded._id;
-   }
 
-  logger.debug("save issue: user id=" + user_id);
-
-  logger.debug("add issue got req with body: \n" + JSON.stringify(req.body) );
-
-  logger.debug("add issue got req with data: \n" + JSON.stringify(req.body.data) );
-
-
-  //fixme later !!!!!
-  // req.body.data.assignee = user_id;
-
-   var issue = new Issue({
+  var issue = new Issue({
      project         : req.body.project,
-     assignee        : user_id,
+     assignee        : req.body.assignee,
      summary         : req.body.summary,
      description     : req.body.description,
      type            : req.body.type,
@@ -75,26 +122,31 @@ router.post('/add', function(req, res, next) {
     });
 
 
-    // if(req.body.start_date && req.body.start_date.length) {
-    // 	issue.start_date = start_date;
-    // }
-    //
-    // if(req.body.end_date && req.body.end_date.length) {
-    // 	issue.end_date = end_date;
-    // }
-
-	issue.save(function(err) {
+  issue.save(function(err, savedIssue) {
 		if(err) {
 		  res.send(err);
       console.log("issue save error: " + err);
 			return;
 		}
 
-		res.json({ message: 'Issue has been created !'});
-		console.log("issue created");
-	});
-  // res.redirect('/');
-});//add
+    var assignee_id = savedIssue.assignee;
+    var issue_id    = savedIssue._id;
+    User.findOne({_id:assignee_id})
+    .exec(function(err, user) {
 
+        if(err) {
+            // res.send(err);
+            console.log('error while finding the assignee data '+err);
+            return;
+        }
+        
+        sendAssigneeEmail(req, user, savedIssue, tokenMaker.createAssigneeToken(assignee_id, issue_id));
+        res.json({ message: 'Issue has been created !'});
+
+    });
+
+  });
+
+});//add
 
 module.exports = router;
