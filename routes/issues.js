@@ -81,9 +81,9 @@ router.get('/verify/:token', function(req, res) {
 
 function sendAssigneeEmail(req, user, savedIssue, token) {
     const subject = "Welcome to team manager";
-    var html = "<b>Hi " + user.first_name + " " + user.last_name + "   </b><br>, You are assigned a task to resolve the "+ savedIssue.summary +" <br>";
+    var html = "<b>Hi " + user.first_name + " " + user.last_name + " <br>";
 
-    html += "<br> You are assigned a task to resolve the "+ savedIssue.summary + "issue ";
+    html += "<br> You are assigned a task to resolve the "+ savedIssue.summary + " "+ "issue ";
 
     html += "<br> Click on following link to accept your task ";
 
