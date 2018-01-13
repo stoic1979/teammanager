@@ -11,6 +11,7 @@ var mailer     = new Mailer();
 
 var Issue = require('../schema/issue');
 var User  = require('../schema/user');
+var Project  = require('../schema/project');
 
 //-----------------------------------------------------------
 //   GET ISSUES BY ISSUE ID
@@ -79,22 +80,22 @@ router.get('/verify/:token', function(req, res) {
 // send email to assigneee of issue
 // ------------------------------------------------------------
 
-function sendAssigneeEmail(req, user, savedIssue, token) {
+function sendAssigneeEmail(req, manager, project, assignee, savedIssue, token) {
     const subject = "Welcome to team manager";
-    var html = "<b>Hi " + user.first_name + " " + user.last_name + " <br>";
+    var html = "<b>Hi " + assignee.first_name + " " + assignee.last_name + " </b><br>";
 
-    html += "<br> You are assigned a task to resolve the "+ savedIssue.summary + " "+ "issue ";
+    html += "<br> You are assigned a task to resolve the "+ savedIssue.summary + " "+ "issue in "+project.title +" project by " +manager.first_name+ " "+manager.last_name+" ";
 
     html += "<br> Click on following link to accept your task ";
 
     // origin will tell localhost or server domain url's prefix
     var origin = req.get('origin');
 
-     html += "<br><a href='" + origin + "/issues/verify/" + token + "'>VERIFY ME</a>";
+     html += "<br><a href='" + origin + "/issues/verify/" + token + "'>ACCEPT</a>";
 
     html += "<br><br> Thanks <br> Team Manager Team";
-    console.log("user email-----"+user.email);
-    mailer.sendMail(user.email, subject, html);
+    console.log("assignee email-----"+assignee.email);
+    mailer.sendMail(assignee.email, subject, html);
 }
 
 
@@ -108,6 +109,8 @@ router.post('/add', function(req, res, next) {
       res.send({success:false ,message:'one or  more fields are  missing'});
       return;
   }
+
+  var manager_id = req.decoded._id;
 
   var issue = new Issue({
      project         : req.body.project,
@@ -131,23 +134,43 @@ router.post('/add', function(req, res, next) {
 		}
 
     var assignee_id = savedIssue.assignee;
+    var project_id  = savedIssue.project;
     var issue_id    = savedIssue._id;
-    User.findOne({_id:assignee_id})
-    .exec(function(err, user) {
+
+    User.findOne({_id:manager_id})
+    .exec(function(err, manager) {
 
         if(err) {
             // res.send(err);
+            console.log('error while finding the manager data '+err);
+            return;
+        }
+
+        Project.findOne({_id:project_id})
+        .exec(function(err, project) {
+
+          if(err) {
+            // res.send(err);
+            console.log('error while finding the project data '+err);
+            return;
+        }
+
+        User.findOne({_id:assignee_id})
+        .exec(function(err, assignee) {
+
+          if(err) {
+          // res.send(err);
             console.log('error while finding the assignee data '+err);
             return;
         }
-        
-        sendAssigneeEmail(req, user, savedIssue, tokenMaker.createAssigneeToken(assignee_id, issue_id));
+
+        sendAssigneeEmail(req, manager, project, assignee, savedIssue, tokenMaker.createAssigneeToken(assignee_id, issue_id));
         res.json({ message: 'Issue has been created !'});
 
-    });
-
-  });
-
+        });// find assignee
+      });// find project
+    });// find manager
+  });// add issue
 });//add
 
 module.exports = router;
