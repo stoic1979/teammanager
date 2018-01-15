@@ -12,11 +12,11 @@ var TokenMaker = function(secretKey){
 TokenMaker.prototype.createUserToken = function(user) {
 
 	var token = jsonwebtoken.sign({
-		_id: user._id,
-		first_name: user.first_name,
-		last_name:user.last_name,
-		email: user.email,
-		role: user.role
+		_id        : user._id,
+		first_name : user.first_name,
+		last_name  : user.last_name,
+		email      : user.email,
+		role       : user.role
 	}, this.secretKey, {
 		expiresIn: '1h'
 	});
@@ -27,10 +27,10 @@ TokenMaker.prototype.createUserToken = function(user) {
 TokenMaker.prototype.createVerificationToken = function(user) {
 
 	var token = jsonwebtoken.sign({
-		_id: user._id,
-		first_name: user.first_name,
-		last_name:user.last_name,
-		email: user.email
+		_id        : user._id,
+		first_name : user.first_name,
+		last_name  : user.last_name,
+		email 	   : user.email
 	}, this.secretKey, {
 		expiresIn: '24h' // verification token will expire in 24 hours
 	});
@@ -41,7 +41,7 @@ TokenMaker.prototype.createVerificationToken = function(user) {
 TokenMaker.prototype.createMembershipToken = function(member_id) {
 
 	var token = jsonwebtoken.sign({
-		_id: member_id,
+		_id	  : member_id,
 	}, this.secretKey, {
 		expiresIn: '24h' // verification token will expire in 24 hours
 	});
@@ -49,11 +49,23 @@ TokenMaker.prototype.createMembershipToken = function(member_id) {
 	return token;
 };
 
-TokenMaker.prototype.createAssigneeToken = function(assignee_id,issue_id) {
+TokenMaker.prototype.createIssueToken = function(assignee_id,issue_id) {
 
 	var token = jsonwebtoken.sign({
-		_id: assignee_id,
+		_id   : assignee_id,
 		issue : issue_id,
+	}, this.secretKey, {
+		expiresIn: '24h' // verification token will expire in 24 hours
+	});
+
+	return token;
+};
+
+TokenMaker.prototype.createProjectToken = function(assignee_id,project_id) {
+
+	var token = jsonwebtoken.sign({
+		_id     : assignee_id,
+		project : project_id,
 	}, this.secretKey, {
 		expiresIn: '24h' // verification token will expire in 24 hours
 	});

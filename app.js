@@ -118,6 +118,10 @@ app.use(function(req, res, next){
         return next();
     }
 
+    if(req.originalUrl.indexOf('/projects/verify/') > -1) {
+        return next();
+    }
+
 
     var token = req.body.token || req.params.token || req.headers['x-access-token'];
 

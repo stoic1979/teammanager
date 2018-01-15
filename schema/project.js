@@ -9,6 +9,10 @@ const ProjectSchema = new mongoose.Schema({
   manager: {
   	type: mongoose.Schema.Types.ObjectId, 
   	ref: 'User'
+  },
+  assignee: {
+    type: mongoose.Schema.Types.ObjectId, 
+    ref: 'User'
   },	
   title: { 
     type: String,
@@ -17,6 +21,20 @@ const ProjectSchema = new mongoose.Schema({
   description: { 
     type: String,
     required: true
+  },
+  start_date: {
+    type: Date,
+  },
+  end_date: {
+    type: Date,
+  },
+  estimated_hours: {
+    type: Number,
+    required: true
+  },
+  is_accepted: {
+    type: Boolean, 
+    default: false
   },
   created_at: Date,
   updated_at: Date

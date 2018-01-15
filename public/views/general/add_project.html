@@ -18,13 +18,20 @@
                         </div>
                         <br>
                         <div class="row">
+                            <label>Assignee</label><br>
+                            <select class="form-control selectpicker" ng-model="project.projectData.assignee">
+                                <option ng-repeat="u in users" value="{{u._id}}">{{u.first_name}}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="row">
                             <label>Start Date</label> 
                             <input type="date" class="form-control" ng-model="project.projectData.start_date"> 
                         </div>
                         <br>
                         <div class="row">
                             <label>End Date</label> 
-                            <input type="date" class="form-control" ng-model="issue.issueData.end_date"> 
+                            <input type="date" class="form-control" ng-model="project.projectData.end_date"> 
                         </div>
                         <br>
                         <div class="row">

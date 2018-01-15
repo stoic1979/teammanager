@@ -13,9 +13,13 @@ angular.module("projectService", [])
         
 
     	var payload = {
-    			title: 			projectData.title,
-    			description: 	projectData.description,
-    			headers: 		{'x-access-token': AuthToken.getToken()}
+    			title           : projectData.title,
+    			description     : projectData.description,
+                assignee        : projectData.assignee,    
+                estimated_hours : projectData.estimated_hours,
+                start_date      : projectData.start_date,
+                end_date        : projectData.end_date,
+    			headers         : {'x-access-token': AuthToken.getToken()}
     		}; 
 
     	return $http.post('/projects/add', payload);	
