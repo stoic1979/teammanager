@@ -157,7 +157,7 @@ router.post('/add', function(req, res, next) {
             return;
         }
 
-        sendAssigneeEmail(req, manager, project, assignee, savedIssue, tokenMaker.createAssigneeToken(assignee_id, issue_id));
+        sendAssigneeEmail(req, manager, project, assignee, savedIssue, tokenMaker.createIssueToken(assignee_id, issue_id));
         res.json({ message: 'Issue has been created !'});
 
       });// find assignee

@@ -87,13 +87,13 @@ router.post('/add', function(req, res, next) {
   	var manager= req.decoded.first_name+" "+req.decoded.last_name;
 
    	var project = new Project({
-			title			: req.body.title,
-			description 	: req.body.description,
-			manager			: manager_id,
-			assignee 		: req.body.assignee,
+			title			      : req.body.title,
+			description 	  : req.body.description,
+			manager			    : manager_id,
+			assignee 		    : req.body.assignee,
 			estimated_hours : req.body.estimated_hours,
-     		start_date      : req.body.start_date,
-     		end_date        : req.body.end_date,
+     	start_date      : req.body.start_date,
+     	end_date        : req.body.end_date,
     });
 
 	project.save(function(err, savedProject) {
