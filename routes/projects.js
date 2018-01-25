@@ -136,6 +136,7 @@ router.get('/all', function(req, res) {
 
 		if(err) {
 			res.send(err);
+      console.log("get project error "+err);
 			return;
 		}
 		res.json(projects);

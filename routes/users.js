@@ -3,7 +3,7 @@ var router       = express.Router();
 var jsonwebtoken = require('jsonwebtoken');
 const Mailer     = require('../helpers/mailer');
 const TokenMaker = require('../helpers/tokenMaker');
-
+const config     = require('../config/config')
 
 
 
@@ -96,7 +96,7 @@ function sendWelcomeEmail(req, user, token) {
     // origin will tell localhost or server domain url's prefix
     var origin = req.get('origin');
 
-    html += "<br><a href='" + origin + "/users/verify/" + token + "'>VERIFY ME</a>";
+    html += "<br><a href='" + config.API_ROOT + "/users/verify/" + token + "'>VERIFY ME</a>";
 
     html += "<br><br> Thanks <br> Team Manager Team";
 
