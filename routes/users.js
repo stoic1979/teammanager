@@ -94,7 +94,7 @@ function sendWelcomeEmail(req, user, token) {
     html += "<br> Click on following link to verify your email.";
 
     // origin will tell localhost or server domain url's prefix
-    var origin = req.get('origin');
+    // var origin = req.get('origin');
 
     html += "<br><a href='" + config.API_ROOT + "/users/verify/" + token + "'>VERIFY ME</a>";
 
