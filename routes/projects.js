@@ -12,9 +12,7 @@ var mailer     = new Mailer();
 var Project = require('../schema/project');
 var User    = require('../schema/user');
 
-router.get('/id/:id', function(req, res, next) {
-  res.send('Project id:' + req.params.id);
-});
+
 
 
 //-----------------------------------------------------
@@ -120,7 +118,27 @@ router.post('/add', function(req, res, next) {
 
 		}); // find user(assignee)
     }); // save project
-}); // add fumction
+}); // add function
+
+//-----------------------------------------------------------
+//   GET PROJECT BY PROJECT ID
+//-----------------------------------------------------------
+router.get('/id/:id', function(req, res, next) {
+
+  var project_id = req.params.id;
+  console.log('get project by id '+project_id);
+  Project.findOne( {_id: project_id} )
+  .exec(function(err, project) {
+      if(err) {
+        res.send(err);
+        console.log('get project by id  error '+err);
+        return;
+      }
+    res.json(project);
+    console.log('-------project '+project);
+  });
+});//project by id
+
 
 //-----------------------------------------------------
 //   Get Projects
@@ -145,3 +163,5 @@ router.get('/all', function(req, res) {
 
 
 module.exports = router;
+
+
