@@ -123,7 +123,7 @@ router.post('/add', function(req, res, next) {
 //-----------------------------------------------------------
 //   GET PROJECT BY PROJECT ID
 //-----------------------------------------------------------
-router.get('/id/:id', function(req, res, next) {
+router.get('/by_id/:id', function(req, res, next) {
 
   var project_id = req.params.id;
   console.log('get project by id '+project_id);
