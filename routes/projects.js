@@ -127,7 +127,7 @@ router.post('/add', function(req, res, next) {
 
 router.post('/selectedProject', function(req, res, next){
 
-  if(! project){
+  if(! req.body.project){
     res.send({success:false ,message:'project  fields is  empty'});
     return;
   }
