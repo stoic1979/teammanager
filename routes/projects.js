@@ -9,8 +9,9 @@ var secretKey  = process.env.TEAM_MANAGER_SECRET_KEY;
 var tokenMaker = new TokenMaker(secretKey);
 var mailer     = new Mailer();
 
-var Project = require('../schema/project');
-var User    = require('../schema/user');
+var Project         = require('../schema/project');
+var User            = require('../schema/user');
+var SelectedProject = require('../schema/selectedProject');
 
 
 
@@ -82,7 +83,7 @@ router.post('/add', function(req, res, next) {
       return;
   }
 	var manager_id = req.decoded._id;
-  	var manager= req.decoded.first_name+" "+req.decoded.last_name;
+  var manager= req.decoded.first_name+" "+req.decoded.last_name;
 
    	var project = new Project({
 			title			      : req.body.title,
@@ -119,6 +120,32 @@ router.post('/add', function(req, res, next) {
 		}); // find user(assignee)
     }); // save project
 }); // add function
+
+// ---------------------------------------------
+// SAVE SELECTED PROJECT
+// ---------------------------------------------------
+
+router.post('/selectedProject', function(req, res, next){
+
+  if(! project){
+    res.send({success:false ,message:'project  fields is  empty'});
+    return;
+  }
+
+  var selectedProject = new SelectedProject({
+    project : req.body.project
+  });
+
+  selectedProject.save(function(err, savedSelectedProject) {
+    if(err) {
+      console.log("selectedProject save error: " + err);
+      res.send(err);
+      return;
+    }
+    console.log("selectedProject saved " +savedSelectedProject);
+    res.json({ success: true, message: 'SelectedProject saved !', selectedProject: selectedProject});
+  });// save selectedProject
+});// post function
 
 //-----------------------------------------------------------
 //   GET PROJECT BY PROJECT ID
