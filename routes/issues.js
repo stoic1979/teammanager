@@ -9,9 +9,10 @@ var secretKey  = process.env.TEAM_MANAGER_SECRET_KEY;
 var tokenMaker = new TokenMaker(secretKey);
 var mailer     = new Mailer();
 
-var Issue = require('../schema/issue');
-var User  = require('../schema/user');
-var Project  = require('../schema/project');
+var Issue         = require('../schema/issue');
+var User          = require('../schema/user');
+var Project       = require('../schema/project');
+var SelectedIssue = require('../schema/selectedIssue');
 
 //-----------------------------------------------------------
 //   GET ISSUES BY ISSUE ID
@@ -169,9 +170,8 @@ router.post('/add', function(req, res, next) {
   });// add issue
 });//add
 
-
 //-----------------------------------------------------------
-//   ADD NEW ISSUE
+//   EDIT ISSUE
 //-----------------------------------------------------------
 router.put('/edit/:id', function(req, res, next) {
   
@@ -182,5 +182,65 @@ router.put('/edit/:id', function(req, res, next) {
     });
   });// findByIdAndUpdate
 });//edit
+
+// ---------------------------------------------
+// SAVE SELECTED PROJECT
+// ---------------------------------------------------
+
+router.post('/selectedIssue', function(req, res, next){
+
+  // deleting the previosly saved selected project
+
+  if(SelectedIssue && SelectedIssue.length){
+    SelectedIssue.remove(function (err) {
+      if(err){
+        console.log("SelectedIssue remove error: "+err);
+        res.send(err);
+        return;
+      }
+    });
+  }
+
+  else if(! req.body.issue){
+    res.send({success:false ,message:'issue  fields is  empty'});
+    return;
+  }
+
+  var selectedIssue = new SelectedIssue({
+    issue : req.body.issue
+  });
+
+  selectedIssue.save(function(err, savedSelectedIssue) {
+    if(err) {
+      console.log("selectedIssue save error: " + err);
+      res.send(err);
+      return;
+    }
+
+
+    console.log("selectedIssue saved " +savedSelectedProject);
+    res.json({ success: true, message: 'SelectedIssue saved !', selectedIssue: savedSelectedIssue});
+  });// save selectedIssue
+});// post function
+
+
+//-----------------------------------------------------
+//   Get Selected Project
+//-----------------------------------------------------
+router.get('/selectedIssue', function(req, res) {
+  
+  SelectedIssue.find()
+  .populate('issue')
+  .exec(function(err, selectedIssue) {
+
+    if(err) {
+      res.send(err);
+      console.log("get selected issue error "+err);
+      return;
+    }
+    
+    res.json(selectedIssue);
+  });
+});
 
 module.exports = router;
