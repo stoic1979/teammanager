@@ -31,10 +31,13 @@ router.get('/all_by_project/:id', function(req, res, next) {
   .populate('assignee',['_id', 'first_name', 'last_name', 'email'])  // fieldname to be furhter looked-up
   .populate('project')   // fieldname to be furhter looked-up
   .exec(function(err, issues) {
-      if(err) {
-        res.send(err);
-        return;
-      }
+    if(err) {
+      console.log("get issues error "+err);
+      res.send(err);
+      return;
+    }
+
+    console.log('issues '+issues);
     res.json(issues);
   });
 });//all_by_project
@@ -113,6 +116,7 @@ router.post('/add', function(req, res, next) {
   var manager_id = req.decoded._id;
   var manager= req.decoded.first_name+" "+req.decoded.last_name;
   console.log("manager name----"+manager);
+  console.log("start_date-"+req.body.start_date);
 
   var issue = new Issue({
      project         : req.body.project,
@@ -164,5 +168,19 @@ router.post('/add', function(req, res, next) {
     });// find project
   });// add issue
 });//add
+
+
+//-----------------------------------------------------------
+//   ADD NEW ISSUE
+//-----------------------------------------------------------
+router.put('/edit/:id', function(req, res, next) {
+  
+  Issue.findOneAndUpdate({ _id: req.params.id }, req.body, (err,updatedIssue) => {
+    if (err) { return console.error(err); }
+    res.status(200).json({
+        'success': true
+    });
+  });// findByIdAndUpdate
+});//edit
 
 module.exports = router;

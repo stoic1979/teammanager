@@ -127,7 +127,19 @@ router.post('/add', function(req, res, next) {
 
 router.post('/selectedProject', function(req, res, next){
 
-  if(! req.body.project){
+  // deleting the previosly saved selected project
+
+  if(SelectedProject && SelectedProject.length){
+    SelectedProject.remove(function (err) {
+      if(err){
+        console.log("selectedProject remove error: "+err);
+        res.send(err);
+        return;
+      }
+    });
+  }
+
+  else if(! req.body.project){
     res.send({success:false ,message:'project  fields is  empty'});
     return;
   }
@@ -142,10 +154,33 @@ router.post('/selectedProject', function(req, res, next){
       res.send(err);
       return;
     }
+
+
     console.log("selectedProject saved " +savedSelectedProject);
     res.json({ success: true, message: 'SelectedProject saved !', selectedProject: selectedProject});
   });// save selectedProject
 });// post function
+
+
+//-----------------------------------------------------
+//   Get Selected Project
+//-----------------------------------------------------
+router.get('/selectedProject', function(req, res) {
+  
+  SelectedProject.find()
+  .populate('project', ['_id', 'title', 'description', 'manager'])
+  .exec(function(err, selectedProject) {
+
+    if(err) {
+      res.send(err);
+      console.log("get selected project error "+err);
+      return;
+    }
+    
+    res.json(selectedProject);
+  });
+});
+
 
 //-----------------------------------------------------------
 //   GET PROJECT BY PROJECT ID
@@ -188,6 +223,18 @@ router.get('/all', function(req, res) {
 	});
 });
 
+//-----------------------------------------------------------
+//   EDIT PROJECT
+//-----------------------------------------------------------
+router.put('/edit/:id', function(req, res, next) {
+  
+  Project.findOneAndUpdate({ _id: req.params.id }, req.body, (err) => {
+    if (err) { return console.error(err); }
+    res.status(200).json({
+        'success': true
+    });
+  });// findByIdAndUpdate
+});//edit
 
 module.exports = router;
 
