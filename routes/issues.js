@@ -218,7 +218,7 @@ router.post('/selectedIssue', function(req, res, next){
     }
 
 
-    console.log("selectedIssue saved " +savedSelectedProject);
+    console.log("selectedIssue saved " +savedSelectedIssue);
     res.json({ success: true, message: 'SelectedIssue saved !', selectedIssue: savedSelectedIssue});
   });// save selectedIssue
 });// post function

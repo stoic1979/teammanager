@@ -168,7 +168,7 @@ router.post('/selectedProject', function(req, res, next){
 router.get('/selectedProject', function(req, res) {
   
   SelectedProject.find()
-  .populate('project', ['_id', 'title', 'description', 'manager'])
+  .populate('project')
   .exec(function(err, selectedProject) {
 
     if(err) {
