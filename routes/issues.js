@@ -201,7 +201,7 @@ router.post('/selectedIssue', function(req, res, next){
     });
   }
 
-  else if(! req.body.issue){
+  if(! req.body.issue){
     res.send({success:false ,message:'issue  fields is  empty'});
     return;
   }
@@ -238,7 +238,7 @@ router.get('/selectedIssue', function(req, res) {
       console.log("get selected issue error "+err);
       return;
     }
-    
+    console.log("selectedIssue "+selectedIssue);
     res.json(selectedIssue);
   });
 });
