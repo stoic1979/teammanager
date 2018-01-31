@@ -14,6 +14,28 @@ var User          = require('../schema/user');
 var Project       = require('../schema/project');
 var SelectedIssue = require('../schema/selectedIssue');
 
+
+
+//-----------------------------------------------------
+//   Get Selected ISSUE
+//-----------------------------------------------------
+router.get('/selectedIssue', function(req, res) {
+  console.log('------selectedIssue');
+  SelectedIssue.find()
+  .populate('issue')
+  .exec(function(err, selectedIssue) {
+
+    if(err) {
+      res.send(err);
+      console.log("get selected issue error "+err);
+      return;
+    }
+    console.log("get selected issue  "+selectedIssue);
+    res.json(selectedIssue);
+
+  });
+});
+
 //-----------------------------------------------------------
 //   GET ISSUES BY ISSUE ID
 //-----------------------------------------------------------
@@ -42,6 +64,7 @@ router.get('/all_by_project/:id', function(req, res, next) {
     res.json(issues);
   });
 });//all_by_project
+
 
 //-----------------------------------------------------
 //   VERIFY
@@ -80,6 +103,8 @@ router.get('/verify/:token', function(req, res) {
         });//jsonwebtoken
     });
 
+
+
 // ----------------------------------------------------------
 // send email to assigneee of issue
 // ------------------------------------------------------------
@@ -101,6 +126,7 @@ function sendAssigneeEmail(req, manager, project, assignee, savedIssue, token) {
     console.log("assignee email-----"+assignee.email);
     mailer.sendMail(assignee.email, subject, html);
 }
+
 
 
 //-----------------------------------------------------------
@@ -170,21 +196,11 @@ router.post('/add', function(req, res, next) {
   });// add issue
 });//add
 
-//-----------------------------------------------------------
-//   EDIT ISSUE
-//-----------------------------------------------------------
-router.put('/edit/:id', function(req, res, next) {
-  
-  Issue.findOneAndUpdate({ _id: req.params.id }, req.body, (err,updatedIssue) => {
-    if (err) { return console.error(err); }
-    res.status(200).json({
-        'success': true
-    });
-  });// findByIdAndUpdate
-});//edit
+
+
 
 // ---------------------------------------------
-// SAVE SELECTED PROJECT
+// SAVE SELECTED ISSUE
 // ---------------------------------------------------
 
 router.post('/selectedIssue', function(req, res, next){
@@ -202,7 +218,7 @@ router.post('/selectedIssue', function(req, res, next){
   }
 
   if(! req.body.issue){
-    res.send({success:false ,message:'issue  fields is  empty'});
+    res.send({success:false ,message:'issue field is  empty'});
     return;
   }
 
@@ -219,28 +235,27 @@ router.post('/selectedIssue', function(req, res, next){
 
 
     console.log("selectedIssue saved " +savedSelectedIssue);
-    res.json({ success: true, message: 'SelectedIssue saved !', selectedIssue: savedSelectedIssue});
+    res.json({ success: true, message: 'SelectedProject saved !', selectedProject: savedSelectedIssue});
   });// save selectedIssue
 });// post function
 
 
-//-----------------------------------------------------
-//   Get Selected Project
-//-----------------------------------------------------
-router.get('/selectedIssue', function(req, res) {
-  
-  SelectedIssue.find()
-  .populate('issue')
-  .exec(function(err, selectedIssue) {
 
-    if(err) {
-      res.send(err);
-      console.log("get selected issue error "+err);
-      return;
-    }
-    console.log("selectedIssue "+selectedIssue);
-    res.json(selectedIssue);
-  });
-});
+
+//-----------------------------------------------------------
+//   EDIT ISSUE
+//-----------------------------------------------------------
+router.put('/edit/:id', function(req, res, next) {
+  
+  Issue.findOneAndUpdate({ _id: req.params.id }, req.body, (err,updatedIssue) => {
+    if (err) { return console.error(err); }
+    res.status(200).json({
+        'success': true
+    });
+  });// findByIdAndUpdate
+});//edit
+
+
+
 
 module.exports = router;
