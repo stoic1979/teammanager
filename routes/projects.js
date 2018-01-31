@@ -11,9 +11,6 @@ var mailer     = new Mailer();
 
 var Project         = require('../schema/project');
 var User            = require('../schema/user');
-var SelectedProject = require('../schema/selectedProject');
-
-
 
 
 //-----------------------------------------------------
@@ -120,67 +117,6 @@ router.post('/add', function(req, res, next) {
 		}); // find user(assignee)
     }); // save project
 }); // add function
-
-// ---------------------------------------------
-// SAVE SELECTED PROJECT
-// ---------------------------------------------------
-
-router.post('/selectedProject', function(req, res, next){
-
-  // deleting the previosly saved selected project
-
-  if(SelectedProject && SelectedProject.length){
-    SelectedProject.remove(function (err) {
-      if(err){
-        console.log("selectedProject remove error: "+err);
-        res.send(err);
-        return;
-      }
-    });
-  }
-
-  if(! req.body.project){
-    res.send({success:false ,message:'project  fields is  empty'});
-    return;
-  }
-
-  var selectedProject = new SelectedProject({
-    project : req.body.project
-  });
-
-  selectedProject.save(function(err, savedSelectedProject) {
-    if(err) {
-      console.log("selectedProject save error: " + err);
-      res.send(err);
-      return;
-    }
-
-
-    console.log("selectedProject saved " +savedSelectedProject);
-    res.json({ success: true, message: 'SelectedProject saved !', selectedProject: selectedProject});
-  });// save selectedProject
-});// post function
-
-
-//-----------------------------------------------------
-//   Get Selected Project
-//-----------------------------------------------------
-router.get('/selectedProject', function(req, res) {
-  
-  SelectedProject.find()
-  .populate('project')
-  .exec(function(err, selectedProject) {
-
-    if(err) {
-      res.send(err);
-      console.log("get selected project error "+err);
-      return;
-    }
-    
-    res.json(selectedProject);
-  });
-});
-
 
 //-----------------------------------------------------------
 //   GET PROJECT BY PROJECT ID

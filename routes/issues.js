@@ -12,29 +12,7 @@ var mailer     = new Mailer();
 var Issue         = require('../schema/issue');
 var User          = require('../schema/user');
 var Project       = require('../schema/project');
-var SelectedIssue = require('../schema/selectedIssue');
 
-
-
-//-----------------------------------------------------
-//   Get Selected ISSUE
-//-----------------------------------------------------
-router.get('/selectedIssue', function(req, res) {
-  console.log('------selectedIssue');
-  SelectedIssue.find()
-  .populate('issue')
-  .exec(function(err, selectedIssue) {
-
-    if(err) {
-      res.send(err);
-      console.log("get selected issue error "+err);
-      return;
-    }
-    console.log("get selected issue  "+selectedIssue);
-    res.json(selectedIssue);
-
-  });
-});
 
 //-----------------------------------------------------------
 //   GET ISSUES BY ISSUE ID
@@ -195,52 +173,6 @@ router.post('/add', function(req, res, next) {
     });// find project
   });// add issue
 });//add
-
-
-
-
-// ---------------------------------------------
-// SAVE SELECTED ISSUE
-// ---------------------------------------------------
-
-router.post('/selectedIssue', function(req, res, next){
-
-  // deleting the previosly saved selected project
-
-  if(SelectedIssue && SelectedIssue.length){
-    SelectedIssue.remove(function (err) {
-      if(err){
-        console.log("SelectedIssue remove error: "+err);
-        res.send(err);
-        return;
-      }
-    });
-  }
-
-  if(! req.body.issue){
-    res.send({success:false ,message:'issue field is  empty'});
-    return;
-  }
-
-  var selectedIssue = new SelectedIssue({
-    issue : req.body.issue
-  });
-
-  selectedIssue.save(function(err, savedSelectedIssue) {
-    if(err) {
-      console.log("selectedIssue save error: " + err);
-      res.send(err);
-      return;
-    }
-
-
-    console.log("selectedIssue saved " +savedSelectedIssue);
-    res.json({ success: true, message: 'SelectedProject saved !', selectedProject: savedSelectedIssue});
-  });// save selectedIssue
-});// post function
-
-
-
 
 //-----------------------------------------------------------
 //   EDIT ISSUE
