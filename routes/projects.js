@@ -165,8 +165,9 @@ router.get('/all', function(req, res) {
 //-----------------------------------------------------------
 router.put('/edit/:id', function(req, res, next) {
   
-  Project.findOneAndUpdate({ _id: req.params.id }, req.body, (err) => {
+  Project.findOneAndUpdate({ _id: req.params.id }, req.body, (err, updatedProject) => {
     if (err) { return console.error(err); }
+    console.log(' updatedProject '+updatedProject);
     res.status(200).json({
         'success': true
     });
