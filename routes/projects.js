@@ -147,7 +147,8 @@ router.get('/all', function(req, res) {
 	console.log("get all project for user: " + user_id);
 
 	Project.find( {manager: user_id})
-	.populate('manager', ['_id', 'first_name', 'last_name', 'email'])
+	.populate('assignee',['_id', 'first_name', 'last_name', 'email'])
+  .populate('manager',['_id', 'first_name', 'last_name', 'email'])
 	.exec(function(err, projects) {
 
 		if(err) {
