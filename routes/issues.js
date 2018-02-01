@@ -175,6 +175,26 @@ router.post('/add', function(req, res, next) {
 });//add
 
 //-----------------------------------------------------------
+//   GET PROJECT BY PROJECT ID
+//-----------------------------------------------------------
+router.get('/by_id/:id', function(req, res, next) {
+
+  var issue_id = req.params.id;
+  console.log('get issue by id '+issue_id);
+  Issue.findOne( {_id: issue_id} )
+  .exec(function(err, issue) {
+      if(err) {
+        res.send(err);
+        console.log('get issue by id  error '+err);
+        return;
+      }
+    res.json(issue);
+    console.log('-------issue '+issue);
+  });
+});//project by id
+
+
+//-----------------------------------------------------------
 //   EDIT ISSUE
 //-----------------------------------------------------------
 router.put('/edit/:id', function(req, res, next) {
